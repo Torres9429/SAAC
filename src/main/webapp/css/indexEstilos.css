@@ -1,0 +1,80 @@
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    text-align: left;
+    color: azure;
+}
+header{
+    background-color: #16446a;
+    height: 15%;
+    width: 99%;
+    position: absolute;
+}    
+body{
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: justify;
+    background-color: #f5f8fbde;
+}
+.encabezado{
+    height: 25px;
+    margin: auto;
+    padding: 10px;
+    width: 99%;
+    position: absolute;
+    background-color: transparent;
+}
+.celdaLogo{
+    width: 45%;
+    text-align: right;
+    background-color: transparent;
+}
+.celdaTitulo{
+    width: 60%;
+    height: 50px;
+    float: left;
+    text-align: left;
+    background-color: transparent;
+}
+
+.listaIntegrantes{
+    font-size: large;
+    padding: 10%;
+    text-align: left;
+    margin: auto;
+    width: 18%;
+}
+.datosIntegrantes{
+    border: #664703 2px solid;
+    text-align: center;
+    font-size: large;
+    margin: auto;
+    width: 40%;
+    background-color: #16446a;
+}
+th{
+    background-color: #16446a;
+    text-align: center;
+    color: azure;
+}
+td{
+    background-color: rgba(135, 206, 250, 0.715);
+    text-align: center;
+    font-size: 15px;
+}
+.piePagina{
+    width: 99%;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    margin: auto;
+    margin-top: 15%;
+    background-color: #16446a;
+}
+footer{
+    background-color: #16446a;
+    height: 60px;
+    width: 99%;
+    position: absolute;
+    bottom: 0;
+}

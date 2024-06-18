@@ -1,0 +1,78 @@
+ body {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+     background: #020024;
+     background: linear-gradient(213deg, #020024 10%, #090979 29%, #00ffd5 100%);
+     /*background: linear-gradient(to bottom left, #0000ff, #3acfb4 75%);
+            background-image: url('img/fonfitoo.avif'); 
+            background-size: cover;
+            background-position: center;*/
+ }
+
+ .login-container {
+     max-width: 400px;
+     width: 100%;
+     padding: 20px;
+     background-color: rgba(255, 255, 255, 0.9);
+     border-radius: 10px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     text-align: center;
+ }
+
+ .login-container img {
+     max-width: 200px;
+     margin-bottom: 20px;
+ }
+
+ .login-container h1 {
+     font-size: 1.5rem;
+     color: #002060;
+     margin-bottom: 20px;
+ }
+
+ .login-container .form-control {
+     border-radius: 20px;
+     background-color: #d1d1d1;
+     border: none;
+ }
+
+ .login-container .btn-primary {
+     background-color: #002060;
+     border-radius: 20px;
+     padding: 10px 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .login-container .btn-primary i {
+     margin-right: 10px;
+ }
+
+ .login-container .forgot-password {
+     color: #002060;
+     text-decoration: none;
+     display: block;
+     margin-top: 10px;
+     margin-bottom: 5px;
+     font-size: 15px;
+ }
+
+ .footer-button {
+     background-color: #002060;
+     border-radius: 20px;
+     color: #fff;
+     padding: 10px 20px;
+     text-decoration: none;
+     display: inline-block;
+     margin-top: 20px;
+ }
+
+ .footer-button i {
+     margin-right: 10px;
+ }
+ .form-control{
+    margin-bottom: 10px;
+ }

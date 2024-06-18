@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Registrarse</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap.css'>
+    <link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+    
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="img/Logo-utez.png" alt="Logo UTEZ">
+        <h1>Registrarse</h1>
+        <div class="row">
+            <div class="col">
+                <form action="verUsuario.html" method="get" id="registro-form">
+                    <div class="form-group">
+                        <input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" placeholder="Nombre(s)">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="aPaternoRegistro" name="aPaternoRegistro" class="form-control" placeholder="Apellido Paterno">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="aMaternoRegistro" name="aMaternoRegistro" class="form-control" placeholder="Apellido Materno">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="edadRegistro" name="edadRegistro" class="form-control" placeholder="Edad">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="carreraRegistro" name="carreraRegistro" class="form-control" placeholder="Carrera">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="contraseñaRegistro" name="contraseñaRegistro" class="form-control" placeholder="Contraseña">
+                    </div>
+                    <center>
+                        <button type="submit" class="btn btn-primary" id="btnSubmitRegistro">
+                            Crear cuenta
+                        </button>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+    <scripts src="js/scriptRegistro.js" ></script>
+
+
+    </script>
+    
+</body>
+
+</html>

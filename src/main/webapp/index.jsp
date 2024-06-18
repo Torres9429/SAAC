@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Inicio de sesión</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap.css'>
+    <link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="img/Logo-utez.png" alt="Logo UTEZ">
+        <h1>Inicio de sesión</h1>
+        <form action="login" method="post">
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Correo" name="correoLogin" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Contraseña" name="passwordLogin" required>
+            </div>
+            <div class="form-group">
+                <center>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    <a href="registrarUsuario.html" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
+                    <button type="submit" class="btn btn-primary">
+                        Iniciar sesión
+                    </button>
+
+                </center>
+            </div>
+        </form>
+
+
+    </div>
+    <script src="js/bootstrap.js">
+        
+    </script>
+</body>
+
+</html>
