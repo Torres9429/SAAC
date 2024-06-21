@@ -6,14 +6,36 @@ public class Usuario {
     private String apellido_materno;
     private int edad;
     private String matricula;
-    private String division_academica;
-    private String area;
     private String carrera;
     private String correo;
-    private String password;
+    private String contrasena;
+    private boolean estado;
+    private int id;
+    private String codigo;
 
     public Usuario() {
     }
+
+    public Usuario(String correo, String contrasena, String codigo) {
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.codigo = codigo;
+    }
+
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, String carrera, String correo, String contrasena, String estado, int id) {
+        this.nombre = nombre;
+        this.apellido_paterno = apellido_paterno;
+        this.apellido_materno = apellido_materno;
+        this.edad = edad;
+        this.matricula = matricula;
+        this.carrera = carrera;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.estado = Boolean.parseBoolean(estado);
+        this.id = id;
+    }
+
+
 
     public String getNombre() {
         return nombre;
@@ -55,22 +77,6 @@ public class Usuario {
         this.matricula = matricula;
     }
 
-    public String getDivision_academica() {
-        return division_academica;
-    }
-
-    public void setDivision_academica(String division_academica) {
-        this.division_academica = division_academica;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
     public String getCarrera() {
         return carrera;
     }
@@ -87,11 +93,35 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

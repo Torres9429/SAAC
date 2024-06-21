@@ -16,21 +16,23 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Conseguir la info del formulario, donde los inputs se llamen así:
-        String correoLogin = req.getParameter("correoLogin");
-        String passwordLogin = req.getParameter("passwordLogin");
+        String correo = req.getParameter("correo");
+        String contrasena = req.getParameter("contrasena");
+        // String codigo = req.getParameter("codigo");
         UsuarioDao dao = new UsuarioDao();
 
         // si el usuario esta vacío
-        Usuario usr = dao.getOne(correoLogin,passwordLogin);
+        Usuario usr;
+        usr = dao.getOne(correo,contrasena);
         if (usr.getCorreo() == null) {
             // es porque no existe en la bd
-            System.out.println("El usuario " + correoLogin + " no existe en la base de datos");
+            System.out.println("El usuario " + correo + " no existe en la base de datos");
             HttpSession session = req.getSession();
             session.setAttribute("mensaje", "El usuario no existe en la DB");
-            resp.sendRedirect("registrarUsuario.html");
         }else{
             // si existe en la bd
-            System.out.println("El usuario " + correoLogin + " si esta en la base de datos");
+            System.out.println("El usuario " + correo + " si esta en la base de datos");
+            resp.sendRedirect("registrarUsuario.jsp");
         }
     }
 

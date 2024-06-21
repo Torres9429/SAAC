@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
@@ -16,16 +17,22 @@
         <h1>Inicio de sesión</h1>
         <form action="login" method="post">
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Correo" name="correoLogin" required>
+                <input type="email" class="form-control" placeholder="Correo" name="correo" required>
             </div>
             <br>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Contraseña" name="passwordLogin" required>
+                <input type="password" class="form-control" placeholder="Contraseña" name="contrasena" required>
             </div>
+            <br>
+            <%--
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Código" name="codigo" required>
+            </div>
+            --%>
             <div class="form-group">
                 <center>
                     <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    <a href="registrarUsuario.html" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
+                    <a href="registrarUsuario.jsp" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
                     <button type="submit" class="btn btn-primary">
                         Iniciar sesión
                     </button>
