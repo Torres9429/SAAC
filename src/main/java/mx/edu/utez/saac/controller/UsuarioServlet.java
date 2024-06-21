@@ -18,12 +18,12 @@ public class UsuarioServlet extends HttpServlet {
         // Conseguir la info del formulario, donde los inputs se llamen así:
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");
-        // String codigo = req.getParameter("codigo");
+        String codigo = req.getParameter("codigo");
         UsuarioDao dao = new UsuarioDao();
 
         // si el usuario esta vacío
         Usuario usr;
-        usr = dao.getOne(correo,contrasena);
+        usr = dao.getOne(correo,contrasena, codigo);
         if (usr.getCorreo() == null) {
             // es porque no existe en la bd
             System.out.println("El usuario " + correo + " no existe en la base de datos");
@@ -32,7 +32,7 @@ public class UsuarioServlet extends HttpServlet {
         }else{
             // si existe en la bd
             System.out.println("El usuario " + correo + " si esta en la base de datos");
-            resp.sendRedirect("registrarUsuario.jsp");
+            resp.sendRedirect("inicio.jsp");
         }
     }
 

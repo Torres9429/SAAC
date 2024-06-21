@@ -24,11 +24,10 @@
                 <input type="password" class="form-control" placeholder="Contraseña" name="contrasena" required>
             </div>
             <br>
-            <%--
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Código" name="codigo" required>
             </div>
-            --%>
+
             <div class="form-group">
                 <center>
                     <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>

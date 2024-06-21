@@ -11,21 +11,21 @@ import java.sql.SQLException;
 public class UsuarioDao {
     // CRUD para usuario
     // Read para un usuario
-    public Usuario getOne(String correo, String contrasena){
+    public Usuario getOne(String correo, String contrasena, String codigo){
         Usuario usuario = new Usuario();
-        String query = "select * from usuario where correo = ? and contrasena = sha2(?, 256);";
+        String query = "select * from usuario where correo = ? and contrasena = sha2(?, 256) and codigo = ?;";
         try {
             Connection con = DatabaseConnectionManager.getConnection();
             //Connection con = MyConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(query); // forma de evitar que inyecten query
             ps.setString(1,correo);
             ps.setString(2,contrasena);
-           // ps.setString(3,codigo);
+            ps.setString(3,codigo);
             ResultSet rs = ps.executeQuery(); // ejecutar
             if (rs.next()){
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
-               // usuario.setCodigo(rs.getString("codigo"));
+                usuario.setCodigo(rs.getString("codigo"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
