@@ -6,11 +6,12 @@ public class Usuario {
     private String apellido_materno;
     private int edad;
     private String matricula;
-    private String carrera;
+    private int carrera;
     private String correo;
     private String contrasena;
     private boolean estado;
     private int id;
+    private int id_tipo_usuario;
     private String codigo;
 
     public Usuario() {
@@ -22,7 +23,7 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, String carrera, String correo, String contrasena, String estado, int id) {
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, String estado, int id) {
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
         this.apellido_materno = apellido_materno;
@@ -35,7 +36,20 @@ public class Usuario {
         this.id = id;
     }
 
-
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo) {
+        this.nombre = nombre;
+        this.apellido_paterno = apellido_paterno;
+        this.apellido_materno = apellido_materno;
+        this.edad = edad;
+        this.matricula = matricula;
+        this.carrera = carrera;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.estado = estado;
+        this.id = id;
+        this.id_tipo_usuario = id_tipo_usuario;
+        this.codigo = codigo;
+    }
 
     public String getNombre() {
         return nombre;
@@ -77,11 +91,11 @@ public class Usuario {
         this.matricula = matricula;
     }
 
-    public String getCarrera() {
+    public int getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(String carrera) {
+    public void setCarrera(int carrera) {
         this.carrera = carrera;
     }
 
@@ -115,6 +129,14 @@ public class Usuario {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_tipo_usuario() {
+        return id_tipo_usuario;
+    }
+
+    public void setId_tipo_usuario(int id_tipo_usuario) {
+        this.id_tipo_usuario = id_tipo_usuario;
     }
 
     public String getCodigo() {

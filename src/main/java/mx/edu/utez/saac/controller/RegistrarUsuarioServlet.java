@@ -21,7 +21,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         u.setApellido_materno(req.getParameter("maternoRegistro"));
         u.setEdad(Integer.parseInt(req.getParameter("edadRegistro")));
         u.setMatricula(req.getParameter("matriculaRegistro"));
-        u.setCarrera(req.getParameter("carreraRegistro"));
+        u.setCarrera(Integer.parseInt(req.getParameter("carreraRegistro")));
         u.setCorreo(req.getParameter("correoRegistro"));
         if (req.getParameter("contraseña1Registro").equals(req.getParameter("contraseña2Registro"))){
             u.setContrasena(req.getParameter("contraseña1Registro"));
@@ -29,9 +29,10 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         }else {
             //Si las contraseñas son diferentes
             HttpSession session = req.getSession();
-            session.setAttribute("mensaje","Las contraseñas no coinciden");
+            session.setAttribute("mensajeError","Las contraseñas no coinciden");
             resp.sendRedirect(("registrarUsuario.jsp"));
             System.out.println("Contraseñas diferentes");
+            return;
         }
         u.setEstado(true);
 
@@ -43,6 +44,8 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 
         }else {
             //la info no se insertó y regresa al formulario
+            HttpSession session = req.getSession();
+            session.setAttribute("mensajeError","Puede que el usuario ya esté registrado");
             resp.sendRedirect("registrarUsuario.jsp");
         }
     }

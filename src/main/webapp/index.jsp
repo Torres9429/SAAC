@@ -25,21 +25,26 @@
             </div>
             <br>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Código" name="codigo" required>
-            </div>
-
-            <div class="form-group">
                 <center>
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    <a href="registrarUsuario.jsp" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
                     <button type="submit" class="btn btn-primary">
                         Iniciar sesión
                     </button>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    <a href="registrarUsuario.jsp" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
 
                 </center>
             </div>
         </form>
-
+        <%
+            HttpSession sesion = request.getSession();
+            String mensaje = (String) sesion.getAttribute("mensaje");
+            if (mensaje != null) {
+        %>
+        <p style="color: red"><%= mensaje %></p>
+        <%
+                sesion.removeAttribute("mensaje"); // Eliminar el mensaje de la sesión
+            }
+        %>
 
     </div>
     <script src="js/bootstrap.js">
