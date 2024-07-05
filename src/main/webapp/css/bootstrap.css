@@ -20,10 +20,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ajusta la altura */
+  height: 83vh; /* Ajusta la altura */
   color: #009475; /* Color de texto para el contenido */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-  border-style: solid;
 }
 
 .custom-header {
