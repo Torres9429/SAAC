@@ -27,6 +27,9 @@ public class UsuarioDao {
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
             }
+            rs.close();
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,7 +40,7 @@ public class UsuarioDao {
     public boolean insert(Usuario u){
         boolean flag = false;
         String queryCheck = "SELECT * FROM usuario WHERE correo = ?;";
-        String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256));";
+        String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena, codigo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256), ?);";
 
         try {
             // Generador de token
@@ -62,6 +65,7 @@ public class UsuarioDao {
                 psInsert.setInt(8, u.getCarrera());
                 psInsert.setString(9, u.getCorreo());
                 psInsert.setString(10, u.getContrasena());
+                psInsert.setString(11, null);
 
                 if (psInsert.executeUpdate() > 0) {
                     flag = true;
@@ -81,5 +85,76 @@ public class UsuarioDao {
 
         return flag;
     }
+    public boolean updateCodigo(Usuario u, String codigo) {
+        boolean flag = false;
+        String query = "update usuario set codigo = ? where id_usuario = ?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,codigo);
+            ps.setInt(2,u.getId());
+            if(ps.executeUpdate()>0){
+                flag = true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
+    public boolean existe(String codigo) {
+        boolean flag = false;
+        String query = "select * from usuario where codigo = ?;";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, codigo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                flag=true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean updateContrasena(String contrasena) {
+        boolean flag=false;
+        String query = "update usuario set contrasena = sha2(256,?), codigo = null where codigo = ?;";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, contrasena);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                flag=true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+    public Usuario getOne(String correo) {
+        Usuario usuario = new Usuario();
+        String query = "select * from usuario where correo = ?;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1,correo);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setContrasena(rs.getString("contrasena"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setEstado(rs.getBoolean("status"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usuario;
+    }
 }

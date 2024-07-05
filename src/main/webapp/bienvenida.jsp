@@ -52,7 +52,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="perfil.jsp">Ver</a>
           <a class="dropdown-item" href="#">Modificar</a>
-          <a class="dropdown-item" href="#">Restablecer contraseña</a>
+          <a class="dropdown-item" href="restablecerContraUsuario.jsp">Restablecer contraseña</a>
           <div class="dropdown-divider"></div>
           <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
           <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->

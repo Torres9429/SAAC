@@ -1,0 +1,16 @@
+.box-information {
+    display: flex; /* Utiliza flexbox para alinear los elementos internos */
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    margin-top: 90px;
+}
+
+.box-pass{
+    background-color: #80C9BA;
+    margin-right: 20px;
+    padding-left: 20%;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
+    width: 64%;
+    height: 80%;
+    border-radius: 10px;
+}

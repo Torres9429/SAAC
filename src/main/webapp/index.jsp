@@ -30,7 +30,7 @@
                     <button type="submit" class="btn btn-primary">
                         Iniciar sesión
                     </button>
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    <a href="solicitudRecuperacion.jsp" class="forgot-password">¿Olvidaste tu contraseña?</a>
                     <a href="registrarUsuario.jsp" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
 
                 </center>

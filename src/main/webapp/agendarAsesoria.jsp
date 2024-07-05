@@ -4,8 +4,9 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Inicio</title>
+    <title>Calendario</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="icon" href="img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap.css'>
     <link href='https://unpkg.com/@fullcalendar/core/main.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -135,7 +136,9 @@
 
         #calendar {
             max-width: 1100px;
+            max-height: 600px;
             margin: 0 auto;
+            overflow: scroll;
         }
 
     </style>
@@ -150,7 +153,7 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.html">Agendar</a>
+                    <a class="dropdown-item" href="agendarAsesoria.jsp">Agendar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
                 </div>
@@ -161,7 +164,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.html">Ver</a>
+                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -170,7 +173,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.html">Ver</a>
+                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -179,7 +182,7 @@
                     Perfil
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="prueba2.html">Ver</a>
+                    <a class="dropdown-item" href="perfil.jsp">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="#">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
@@ -190,6 +193,7 @@
         </ul>
     </header>
 </div>
+<div class="statusAsesorias"></div>
 <div id='calendar'></div>
 <button id="add-event-btn">Agregar Evento</button>
 
