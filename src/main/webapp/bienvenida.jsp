@@ -50,7 +50,7 @@
           Perfil
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="prueba2.html">Ver</a>
+          <a class="dropdown-item" href="perfil.jsp">Ver</a>
           <a class="dropdown-item" href="#">Modificar</a>
           <a class="dropdown-item" href="#">Restablecer contraseña</a>
           <div class="dropdown-divider"></div>
