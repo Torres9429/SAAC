@@ -5,7 +5,47 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+/* PÁGINA PERFIL */
+.box-information {
+  display: flex; /* Utiliza flexbox para alinear los elementos internos */
+  justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+  margin-top: 90px;
+}
 
+.left {
+  background-color: #80C9BA;
+  margin-left: 20px;
+  padding: 5.4%;
+  width: 32%;
+  height: 80%;
+  border-radius: 10px;
+}
+
+.right {
+  background-color: #80C9BA;
+  margin-right: 20px;
+  padding-left: 3%;
+  padding-top: 1.5%;
+  padding-bottom: 1%;
+  width: 64%;
+  height: 83%;
+  border-radius: 10px;
+}
+
+.separator-left {
+  width: 98%;
+  border: none;
+  border-top: 4px solid #9D9D9D;
+  margin: 5px 0;
+}
+.separator-right {
+  width: 96%;
+  border: none;
+  border-top: 2px solid #009475;
+  margin: 5px 0;
+}
+
+/* PÁGINA BIENVENIDA */
 .body-image {
   background-image: url('../img/Fondo_Inicio_halcon.png');
   background-size: cover; /* Hace que la imagen cubra toda la pantalla */
