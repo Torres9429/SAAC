@@ -56,7 +56,6 @@ public class RecuperacionServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }else{
-
             //No existe o no puede cambiar su contraseña
             req.getSession().setAttribute("mensaje","El usuario no existe en la BD");
             resp.sendRedirect("index.jsp");
