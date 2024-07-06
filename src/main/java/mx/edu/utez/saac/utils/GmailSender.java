@@ -131,8 +131,8 @@ public class GmailSender {
     }
 
     public static void main(String[] args) throws Exception {
-        new GmailSender().sendMail("dericklagunes@utez.edu.mx","A new message",
-                "<h1>Esto es un mensaje de prueba</h1>");
+        new GmailSender().sendMail("20233tn105@utez.edu.mx","A new message",
+                "<h1>Esto es un mensaje de prueba2</h1>");
     }
 
 }

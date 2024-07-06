@@ -136,11 +136,74 @@
 
         #calendar {
             max-width: 1100px;
-            max-height: 600px;
+            max-height: 500px;
             margin: 0 auto;
             overflow: scroll;
         }
+        .filtrosBusqueda{
+            display: flex; /* Flexbox para alinear en una línea */
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: center;
+            margin: 15px;
+        }
+        .custom-select-container {
+            position: relative;
+            width: 300px; /* Ajusta el ancho según sea necesario */
+        }
 
+        .custom-select {
+            appearance: none; /* Elimina el estilo predeterminado del select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 290px;
+            margin: 15px;
+            padding: 10px 40px 10px 15px; /* Espaciado interno */
+            font-size: 16px;
+            color: #6c7a89; /* Color del texto */
+            background-color: #f2f2f2; /* Color de fondo */
+            border: 1px solid #e0e0e0; /* Borde */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Estilos del icono de flecha */
+        .custom-select-container::after {
+            content: '▼'; /* Icono de flecha */
+            font-size: 12px;
+            background-color: #009475;
+            color: #002E60; /* Color del icono */
+            height: 45px; /* Alinea el fondo al alto del select */
+            width: 40px;
+            display: flex; /* Utiliza flexbox para centrar el icono */
+            justify-content: center; /* Centra el icono horizontalmente */
+            align-items: center; /* Centra el icono verticalmente */
+            position: absolute;
+            right: -7px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* Evita que el icono interfiera con la selección */
+            border-radius: 0 10px 10px 0; /* Bordes redondeados solo en la esquina derecha */
+        }
+
+        .custom-select option {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .status {
+            border-radius: 5px;
+            width: 100px;
+            text-align: center;
+            color: white;
+            margin: 5px; /* Agrega un margen para separar los elementos */
+        }
+        .statusAsesorias {
+            width: 90%;
+            display: flex; /* Flexbox para alinear en una línea */
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: center; /* Centra el contenido verticalmente */
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -193,9 +256,45 @@
         </ul>
     </header>
 </div>
-<div class="statusAsesorias"></div>
+<div class="filtrosBusqueda">
+    <div class="custom-select-container">
+        <select class="custom-select" name="selectMateria" id="selectMateria">
+            <option value="">Materia</option>
+            <option value="1">Aplicaciones web</option>
+            <option value="2">Base de datos</option>
+        </select>
+    </div>
+    <div class="custom-select-container">
+        <select class="custom-select" name="selectCarrera" id="selectCarrera">
+            <option value="">Carrera</option>
+            <option value="1">Desarrollo de software</option>
+            <option value="2">Infraestructura de redes dígitales</option>
+        </select>
+    </div>
+    <div class="custom-select-container">
+        <select class="custom-select" name="selectDivision" id="selectDivision">
+            <option value="">División académica</option>
+            <option value="1">DATID</option>
+            <option value="2">DAMI</option>
+        </select>
+    </div>
+
+
+</div>
+<div class="statusAsesorias">
+    <p class="status " style="background-color: #EBAF14">Pendiente</p>
+    <p class="status " style="background-color: #096DD9">En curso</p>
+    <p class="status " style="background-color: #870808">Cancelada</p>
+    <p class="status " style="background-color: #EB1414">Rechazada</p>
+    <p class="status " style="background-color: #009475">Aceptada</p>
+    <p class="status " style="background-color: #8C3AAA">Modificada</p>
+    <p class="status " style="background-color: #043B78">Finalizada</p>
+</div>
+
 <div id='calendar'></div>
-<button id="add-event-btn">Agregar Evento</button>
+
+
+<!--<button id="add-event-btn">Agregar Evento</button>
 
 <div id="event-form" style="display:none;">
     <label for="title">Título del Evento:</label>
@@ -203,7 +302,7 @@
     <label for="start">Fecha de Inicio:</label>
     <input type="date" id="start" name="start"><br>
     <button id="submit-event">Añadir Evento</button>
-</div>
+</div>-->
 
 </body>
 </html>
