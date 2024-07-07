@@ -43,9 +43,6 @@ public class UsuarioDao {
         String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena, codigo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256), ?);";
 
         try {
-            // Generador de token
-            Random random = new Random();
-
             Connection con = DatabaseConnectionManager.getConnection();
 
             // Ver si el usuario ya existe
@@ -96,10 +93,13 @@ public class UsuarioDao {
             if(ps.executeUpdate()>0){
                 flag = true;
             }
+            ps.close();
+            con.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
         return flag;
+
     }
 
     public boolean existe(String codigo) {
@@ -113,6 +113,8 @@ public class UsuarioDao {
             if (rs.next()) {
                 flag=true;
             }
+            ps.close();
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,6 +132,9 @@ public class UsuarioDao {
             if (rs.next()) {
                 flag=true;
             }
+            rs.close();
+            ps.close();
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,6 +157,9 @@ public class UsuarioDao {
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setEstado(rs.getBoolean("status"));
             }
+            rs.close();
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
