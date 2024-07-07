@@ -124,6 +124,38 @@
             document.getElementById('start').value = startDate;
         }
 
+        // Obtén los elementos del DOM para la ventana emergente
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("openModalBtn");
+            var span = document.getElementsByClassName("close-custom")[0];
+            var closeBtn = document.getElementById("submit-btn");
+            var cancelBtn = document.getElementById("cancel-btn");
+
+            // Cuando el usuario haga clic en el botón, abre la ventana emergente
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Cerrar el modal al hacer clic en el botón de cancelar
+            cancelBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+            // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
     </script>
     <style>
 
@@ -204,6 +236,79 @@
             align-items: center; /* Centra el contenido verticalmente */
             margin: 5px;
         }
+        /* Estilos para la ventana emergente */
+        .modal-custom {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content-custom {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header-custom {
+            background-color: #002E60;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .modal-body-custom {
+            padding: 20px;
+        }
+
+        .modal-footer-custom {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .form-group-custom {
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background-color: #002E60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn-custom:hover {
+            background-color: #004080;
+        }
+
+        .close-custom {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-custom:hover,
+        .close-custom:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -293,7 +398,40 @@
 
 <div id='calendar'></div>
 
+<button id="openModalBtn" class="btn btn-primary">Solicitar Asesoría</button>
 
+<div id="myModal" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom">&times;</span>
+            <h2>Solicitar Asesoría</h2>
+        </div>
+        <div class="modal-body-custom">
+            <form id="solicitud-form">
+                <div class="form-group-custom">
+                    <label for="tema">Tema:</label>
+                    <input type="text" id="tema" name="tema" class="form-control" placeholder="Tema">
+                </div>
+                <div class="form-group-custom">
+                    <label for="hora-inicio">Hora de inicio:</label>
+                    <input type="time" id="hora-inicio" name="hora-inicio" class="form-control" placeholder="Hora de inicio">
+                </div>
+                <div class="form-group-custom">
+                    <label for="hora-fin">Hora de fin:</label>
+                    <input type="time" id="hora-fin" name="hora-fin" class="form-control" placeholder="Hora de fin">
+                </div>
+                <div class="form-group-custom">
+                    <label for="dudas">Dudas específicas:</label>
+                    <input type="text" id="dudas" name="dudas" class="form-control" placeholder="Dudas...">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer-custom">
+            <button id="submit-btn" class="btn-custom">Solicitar</button>
+            <button id="cancel-btn" class="btn-custom">Cancelar</button>
+        </div>
+    </div>
+</div>
 <!--<button id="add-event-btn">Agregar Evento</button>
 
 <div id="event-form" style="display:none;">
