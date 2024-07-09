@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class UsuarioDao {
@@ -164,5 +165,43 @@ public class UsuarioDao {
             throw new RuntimeException(e);
         }
         return usuario;
+    }
+
+    public ArrayList<Usuario> getAll() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        String query = "select * from usuario";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNombre(rs.getString("nombre"));
+                u.setContrasena(rs.getString("contra"));
+                u.setCorreo(rs.getString("correo"));
+                u.setEstado(rs.getBoolean("estado"));
+                lista.add(u);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public boolean eliminarLogico(int id) {
+        boolean flag = false;
+        String query = "update usuario set estado = false where id = ?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                flag = true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }
