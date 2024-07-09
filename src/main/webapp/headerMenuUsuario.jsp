@@ -53,7 +53,7 @@
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="restablecerContraUsuario.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
-                    <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a>
+                    <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a> <!--enlace a servlet-->
                     <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->
                 </div>
             </li>
