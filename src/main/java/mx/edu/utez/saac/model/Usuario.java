@@ -13,8 +13,16 @@ public class Usuario {
     private int id;
     private int id_tipo_usuario;
     private String codigo;
+    private String fecha_creacion;
 
     public Usuario() {
+    }
+
+    public Usuario(String nombre, String correo, boolean estado, int id) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.estado = estado;
+        this.id = id;
     }
 
     public Usuario(String correo, String contrasena, String codigo) {
@@ -36,7 +44,7 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo) {
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo, String fecha_creacion) {
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
         this.apellido_materno = apellido_materno;
@@ -49,6 +57,7 @@ public class Usuario {
         this.id = id;
         this.id_tipo_usuario = id_tipo_usuario;
         this.codigo = codigo;
+        this.fecha_creacion = fecha_creacion;
     }
 
     public String getNombre() {
@@ -145,5 +154,13 @@ public class Usuario {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getFecha_creacion() {
+        return fecha_creacion;
+    }
+
+    public void setFecha_creacion(String fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
     }
 }

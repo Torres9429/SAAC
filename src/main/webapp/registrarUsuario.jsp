@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <select class="form-control" id="carreraRegistro" name="carreraRegistro" required>
                         <option value="">Carrera</option>
-                        <option value="1">Desarrollo de Software Multiplataforma</option>
+                        <option value="14">Desarrollo de Software Multiplataforma</option>
                         <option value="2">Infraestructura de redes dígitales</option>
                         <option value="3">Diseño Digital</option>
                         <option value="4">Mantenimiento Industrial</option>
