@@ -240,7 +240,7 @@
         .modal-custom {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1055;
             left: 0;
             top: 0;
             width: 100%;

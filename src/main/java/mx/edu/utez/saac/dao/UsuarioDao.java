@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,7 +43,7 @@ public class UsuarioDao {
     public boolean insert(Usuario u){
         boolean flag = false;
         String queryCheck = "SELECT * FROM usuario WHERE correo = ?;";
-        String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena, codigo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256), ?);";
+        String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena, codigo, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256), ?, ?);";
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
@@ -52,6 +54,9 @@ public class UsuarioDao {
             ResultSet rsCheck = psCheck.executeQuery();
 
             if (!rsCheck.next()) {
+                LocalDateTime fechaHora = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String fechaHoraFormatted = fechaHora.format(formatter);
                 PreparedStatement psInsert = con.prepareStatement(queryInsert);
                 psInsert.setInt(1,3);
                 psInsert.setInt(2,0);
@@ -64,6 +69,7 @@ public class UsuarioDao {
                 psInsert.setString(9, u.getCorreo());
                 psInsert.setString(10, u.getContrasena());
                 psInsert.setString(11, null);
+                psInsert.setString(12,fechaHoraFormatted);
 
                 if (psInsert.executeUpdate() > 0) {
                     flag = true;
@@ -169,18 +175,18 @@ public class UsuarioDao {
 
     public ArrayList<Usuario> getAll() {
         ArrayList<Usuario> lista = new ArrayList<>();
-        String query = "select * from usuario";
+        String query = "select * from usuario;";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Usuario u = new Usuario();
-                u.setId(rs.getInt("id"));
+                u.setId(rs.getInt("id_usuario"));
                 u.setNombre(rs.getString("nombre"));
-                u.setContrasena(rs.getString("contra"));
+                u.setContrasena(rs.getString("contrasena"));
                 u.setCorreo(rs.getString("correo"));
-                u.setEstado(rs.getBoolean("estado"));
+                u.setEstado(rs.getBoolean("status"));
                 lista.add(u);
             }
         }catch(SQLException e){
@@ -191,7 +197,23 @@ public class UsuarioDao {
 
     public boolean eliminarLogico(int id) {
         boolean flag = false;
-        String query = "update usuario set estado = false where id = ?";
+        String query = "update usuario set status = false where id_usuario = ?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                flag = true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean habilitar(int id) {
+        boolean flag = false;
+        String query = "update usuario set status = true where id_usuario = ?";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);

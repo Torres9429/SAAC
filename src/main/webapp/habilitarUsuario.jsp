@@ -15,9 +15,23 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
+    <link rel="stylesheet"type="text/css"  href="css/bootstrap.css">
 </head>
 <body>
+<script>
+
+</script>
+<style>
+    .divTable{
+        width: 60%;
+    }
+</style>
+<jsp:include page="/headerMenuUsuario.jsp" />
 <h3 style="color: red"><%=(String)request.getSession().getAttribute("mensaje")%></h3>
+<div style="display: flex;">
+    <h1>HABILITAR</h1>
+
+<div class="divTable">
 <table id="example" class="table table-striped table-hover">
     <thead>
     <tr>
@@ -27,7 +41,7 @@
         <th>Estado</th>
         <th>Modificar</th>
         <th>E. Fisico</th>
-        <th>E. Logico</th>
+        <th>Deshabilitar</th>
     </tr>
     </thead>
     <tbody>
@@ -42,23 +56,25 @@
         <td><%=u.getCorreo()%></td>
         <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
         <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
-        <td><a href="fisico?id=<%=u.getId()%>">Eliminar</a></td>
-        <td><a href="logico?id=<%=u.getId()%>">Eliminar</a></td>
+        <td><a href="habilitar?id=<%=u.getId()%>">Habilititar</a></td>
+        <td><a href="deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
     </tr>
     <% } %>
     </tbody>
 </table>
-<script src="${pageContext.request.contextPath}/JS/jquery-3.7.0.js"></script>
-<script src="${pageContext.request.contextPath}/JS/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/JS/datatables.js"></script>
-<script src="${pageContext.request.contextPath}/JS/dataTables.bootstrap5.js"></script>
-<script src="${pageContext.request.contextPath}/JS/es-MX.json"></script>
+</div>
+</div>
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/datatables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
+<script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const table = document.getElementById('example');
         new DataTable(table, {
             language: {
-                url: '${pageContext.request.contextPath}/JS/es-MX.json'
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
             }
         });
     });
