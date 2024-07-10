@@ -11,7 +11,7 @@
     <title>Solicitud de Recuperación</title>
 </head>
 <body>
-<jsp:include page="/headerMenuUsuario.jsp" />
+<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 <div class="box-information">
     <div class="box-title">
         <h1>Restablecer contraseña</h1>

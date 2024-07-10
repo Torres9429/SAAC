@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="body-image">
-<jsp:include page="/headerMenuUsuario.jsp" />
+<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 
 <div class="caja">
   <h1 style="color: #009475; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-top: 10px;">¡Bienvenido Halcón!</h1>
