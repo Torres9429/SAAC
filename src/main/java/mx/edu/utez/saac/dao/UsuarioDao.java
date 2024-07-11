@@ -91,7 +91,7 @@ public class UsuarioDao {
     }
     public boolean updateCodigo(Usuario u, String codigo) {
         boolean flag = false;
-        String query = "update usuario set codigo = ? where id_usuario = ?";
+        String query = "update usuario set codigo = ? where id_usuario = ?;";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -100,8 +100,6 @@ public class UsuarioDao {
             if(ps.executeUpdate()>0){
                 flag = true;
             }
-            ps.close();
-            con.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -111,41 +109,41 @@ public class UsuarioDao {
 
     public boolean existe(String codigo) {
         boolean flag = false;
-        String query = "select * from usuario where codigo = ?;";
-        try{
+        String query = "SELECT * FROM usuario WHERE codigo = ?";
+        try {
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, codigo);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                flag=true;
+                flag = true;
             }
+            rs.close();
             ps.close();
             con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return flag;
     }
 
-    public boolean updateContrasena(String contrasena) {
-        boolean flag=false;
-        String query = "update usuario set contrasena = sha2(256,?), codigo = null where codigo = ?;";
+
+    public boolean updateContrasena(String contrasena, String codigo) {
+        boolean flag = false;
+        String query = "update usuario set contrasena = sha2(?,256), codigo = null where codigo = ?";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, contrasena);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                flag=true;
+            ps.setString(1,contrasena);
+            ps.setString(2, codigo);
+            if(ps.executeUpdate()>0){
+                flag = true;
             }
-            rs.close();
             ps.close();
             con.close();
-        } catch (Exception e) {
+        }catch(SQLException e){
             e.printStackTrace();
         }
-
         return flag;
     }
 

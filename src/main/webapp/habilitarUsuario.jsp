@@ -53,7 +53,7 @@
     }
 
 </style>
-<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+<jsp:include page="estudiante/headerMenuUsuario.jsp" />
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText" style="" >
         <h1>Habilitar/ Deshabilitar usuario</h1>
@@ -89,9 +89,9 @@
             <%=u.getCorreo()%>
         </td>
         <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
-        <td><input value="Actualizar" href="sign_in?id=<%=u.getId()%>"></td>
-        <td><input value="Habilitar" href="habilitar?id=<%=u.getId()%>"></td>
-        <td><input value="Deshabilitar" href="deshabilitar?id=<%=u.getId()%>"></td>
+        <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
+        <td><a href="habilitar?id=<%=u.getId()%>">Habilitar</a></td>
+        <td><a href="deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
     </tr>
     <% } %>
     </tbody>

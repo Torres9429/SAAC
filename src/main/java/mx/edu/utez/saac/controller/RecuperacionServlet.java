@@ -24,6 +24,7 @@ public class RecuperacionServlet extends HttpServlet {
             resp.sendRedirect("recuperacion.jsp?codigo="+codigo);
         }else {
             // Si no existe se le informa al usuario que el codigo no existe o expiró
+            System.out.println(codigo);
             req.getSession().setAttribute("mensaje", "El código no sirve o está expirado");
             resp.sendRedirect("index.jsp");
         }
@@ -48,7 +49,7 @@ public class RecuperacionServlet extends HttpServlet {
                 String para = correo;
                 String asunto = "Restablecimiento de contraseña";
                 String mensaje = "<h1>Le enviamos este mesaje para el restablecimiento de su contraseña</h1>" +
-                        "<a href=\"http://localhost:8080/SAAC_war/solicitudRecuperacion?codigo"+codigo+"\">Click para restablecer tu contraseña</a>";
+                        "<a href=\"http://localhost:8080/SAAC_war/solicitudRecuperacion?codigo="+codigo+"\">Click para restablecer tu contraseña</a>";
                 gmail.sendMail(para,asunto,mensaje);
                 req.getSession().setAttribute("mensaje", "Favor de revisar tu correo y tu carpeta de spam");
                 resp.sendRedirect("index.jsp");
