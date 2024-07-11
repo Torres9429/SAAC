@@ -13,11 +13,11 @@ import java.io.IOException;
 public class ContraServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String contra = req.getParameter("contra");
+        String contrasena = req.getParameter("contrasena");
         String codigo = req.getParameter("codigo");
         UsuarioDao dao = new UsuarioDao();
         //Deberiamos cambiar la contra y el codigo de una vez
-        if(dao.updateContrasena(contra)){
+        if(dao.updateContrasena(contrasena, codigo)){
             //Si se hizo
             resp.sendRedirect("index.jsp");
         }else{
