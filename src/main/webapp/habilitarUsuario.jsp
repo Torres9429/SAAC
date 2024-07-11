@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
     <link rel="stylesheet"type="text/css"  href="css/bootstrap.css">
+    <link rel="icon" href="img/Icono_Saac.ico" type="image/x-icon">
 </head>
 <body>
 <script>
@@ -23,25 +24,53 @@
 </script>
 <style>
     .divTable{
-        width: 60%;
+        width: 70%;
+        margin: 15px;
     }
+    .divText{
+        border-right: 4px solid #BFB4B4;
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Centra horizontalmente */
+        color: #009475;
+        height: 100%; /* Ocupa toda la altura del padre */
+        margin: 15px;
+    }
+    th{
+        border-color: white;
+        color: #002E60;
+    }
+    input{
+        background-color: #3A4C60;
+        border-radius: 5px;
+        color: white;
+        width: 90px;
+        height: 30px;
+        border: hidden;
+        text-align: center;
+    }
+
 </style>
-<jsp:include page="/headerMenuUsuario.jsp" />
-<h3 style="color: red"><%=(String)request.getSession().getAttribute("mensaje")%></h3>
-<div style="display: flex;">
-    <h1>HABILITAR</h1>
+<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+<div style="display: flex; align-content: center; height: 80%">
+    <div class="divText" style="" >
+        <h1>Habilitar/ Deshabilitar usuario</h1>
+    </div>
+
 
 <div class="divTable">
-<table id="example" class="table table-striped table-hover">
+<table id="example" style="background-color: #80C9BA; height: 100%" class="table table-striped table-hover" >
     <thead>
-    <tr>
+    <tr style="background-color: #80C9BA;">
         <th>Id</th>
-        <th>Nombre</th>
-        <th>Correo</th>
+        <th>Matrícula</th>
+        <th>Datos</th>
         <th>Estado</th>
         <th>Modificar</th>
-        <th>E. Fisico</th>
-        <th>Deshabilitar</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -50,14 +79,19 @@
         UsuarioDao dao = new UsuarioDao();
         ArrayList<Usuario> lista = dao.getAll();
         for(Usuario u : lista){//Por cada usuario de la lista %>
-    <tr>
+    <tr style="background-color: #80C9BA;">
         <td><%=u.getId()%></td>
-        <td><%=u.getNombre()%></td>
-        <td><%=u.getCorreo()%></td>
+        <td><%=u.getMatricula()%></td>
+
+        <td><%=u.getNombre()%>
+            <%=u.getApellido_paterno()%>
+            <%=u.getApellido_materno()%> <br>
+            <%=u.getCorreo()%>
+        </td>
         <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
-        <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
-        <td><a href="habilitar?id=<%=u.getId()%>">Habilititar</a></td>
-        <td><a href="deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
+        <td><input value="Actualizar" href="sign_in?id=<%=u.getId()%>"></td>
+        <td><input value="Habilitar" href="habilitar?id=<%=u.getId()%>"></td>
+        <td><input value="Deshabilitar" href="deshabilitar?id=<%=u.getId()%>"></td>
     </tr>
     <% } %>
     </tbody>
@@ -77,6 +111,10 @@
                 url: '${pageContext.request.contextPath}/js/es-MX.json'
             }
         });
+        const mensaje = '<%=(String)request.getSession().getAttribute("mensaje")%>';
+        if (mensaje) {
+            alert(mensaje);
+        }
     });
 </script>
 <%

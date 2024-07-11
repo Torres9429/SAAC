@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saac.dao.UsuarioDao;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet(name = "HabilitarServlet", value = "/habilitar")
 public class HabilitarServlet extends HttpServlet {
@@ -17,12 +18,12 @@ public class HabilitarServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         UsuarioDao dao = new UsuarioDao();
         HttpSession sesion = req.getSession();
-        if(dao.habilitar(id)){
-            
-            sesion.setAttribute("mensaje","Usuario habilitado con éxito");
-        }else{
-            sesion.setAttribute("mensaje","Falló la habilitación");
+        String mensaje;
+        if (dao.habilitar(id)) {
+            mensaje = "Usuario habilitado con éxito";
+        } else {
+            mensaje = "Falló la habilitación";
         }
-        resp.sendRedirect("habilitarUsuario.jsp");
+        resp.sendRedirect("habilitarUsuario.jsp?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
     }
 }

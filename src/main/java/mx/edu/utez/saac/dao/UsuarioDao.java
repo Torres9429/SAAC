@@ -183,7 +183,10 @@ public class UsuarioDao {
             while(rs.next()){
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id_usuario"));
+                u.setMatricula(rs.getString("matricula"));
                 u.setNombre(rs.getString("nombre"));
+                u.setApellido_paterno(rs.getString("apellido_paterno"));
+                u.setApellido_materno(rs.getString("apellido_materno"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setCorreo(rs.getString("correo"));
                 u.setEstado(rs.getBoolean("status"));
