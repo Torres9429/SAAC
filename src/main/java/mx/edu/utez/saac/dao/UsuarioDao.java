@@ -91,7 +91,7 @@ public class UsuarioDao {
     }
     public boolean updateCodigo(Usuario u, String codigo) {
         boolean flag = false;
-        String query = "update usuario set codigo = ? where id = ?";
+        String query = "update usuario set codigo = ? where id_usuario = ?;";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);

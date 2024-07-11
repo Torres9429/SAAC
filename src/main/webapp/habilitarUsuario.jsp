@@ -53,7 +53,7 @@
     }
 
 </style>
-<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+<jsp:include page="estudiante/headerMenuUsuario.jsp" />
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText" style="" >
         <h1>Habilitar/ Deshabilitar usuario</h1>
