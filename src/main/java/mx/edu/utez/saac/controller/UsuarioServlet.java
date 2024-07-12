@@ -34,7 +34,7 @@ public class UsuarioServlet extends HttpServlet {
         }else{
             // si existe en la bd
             System.out.println("El usuario " + correo + " si esta en la base de datos");
-            resp.sendRedirect("bienvenida.jsp");
+            resp.sendRedirect("estudiante/bienvenida.jsp");
         }
 
     }
