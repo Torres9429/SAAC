@@ -134,7 +134,7 @@
                 </div>
                 <br>
                 <div class="btn-container">
-                    <button type="submit" class="btn btn-primary">Agregar Materia</button>
+                    <button type="submit" class="btn btn-primary" href="agendarAsesoria.jsp">Agregar Materia</button>
                 </div>
             </form>
         </div>
