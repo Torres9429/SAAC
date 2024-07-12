@@ -1,3 +1,4 @@
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,12 @@
 </head>
 <body>
 <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+
+<%
+    HttpSession sesion = request.getSession();
+    Usuario u = (Usuario) sesion.getAttribute("usuario");
+    String nombreUsuario = (String) session.getAttribute("nombreUsuario");
+%>
 <div class="box-information">
     <div class="left">
         <center>
@@ -24,6 +31,10 @@
     </div>
 
     <div class="right">
+        <form method="post">
+           <label style="color: #002E60">Nombre: </label>
+            <input type="text" name="nombre" value="<%= nombreUsuario %>">
+        </form>
         <h3 style="color: #002E60">Nombre: </h3>
         <p style="color: #002E60">texto</p>
         <hr class="separator-right">
