@@ -100,11 +100,9 @@
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
-
-
-<div style="display: flex; align-content: center; height: 80%">
-    <div class="divText" style="" >
-        <h1>Habilitar/ Deshabilitar usuario</h1>
+<div class="form-container">
+    <div class="form-sidebar">
+        <h1>Agregar Materia</h1>
     </div>
     <div class="form-content">
         <div class="box">
