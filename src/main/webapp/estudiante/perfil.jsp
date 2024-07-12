@@ -32,7 +32,7 @@
 
     <div class="right">
         <form method="post">
-           <label style="color: #002E60">Nombre: </label>
+           <label style="color: #002E60">Nombre: </label><br>
             <input type="text" name="nombre" value="<%= nombreUsuario %>">
         </form>
         <h3 style="color: #002E60">Nombre: </h3>
