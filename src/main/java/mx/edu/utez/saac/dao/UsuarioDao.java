@@ -15,20 +15,23 @@ import java.util.Random;
 public class UsuarioDao {
     // CRUD para usuario
     // Read para un usuario
-    public Usuario getOne(String correo, String contrasena, String codigo){
+    public Usuario getOne(String correo, String contrasena){
         Usuario usuario = new Usuario();
         String query = "select * from usuario where correo = ? and contrasena = sha2(?, 256);";
+
         try {
             Connection con = DatabaseConnectionManager.getConnection();
-            //Connection con = MyConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(query); // forma de evitar que inyecten query
             ps.setString(1,correo);
             ps.setString(2,contrasena);
             //ps.setString(3,codigo);
+            System.out.println(ps);
             ResultSet rs = ps.executeQuery(); // ejecutar
             if (rs.next()){
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
+                usuario.setEstado(rs.getBoolean("status"));
+
             }
             rs.close();
             ps.close();

@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Habilitar/Deshabilitar</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
     <link rel="stylesheet"type="text/css"  href="css/bootstrap.css">
