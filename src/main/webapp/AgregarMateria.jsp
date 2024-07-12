@@ -21,7 +21,31 @@
             padding: 30px;
             border-radius: 8px;
         }
-        .box h3 {
+        .form-container {
+            display: flex;
+            height: 100vh;
+        }
+        .form-sidebar {
+            width: 20%;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 2px solid #009475;
+            padding: 15px;
+        }
+        .form-sidebar h1 {
+            color: #009475;
+        }
+        .form-content {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .form-content h3 {
             color: #007BFF;
         }
         .form-group label {
@@ -32,42 +56,39 @@
             border-color: #007BFF;
         }
     </style>
+    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
-<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="box">
-                <h3>Agregar Materia</h3>
-                <form action="AgregarMateriaServlet" method="post">
-                    <div class="form-group">
-                        <label for="materia">Materia:</label>
-                        <input type="text" class="form-control" id="materia" name="materia" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="division">División:</label>
-                        <input type="text" class="form-control" id="division" name="division" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="area">Área:</label>
-                        <input type="text" class="form-control" id="area" name="area" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="maestro">Maestro:</label>
-                        <select class="form-control" id="maestro" name="maestro">
-                            <option value="Maestro 1">Maestro 1</option>
-                            <option value="Maestro 2">Maestro 2</option>
-                            <option value="Maestro 3">Maestro 3</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar Materia</button>
-                </form>
-            </div>
+<div class="form-container">
+    <div class="form-sidebar">
+        <h1>Agregar Materia</h1>
+    </div>
+    <div class="form-content">
+        <div class="box">
+            <h3>Formulario de Materia</h3>
+            <form action="AgregarMateriaServlet" method="post">
+                <div class="form-group">
+                    <label for="materia">Materia:</label>
+                    <input type="text" class="form-control" id="materia" name="materia" required>
+                </div>
+                <div class="form-group">
+                    <label for="division">División:</label>
+                    <select class="form-control" id="division" name="division" required>
+                        <option value="Division 1">División 1</option>
+                        <option value="Division 2">División 2</option>
+                        <option value="Division 3">División 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="area">Área:</label>
+                    <input type="text" class="form-control" id="area" name="area" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Materia</button>
+            </form>
         </div>
     </div>
 </div>
