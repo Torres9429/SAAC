@@ -188,8 +188,8 @@
         </td>
         <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
         <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
-        <td><a href="habilitar?id=<%=u.getId()%>">Habilitar</a></td>
-        <td><a href="deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
+        <td><a href="../habilitar?id=<%=u.getId()%>">Habilitar</a></td>
+        <td><a href="../deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
     </tr>
     <% } %>
     </tbody>

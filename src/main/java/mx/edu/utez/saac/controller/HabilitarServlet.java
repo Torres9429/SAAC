@@ -28,7 +28,7 @@ public class HabilitarServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("mensajeHabilitacion", mensaje);
 
-        resp.sendRedirect("habilitarUsuario.jsp");
+        resp.sendRedirect("administrador/habilitarUsuario.jsp");
         //resp.sendRedirect("habilitarUsuario.jsp?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
     }
 }

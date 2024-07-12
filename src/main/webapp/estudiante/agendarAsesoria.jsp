@@ -191,6 +191,7 @@
         .custom-select-container {
             position: relative;
             width: 300px; /* Ajusta el ancho según sea necesario */
+
         }
 
         .custom-select {
@@ -198,6 +199,7 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             width: 290px;
+            height: 45px;
             margin: 15px;
             padding: 10px 40px 10px 15px; /* Espaciado interno */
             font-size: 16px;
