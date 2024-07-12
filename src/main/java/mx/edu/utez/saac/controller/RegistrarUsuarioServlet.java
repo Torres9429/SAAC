@@ -23,6 +23,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         u.setMatricula(req.getParameter("matriculaRegistro"));
         u.setCarrera(Integer.parseInt(req.getParameter("carreraRegistro")));
         u.setCorreo(req.getParameter("correoRegistro"));
+        u.setId_tipo_usuario(Integer.parseInt(req.getParameter("rolRegistro")));
         if (req.getParameter("contraseña1Registro").equals(req.getParameter("contraseña2Registro"))){
             u.setContrasena(req.getParameter("contraseña1Registro"));
             System.out.println("Contraseñas correctas");

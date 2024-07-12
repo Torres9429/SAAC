@@ -112,7 +112,7 @@ var FullCalendar = (function (exports) {
                 }
                 else {
                     this.timeoutId = setTimeout(// NOT OPTIMAL! TODO: look at debounce
-                    this.tryDrain.bind(this), delay);
+                        this.tryDrain.bind(this), delay);
                 }
             }
         }
@@ -795,7 +795,7 @@ var FullCalendar = (function (exports) {
     }
     function arrayToLocalDate(a) {
         return new Date(a[0], a[1] || 0, a[2] == null ? 1 : a[2], // day of month
-        a[3] || 0, a[4] || 0, a[5] || 0);
+            a[3] || 0, a[4] || 0, a[5] || 0);
     }
     function dateToUtcArray(date) {
         return [
@@ -912,7 +912,7 @@ var FullCalendar = (function (exports) {
         };
     }
     function memoizeArraylike(// used at all?
-    workerFunc, resEquality, teardownFunc) {
+        workerFunc, resEquality, teardownFunc) {
         let currentArgSets = [];
         let currentResults = [];
         return (newArgSets) => {
@@ -2794,14 +2794,14 @@ var FullCalendar = (function (exports) {
         buildPrev(currentDateProfile, currentDate, forceToValid) {
             let { dateEnv } = this.props;
             let prevDate = dateEnv.subtract(dateEnv.startOf(currentDate, currentDateProfile.currentRangeUnit), // important for start-of-month
-            currentDateProfile.dateIncrement);
+                currentDateProfile.dateIncrement);
             return this.build(prevDate, -1, forceToValid);
         }
         // Builds a structure with info about what the dates/ranges will be for the "next" view.
         buildNext(currentDateProfile, currentDate, forceToValid) {
             let { dateEnv } = this.props;
             let nextDate = dateEnv.add(dateEnv.startOf(currentDate, currentDateProfile.currentRangeUnit), // important for start-of-month
-            currentDateProfile.dateIncrement);
+                currentDateProfile.dateIncrement);
             return this.build(nextDate, 1, forceToValid);
         }
         // Builds a structure holding dates/ranges for rendering around the given date.
@@ -3540,7 +3540,7 @@ var FullCalendar = (function (exports) {
                 return resetRawEvents(eventStore, eventSources[action.sourceId], action.rawEvents, dateProfile.activeRange, context);
             case 'ADD_EVENTS': // already parsed, but not expanded
                 return addEvent(eventStore, action.eventStore, // new ones
-                dateProfile ? dateProfile.activeRange : null, context);
+                    dateProfile ? dateProfile.activeRange : null, context);
             case 'RESET_EVENTS':
                 return action.eventStore;
             case 'MERGE_EVENTS': // already parsed and expanded
@@ -3813,7 +3813,7 @@ var FullCalendar = (function (exports) {
         return copy;
     }
     function applyMutationToEventInstance(eventInstance, eventDef, // must first be modified by applyMutationToEventDef
-    eventConfig, mutation, context) {
+                                          eventConfig, mutation, context) {
         let { dateEnv } = context;
         let forceAllDay = mutation.standardProps && mutation.standardProps.allDay === true;
         let clearEnd = mutation.standardProps && mutation.standardProps.hasEnd === false;
@@ -4400,8 +4400,8 @@ var FullCalendar = (function (exports) {
         return seg.isEnd && seg.eventRange.ui.durationEditable;
     }
     function buildSegTimeText(seg, timeFormat, context, defaultDisplayEventTime, // defaults to true
-    defaultDisplayEventEnd, // defaults to true
-    startOverride, endOverride) {
+                              defaultDisplayEventEnd, // defaults to true
+                              startOverride, endOverride) {
         let { dateEnv, options } = context;
         let { displayEventTime, displayEventEnd } = options;
         let eventDef = seg.eventRange.def;
@@ -4590,8 +4590,8 @@ var FullCalendar = (function (exports) {
     function fabricateEventRange(dateSpan, eventUiBases, context) {
         let res = refineEventDef({ editable: false }, context);
         let def = parseEventDef(res.refined, res.extra, '', // sourceId
-        dateSpan.allDay, true, // hasEnd
-        context);
+            dateSpan.allDay, true, // hasEnd
+            context);
         return {
             def,
             ui: compileEventUi(def, eventUiBases),
@@ -5866,8 +5866,8 @@ var FullCalendar = (function (exports) {
                 let lateralIndex = searchRes[0] + searchRes[1]; // if exact match (which doesn't collide), go to next one
                 while ( // loop through entries that horizontally intersect
                 (trackingEntry = trackingEntries[lateralIndex]) && // but not past the whole entry list
-                    trackingEntry.span.start < newEntry.span.end // and not entirely past newEntry
-                ) {
+                trackingEntry.span.start < newEntry.span.end // and not entirely past newEntry
+                    ) {
                     let trackingEntryBottom = trackingCoord + this.getEntryThickness(trackingEntry);
                     // intersects into the top of the candidate?
                     if (trackingEntryBottom > candidateCoord) {
@@ -6355,9 +6355,9 @@ var FullCalendar = (function (exports) {
             }; // TODO: give interactionSegs?
         }
         sliceNowDate(// does not memoize
-        date, dateProfile, nextDayThreshold, context, ...extraArgs) {
+            date, dateProfile, nextDayThreshold, context, ...extraArgs) {
             return this._sliceDateSpan({ range: { start: date, end: addMs(date, 1) }, allDay: false }, // add 1 ms, protect against null range
-            dateProfile, nextDayThreshold, {}, context, ...extraArgs);
+                dateProfile, nextDayThreshold, {}, context, ...extraArgs);
         }
         _sliceBusinessHours(businessHours, dateProfile, nextDayThreshold, context, ...extraArgs) {
             if (!businessHours) {
@@ -6525,7 +6525,7 @@ var FullCalendar = (function (exports) {
                         return false;
                     }
                     if (eventOverlapFunc && !eventOverlapFunc(new EventImpl(context, otherDefs[otherInstance.defId], otherInstance), // still event
-                    new EventImpl(context, subjectDef, subjectInstance))) {
+                        new EventImpl(context, subjectDef, subjectInstance))) {
                         return false;
                     }
                 }
@@ -6601,9 +6601,9 @@ var FullCalendar = (function (exports) {
         return true;
     }
     function constraintToRanges(constraint, subjectRange, // for expanding a recurring constraint, or expanding business hours
-    otherEventStore, // for if constraint is an even group ID
-    businessHoursUnexpanded, // for if constraint is 'businessHours'
-    context) {
+                                otherEventStore, // for if constraint is an even group ID
+                                businessHoursUnexpanded, // for if constraint is 'businessHours'
+                                context) {
         if (constraint === 'businessHours') {
             return eventStoreToRanges(expandRecurring(businessHoursUnexpanded, subjectRange, context));
         }
@@ -6989,7 +6989,7 @@ var FullCalendar = (function (exports) {
                 role: 'presentation',
             }, y("div", { className: `fc-scroller-harness${isLiquid ? ' fc-scroller-harness-liquid' : ''}` },
                 y(Scroller, { ref: this.scrollerRefs.createRef(sectionKey), elRef: this.scrollerElRefs.createRef(sectionKey), overflowY: overflowY, overflowX: !props.liquid ? 'visible' : 'hidden' /* natural height? */, maxHeight: sectionConfig.maxHeight, liquid: isLiquid, liquidIsAbsolute // because its within a harness
-                    : true }, content)));
+                        : true }, content)));
         }
         _handleScrollerEl(scrollerEl, key) {
             let section = getSectionByKey(this.props.sections, key);
@@ -7160,9 +7160,9 @@ var FullCalendar = (function (exports) {
             return (y(ContentContainer, Object.assign({}, props /* includes children */, { elClasses: [
                     ...getDayClassNames(renderProps, context.theme),
                     ...(props.elClasses || []),
-                ], elAttrs: Object.assign(Object.assign({}, props.elAttrs), (renderProps.isDisabled ? {} : { 'data-date': formatDayString(props.date) })), renderProps: renderProps, generatorName: "dayCellContent", customGenerator: options.dayCellContent, defaultGenerator: props.defaultGenerator, classNameGenerator: 
+                ], elAttrs: Object.assign(Object.assign({}, props.elAttrs), (renderProps.isDisabled ? {} : { 'data-date': formatDayString(props.date) })), renderProps: renderProps, generatorName: "dayCellContent", customGenerator: options.dayCellContent, defaultGenerator: props.defaultGenerator, classNameGenerator:
                 // don't use custom classNames if disabled
-                renderProps.isDisabled ? undefined : options.dayCellClassNames, didMount: options.dayCellDidMount, willUnmount: options.dayCellWillUnmount })));
+                    renderProps.isDisabled ? undefined : options.dayCellClassNames, didMount: options.dayCellDidMount, willUnmount: options.dayCellWillUnmount })));
         }
     }
     function hasCustomDayCellContent(options) {
@@ -7199,7 +7199,7 @@ var FullCalendar = (function (exports) {
         let text = dateEnv.format(date, format);
         let renderProps = { num, text, date };
         return (y(ContentContainer // why isn't WeekNumberContentArg being auto-detected?
-        , Object.assign({}, props /* includes children */, { renderProps: renderProps, generatorName: "weekNumberContent", customGenerator: options.weekNumberContent, defaultGenerator: renderInner, classNameGenerator: options.weekNumberClassNames, didMount: options.weekNumberDidMount, willUnmount: options.weekNumberWillUnmount })));
+            , Object.assign({}, props /* includes children */, { renderProps: renderProps, generatorName: "weekNumberContent", customGenerator: options.weekNumberContent, defaultGenerator: renderInner, classNameGenerator: options.weekNumberClassNames, didMount: options.weekNumberDidMount, willUnmount: options.weekNumberWillUnmount })));
     }));
     function renderInner(innerProps) {
         return innerProps.text;
@@ -7732,7 +7732,7 @@ var FullCalendar = (function (exports) {
         moreLinkText: 'more',
         noEventsText: 'No events to display',
     };
-    const RAW_EN_LOCALE = Object.assign(Object.assign({}, MINIMAL_RAW_EN_LOCALE), { 
+    const RAW_EN_LOCALE = Object.assign(Object.assign({}, MINIMAL_RAW_EN_LOCALE), {
         // Includes things we don't want other locales to inherit,
         // things that derive from other translatable strings.
         buttonHints: {
@@ -8432,8 +8432,8 @@ var FullCalendar = (function (exports) {
     BAD: querying icons and text here. should be done at render time
     */
     function parseSection(sectionStr, calendarOptions, // defaults+overrides, then refined
-    calendarOptionOverrides, // overrides only!, unrefined :(
-    theme, viewSpecs, calendarApi) {
+                          calendarOptionOverrides, // overrides only!, unrefined :(
+                          theme, viewSpecs, calendarApi) {
         let isRtl = calendarOptions.direction === 'rtl';
         let calendarCustomButtons = calendarOptions.customButtons || {};
         let calendarButtonTextOverrides = calendarOptionOverrides.buttonText || {};
@@ -8462,8 +8462,8 @@ var FullCalendar = (function (exports) {
                     }
                 };
                 (buttonIcon = theme.getCustomButtonIconClass(customButtonProps)) ||
-                    (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
-                    (buttonText = customButtonProps.text);
+                (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
+                (buttonText = customButtonProps.text);
                 buttonHint = customButtonProps.hint || customButtonProps.text;
             }
             else if ((viewSpec = viewSpecs[buttonName])) {
@@ -8472,22 +8472,22 @@ var FullCalendar = (function (exports) {
                     calendarApi.changeView(buttonName);
                 };
                 (buttonText = viewSpec.buttonTextOverride) ||
-                    (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
-                    (buttonText = viewSpec.buttonTextDefault);
+                (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
+                (buttonText = viewSpec.buttonTextDefault);
                 let textFallback = viewSpec.buttonTextOverride ||
                     viewSpec.buttonTextDefault;
                 buttonHint = formatWithOrdinals(viewSpec.buttonTitleOverride ||
                     viewSpec.buttonTitleDefault ||
                     calendarOptions.viewHint, [textFallback, buttonName], // view-name = buttonName
-                textFallback);
+                    textFallback);
             }
             else if (calendarApi[buttonName]) { // a calendarApi method
                 buttonClick = () => {
                     calendarApi[buttonName]();
                 };
                 (buttonText = calendarButtonTextOverrides[buttonName]) ||
-                    (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
-                    (buttonText = calendarButtonText[buttonName]); // everything else is considered default
+                (buttonIcon = theme.getIconClass(buttonName, isRtl)) ||
+                (buttonText = calendarButtonText[buttonName]); // everything else is considered default
                 if (buttonName === 'prevYear' || buttonName === 'nextYear') {
                     let prevOrNext = buttonName === 'prevYear' ? 'prev' : 'next';
                     buttonHint = formatWithOrdinals(calendarButtonHintOverrides[prevOrNext] ||
@@ -9480,7 +9480,7 @@ var FullCalendar = (function (exports) {
                 }
             };
             this.destroy = listenBySelector(settings.el, 'click', '.fc-event', // on both fg and bg events
-            this.handleSegClick);
+                this.handleSegClick);
         }
     }
 
@@ -9510,7 +9510,7 @@ var FullCalendar = (function (exports) {
                 }
             };
             this.removeHoverListeners = listenToHoverBySelector(settings.el, '.fc-event', // on both fg and bg events
-            this.handleSegEnter, this.handleSegLeave);
+                this.handleSegEnter, this.handleSegLeave);
         }
         destroy() {
             this.removeHoverListeners();
@@ -9588,7 +9588,7 @@ var FullCalendar = (function (exports) {
             let { props } = this;
             let { toolbarConfig, options } = props;
             let toolbarProps = this.buildToolbarProps(props.viewSpec, props.dateProfile, props.dateProfileGenerator, props.currentDate, getNow(props.options.now, props.dateEnv), // TODO: use NowTimer????
-            props.viewTitle);
+                props.viewTitle);
             let viewVGrow = false;
             let viewHeight = '';
             let viewAspectRatio;
@@ -10179,7 +10179,7 @@ var FullCalendar = (function (exports) {
             let finalSourceElRect = this.sourceEl.getBoundingClientRect(); // because autoscrolling might have happened
             mirrorEl.style.transition =
                 'top ' + revertDuration + 'ms,' +
-                    'left ' + revertDuration + 'ms';
+                'left ' + revertDuration + 'ms';
             applyStyle(mirrorEl, {
                 left: finalSourceElRect.left,
                 top: finalSourceElRect.top,
@@ -10437,7 +10437,7 @@ var FullCalendar = (function (exports) {
             let { edgeThreshold } = this;
             let invDistance = edgeThreshold - edge.distance;
             let velocity = // the closer to the edge, the faster we scroll
-             ((invDistance * invDistance) / (edgeThreshold * edgeThreshold)) * // quadratic
+                ((invDistance * invDistance) / (edgeThreshold * edgeThreshold)) * // quadratic
                 this.maxVelocity * seconds;
             let sign = 1;
             switch (edge.name) {
@@ -10855,20 +10855,20 @@ var FullCalendar = (function (exports) {
                     let width = origRect.right - origRect.left;
                     let height = origRect.bottom - origRect.top;
                     if (
-                    // must be within the element's bounds
-                    positionLeft >= 0 && positionLeft < width &&
+                        // must be within the element's bounds
+                        positionLeft >= 0 && positionLeft < width &&
                         positionTop >= 0 && positionTop < height) {
                         let hit = component.queryHit(positionLeft, positionTop, width, height);
                         if (hit && (
-                        // make sure the hit is within activeRange, meaning it's not a dead cell
-                        rangeContainsRange(hit.dateProfile.activeRange, hit.dateSpan.range)) &&
+                                // make sure the hit is within activeRange, meaning it's not a dead cell
+                                rangeContainsRange(hit.dateProfile.activeRange, hit.dateSpan.range)) &&
                             // Ensure the component we are querying for the hit is accessibly my the pointer
                             // Prevents obscured calendars (ex: under a modal dialog) from accepting hit
                             // https://github.com/fullcalendar/fullcalendar/issues/5026
                             (this.disablePointCheck ||
                                 offsetTracker.el.contains(document.elementFromPoint(
-                                // add-back origins to get coordinate relative to top-left of window viewport
-                                positionLeft + originLeft - window.scrollX, positionTop + originTop - window.scrollY))) &&
+                                    // add-back origins to get coordinate relative to top-left of window viewport
+                                    positionLeft + originLeft - window.scrollX, positionTop + originTop - window.scrollY))) &&
                             (!bestHit || hit.layer > bestHit.layer)) {
                             hit.componentId = id;
                             hit.context = component.context;
@@ -11776,7 +11776,7 @@ var FullCalendar = (function (exports) {
         }
         let { refined, extra } = refineEventDef(defProps, context);
         let def = parseEventDef(refined, extra, dragMeta.sourceId, dateSpan.allDay, context.options.forceEventDuration || Boolean(dragMeta.duration), // hasEnd
-        context);
+            context);
         let start = dateSpan.range.start;
         // only rely on time info if drop zone is all-day,
         // otherwise, we already know the time
@@ -11921,8 +11921,8 @@ var FullCalendar = (function (exports) {
         constructor(containerOrSettings, settings) {
             let containerEl = document;
             if (
-            // wish we could just test instanceof EventTarget, but doesn't work in IE11
-            containerOrSettings === document ||
+                // wish we could just test instanceof EventTarget, but doesn't work in IE11
+                containerOrSettings === document ||
                 containerOrSettings instanceof Element) {
                 containerEl = containerOrSettings;
                 settings = settings || {};
@@ -12008,11 +12008,11 @@ var FullCalendar = (function (exports) {
                     key: 'header',
                     isSticky: stickyHeaderDates,
                     chunks: [{
-                            key: 'main',
-                            elRef: this.headerElRef,
-                            tableClassName: 'fc-col-header',
-                            rowContent: headerRowContent,
-                        }],
+                        key: 'main',
+                        elRef: this.headerElRef,
+                        tableClassName: 'fc-col-header',
+                        rowContent: headerRowContent,
+                    }],
                 });
             }
             sections.push({
@@ -12020,9 +12020,9 @@ var FullCalendar = (function (exports) {
                 key: 'body',
                 liquid: true,
                 chunks: [{
-                        key: 'main',
-                        content: bodyContent,
-                    }],
+                    key: 'main',
+                    content: bodyContent,
+                }],
             });
             if (stickyFooterScrollbar) {
                 sections.push({
@@ -12030,9 +12030,9 @@ var FullCalendar = (function (exports) {
                     key: 'footer',
                     isSticky: true,
                     chunks: [{
-                            key: 'main',
-                            content: renderScrollShim,
-                        }],
+                        key: 'main',
+                        content: renderScrollShim,
+                    }],
                 });
             }
             return (y(ViewContainer, { elClasses: ['fc-daygrid'], viewSpec: context.viewSpec },
@@ -12181,14 +12181,14 @@ var FullCalendar = (function (exports) {
                 ], elAttrs: Object.assign(Object.assign(Object.assign({}, props.extraDataAttrs), (props.showDayNumber ? { 'aria-labelledby': state.dayNumberId } : {})), { role: 'gridcell' }), defaultGenerator: renderTopInner, date: date, dateProfile: dateProfile, todayRange: props.todayRange, showDayNumber: props.showDayNumber, isMonthStart: isMonthStart, extraRenderProps: props.extraRenderProps }, (InnerContent, renderProps) => (y("div", { ref: props.innerElRef, className: "fc-daygrid-day-frame fc-scrollgrid-sync-inner", style: { minHeight: props.minHeight } },
                 props.showWeekNumber && (y(WeekNumberContainer, { elTag: "a", elClasses: ['fc-daygrid-week-number'], elAttrs: buildNavLinkAttrs(context, date, 'week'), date: date, defaultFormat: DEFAULT_WEEK_NUM_FORMAT$1 })),
                 !renderProps.isDisabled &&
-                    (props.showDayNumber || hasCustomDayCellContent(options) || props.forceDayTop) ? (y("div", { className: "fc-daygrid-day-top" },
+                (props.showDayNumber || hasCustomDayCellContent(options) || props.forceDayTop) ? (y("div", { className: "fc-daygrid-day-top" },
                     y(InnerContent, { elTag: "a", elClasses: [
                             'fc-daygrid-day-number',
                             isMonthStart && 'fc-daygrid-month-start',
                         ], elAttrs: Object.assign(Object.assign({}, buildNavLinkAttrs(context, date)), { id: state.dayNumberId }) }))) : props.showDayNumber ? (
-                // for creating correct amount of space (see issue #7162)
-                y("div", { className: "fc-daygrid-day-top", style: { visibility: 'hidden' } },
-                    y("a", { className: "fc-daygrid-day-number" }, "\u00A0"))) : undefined,
+                    // for creating correct amount of space (see issue #7162)
+                    y("div", { className: "fc-daygrid-day-top", style: { visibility: 'hidden' } },
+                        y("a", { className: "fc-daygrid-day-number" }, "\u00A0"))) : undefined,
                 y("div", { className: "fc-daygrid-day-events", ref: props.fgContentElRef },
                     props.fgContent,
                     y("div", { className: "fc-daygrid-day-bottom", style: { marginTop: props.moreMarginTop } },
@@ -12209,8 +12209,8 @@ var FullCalendar = (function (exports) {
         // spans more than one month?
         return !(currentFirstYear === currentLastYear && currentFirstMonth === currentLastMonth) &&
             Boolean(
-            // first date in current view?
-            date.valueOf() === currentStart.valueOf() ||
+                // first date in current view?
+                date.valueOf() === currentStart.valueOf() ||
                 // a month-start that's within the current range?
                 (dateEnv.getDay(date) === 1 && date.valueOf() < currentEnd.valueOf()));
     }
@@ -12222,7 +12222,7 @@ var FullCalendar = (function (exports) {
         return generateSegKey(seg) + ':' + seg.lastCol;
     }
     function computeFgSegPlacement(segs, // assumed already sorted
-    dayMaxEvents, dayMaxEventRows, strictOrder, segHeights, maxContentHeight, cells) {
+                                   dayMaxEvents, dayMaxEventRows, strictOrder, segHeights, maxContentHeight, cells) {
         let hierarchy = new DayGridSegHierarchy((segEntry) => {
             // TODO: more DRY with generateSegUid
             let segUid = segs[segEntry.index].eventRange.instance.instanceId +
@@ -12486,7 +12486,7 @@ var FullCalendar = (function (exports) {
             let mirrorSegsByCol = splitSegsByFirstCol(this.getMirrorSegs(), colCnt);
             let { singleColPlacements, multiColPlacements, moreCnts, moreMarginTops } = computeFgSegPlacement(sortEventSegs(props.fgEventSegs, options.eventOrder), props.dayMaxEvents, props.dayMaxEventRows, options.eventOrderStrict, state.segHeights, state.maxContentHeight, props.cells);
             let isForcedInvisible = // TODO: messy way to compute this
-             (props.eventDrag && props.eventDrag.affectedInstances) ||
+                (props.eventDrag && props.eventDrag.affectedInstances) ||
                 (props.eventResize && props.eventResize.affectedInstances) ||
                 {};
             return (y("tr", { ref: this.rootElRef, role: "row" },
@@ -12495,13 +12495,13 @@ var FullCalendar = (function (exports) {
                     let normalFgNodes = this.renderFgSegs(col, props.forPrint ? singleColPlacements[col] : multiColPlacements[col], props.todayRange, isForcedInvisible);
                     let mirrorFgNodes = this.renderFgSegs(col, buildMirrorPlacements(mirrorSegsByCol[col], multiColPlacements), props.todayRange, {}, Boolean(props.eventDrag), Boolean(props.eventResize), false);
                     return (y(TableCell, { key: cell.key, elRef: this.cellElRefs.createRef(cell.key), innerElRef: this.frameElRefs.createRef(cell.key) /* FF <td> problem, but okay to use for left/right. TODO: rename prop */, dateProfile: props.dateProfile, date: cell.date, showDayNumber: props.showDayNumbers, showWeekNumber: props.showWeekNumbers && col === 0, forceDayTop: props.showWeekNumbers /* even displaying weeknum for row, not necessarily day */, todayRange: props.todayRange, eventSelection: props.eventSelection, eventDrag: props.eventDrag, eventResize: props.eventResize, extraRenderProps: cell.extraRenderProps, extraDataAttrs: cell.extraDataAttrs, extraClassNames: cell.extraClassNames, extraDateSpan: cell.extraDateSpan, moreCnt: moreCnts[col], moreMarginTop: moreMarginTops[col], singlePlacements: singleColPlacements[col], fgContentElRef: this.fgElRefs.createRef(cell.key), fgContent: ( // Fragment scopes the keys
-                        y(_, null,
-                            y(_, null, normalFgNodes),
-                            y(_, null, mirrorFgNodes))), bgContent: ( // Fragment scopes the keys
-                        y(_, null,
-                            this.renderFillSegs(highlightSegsByCol[col], 'highlight'),
-                            this.renderFillSegs(businessHoursByCol[col], 'non-business'),
-                            this.renderFillSegs(bgEventSegsByCol[col], 'bg-event'))), minHeight: props.cellMinHeight }));
+                            y(_, null,
+                                y(_, null, normalFgNodes),
+                                y(_, null, mirrorFgNodes))), bgContent: ( // Fragment scopes the keys
+                            y(_, null,
+                                this.renderFillSegs(highlightSegsByCol[col], 'highlight'),
+                                this.renderFillSegs(businessHoursByCol[col], 'non-business'),
+                                this.renderFillSegs(bgEventSegsByCol[col], 'bg-event'))), minHeight: props.cellMinHeight }));
                 })));
         }
         componentDidMount() {
@@ -12603,11 +12603,11 @@ var FullCalendar = (function (exports) {
                     if (frameEls.length) {
                         let originEl = this.rootElRef.current;
                         let newPositionCache = new PositionCache(originEl, frameEls, true, // isHorizontal
-                        false);
+                            false);
                         if (!state.framePositions || !state.framePositions.similarTo(newPositionCache)) {
                             this.setState({
                                 framePositions: new PositionCache(originEl, frameEls, true, // isHorizontal
-                                false),
+                                    false),
                             });
                         }
                     }
@@ -12733,10 +12733,10 @@ var FullCalendar = (function (exports) {
         // ----------------------------------------------------------------------------------------------------
         prepareHits() {
             this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.collect().map((rowObj) => rowObj.getCellEls()[0]), // first cell el in each row. TODO: not optimal
-            false, true);
+                false, true);
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row
-            true, // horizontal
-            false);
+                true, // horizontal
+                false);
         }
         queryHit(positionLeft, positionTop) {
             let { colPositions, rowPositions } = this;
@@ -12795,16 +12795,16 @@ var FullCalendar = (function (exports) {
                 expandRows ? '' : 'fc-daygrid-body-natural', // will height of one row depend on the others?
             ];
             return (y("div", { ref: this.elRef, className: classNames.join(' '), style: {
-                    // these props are important to give this wrapper correct dimensions for interactions
-                    // TODO: if we set it here, can we avoid giving to inner tables?
-                    width: props.clientWidth,
-                    minWidth: props.tableMinWidth,
-                } },
-                y("table", { role: "presentation", className: "fc-scrollgrid-sync-table", style: {
+                        // these props are important to give this wrapper correct dimensions for interactions
+                        // TODO: if we set it here, can we avoid giving to inner tables?
                         width: props.clientWidth,
                         minWidth: props.tableMinWidth,
-                        height: expandRows ? props.clientHeight : '',
                     } },
+                y("table", { role: "presentation", className: "fc-scrollgrid-sync-table", style: {
+                            width: props.clientWidth,
+                            minWidth: props.tableMinWidth,
+                            height: expandRows ? props.clientHeight : '',
+                        } },
                     props.colGroupNode,
                     y("tbody", { role: "presentation" },
                         y(TableRows, { dateProfile: props.dateProfile, cells: props.cells, renderRowIntro: props.renderRowIntro, showWeekNumbers: props.showWeekNumbers, clientWidth: props.clientWidth, clientHeight: props.clientHeight, businessHourSegs: props.businessHourSegs, bgEventSegs: props.bgEventSegs, fgEventSegs: props.fgEventSegs, dateSelectionSegs: props.dateSelectionSegs, eventSelection: props.eventSelection, eventDrag: props.eventDrag, eventResize: props.eventResize, dayMaxEvents: dayMaxEvents, dayMaxEventRows: dayMaxEventRows, forPrint: props.forPrint, isHitComboAllowed: props.isHitComboAllowed })))));
@@ -12931,7 +12931,7 @@ var FullCalendar = (function (exports) {
             // compute dateprofiles of all months, then use start of first and end of last.
             let lastMonthRenderStart = dateEnv.startOfWeek(dateEnv.startOfMonth(addDays(currentRange.end, -1)));
             let rowCnt = Math.ceil(// could be partial weeks due to hiddenDays
-            diffWeeks(lastMonthRenderStart, end));
+                diffWeeks(lastMonthRenderStart, end));
             end = addWeeks(end, 6 - rowCnt);
         }
         return { start, end };
@@ -13010,9 +13010,9 @@ var FullCalendar = (function (exports) {
             }
             let { dateEnv, options, viewApi } = context;
             let labelFormat = // TODO: fully pre-parse
-             options.slotLabelFormat == null ? DEFAULT_SLAT_LABEL_FORMAT :
-                Array.isArray(options.slotLabelFormat) ? createFormatter(options.slotLabelFormat[0]) :
-                    createFormatter(options.slotLabelFormat);
+                options.slotLabelFormat == null ? DEFAULT_SLAT_LABEL_FORMAT :
+                    Array.isArray(options.slotLabelFormat) ? createFormatter(options.slotLabelFormat[0]) :
+                        createFormatter(options.slotLabelFormat);
             let renderProps = {
                 level: 0,
                 time: props.time,
@@ -13076,10 +13076,10 @@ var FullCalendar = (function (exports) {
                         ], elAttrs: {
                             'aria-hidden': true,
                         }, date: range.start, defaultFormat: DEFAULT_WEEK_NUM_FORMAT }, (InnerContent) => (y("div", { className: [
-                            'fc-timegrid-axis-frame',
-                            'fc-scrollgrid-shrink-frame',
-                            'fc-timegrid-axis-frame-liquid',
-                        ].join(' '), style: { height: frameHeight } },
+                                'fc-timegrid-axis-frame',
+                                'fc-scrollgrid-shrink-frame',
+                                'fc-timegrid-axis-frame-liquid',
+                            ].join(' '), style: { height: frameHeight } },
                         y(InnerContent, { elTag: "a", elClasses: [
                                 'fc-timegrid-axis-cushion',
                                 'fc-scrollgrid-shrink-cushion',
@@ -13100,22 +13100,22 @@ var FullCalendar = (function (exports) {
                     view: viewApi,
                 };
                 return (
-                // TODO: make reusable hook. used in list view too
-                y(ContentContainer, { elTag: "td", elClasses: [
-                        'fc-timegrid-axis',
-                        'fc-scrollgrid-shrink',
-                    ], elAttrs: {
-                        'aria-hidden': true,
-                    }, renderProps: renderProps, generatorName: "allDayContent", customGenerator: options.allDayContent, defaultGenerator: renderAllDayInner$1, classNameGenerator: options.allDayClassNames, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, (InnerContent) => (y("div", { className: [
-                        'fc-timegrid-axis-frame',
-                        'fc-scrollgrid-shrink-frame',
-                        rowHeight == null ? ' fc-timegrid-axis-frame-liquid' : '',
-                    ].join(' '), style: { height: rowHeight } },
-                    y(InnerContent, { elTag: "span", elClasses: [
-                            'fc-timegrid-axis-cushion',
-                            'fc-scrollgrid-shrink-cushion',
-                            'fc-scrollgrid-sync-inner',
-                        ] })))));
+                    // TODO: make reusable hook. used in list view too
+                    y(ContentContainer, { elTag: "td", elClasses: [
+                            'fc-timegrid-axis',
+                            'fc-scrollgrid-shrink',
+                        ], elAttrs: {
+                            'aria-hidden': true,
+                        }, renderProps: renderProps, generatorName: "allDayContent", customGenerator: options.allDayContent, defaultGenerator: renderAllDayInner$1, classNameGenerator: options.allDayClassNames, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }, (InnerContent) => (y("div", { className: [
+                                'fc-timegrid-axis-frame',
+                                'fc-scrollgrid-shrink-frame',
+                                rowHeight == null ? ' fc-timegrid-axis-frame-liquid' : '',
+                            ].join(' '), style: { height: rowHeight } },
+                        y(InnerContent, { elTag: "span", elClasses: [
+                                'fc-timegrid-axis-cushion',
+                                'fc-scrollgrid-shrink-cushion',
+                                'fc-scrollgrid-sync-inner',
+                            ] })))));
             };
             this.handleSlatCoords = (slatCoords) => {
                 this.setState({ slatCoords });
@@ -13149,8 +13149,8 @@ var FullCalendar = (function (exports) {
                     type: 'body',
                     key: 'all-day-divider',
                     outerContent: ( // TODO: rename to cellContent so don't need to define <tr>?
-                    y("tr", { role: "presentation", className: "fc-scrollgrid-section" },
-                        y("td", { className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
+                        y("tr", { role: "presentation", className: "fc-scrollgrid-section" },
+                            y("td", { className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
                 });
             }
             sections.push({
@@ -13215,8 +13215,8 @@ var FullCalendar = (function (exports) {
                     key: 'all-day-divider',
                     type: 'body',
                     outerContent: ( // TODO: rename to cellContent so don't need to define <tr>?
-                    y("tr", { role: "presentation", className: "fc-scrollgrid-section" },
-                        y("td", { colSpan: 2, className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
+                        y("tr", { role: "presentation", className: "fc-scrollgrid-section" },
+                            y("td", { colSpan: 2, className: 'fc-timegrid-divider ' + context.theme.getClass('tableCellShaded') }))),
                 });
             }
             let isNowIndicator = context.options.nowIndicator;
@@ -13229,22 +13229,22 @@ var FullCalendar = (function (exports) {
                     {
                         key: 'axis',
                         content: (arg) => (
-                        // TODO: make this now-indicator arrow more DRY with TimeColsContent
-                        y("div", { className: "fc-timegrid-axis-chunk" },
-                            y("table", { "aria-hidden": true, style: { height: arg.expandRows ? arg.clientHeight : '' } },
-                                arg.tableColGroupNode,
-                                y("tbody", null,
-                                    y(TimeBodyAxis, { slatMetas: slatMetas }))),
-                            y("div", { className: "fc-timegrid-now-indicator-container" },
-                                y(NowTimer, { unit: isNowIndicator ? 'minute' : 'day' /* hacky */ }, (nowDate) => {
-                                    let nowIndicatorTop = isNowIndicator &&
-                                        slatCoords &&
-                                        slatCoords.safeComputeTop(nowDate); // might return void
-                                    if (typeof nowIndicatorTop === 'number') {
-                                        return (y(NowIndicatorContainer, { elClasses: ['fc-timegrid-now-indicator-arrow'], elStyle: { top: nowIndicatorTop }, isAxis: true, date: nowDate }));
-                                    }
-                                    return null;
-                                })))),
+                            // TODO: make this now-indicator arrow more DRY with TimeColsContent
+                            y("div", { className: "fc-timegrid-axis-chunk" },
+                                y("table", { "aria-hidden": true, style: { height: arg.expandRows ? arg.clientHeight : '' } },
+                                    arg.tableColGroupNode,
+                                    y("tbody", null,
+                                        y(TimeBodyAxis, { slatMetas: slatMetas }))),
+                                y("div", { className: "fc-timegrid-now-indicator-container" },
+                                    y(NowTimer, { unit: isNowIndicator ? 'minute' : 'day' /* hacky */ }, (nowDate) => {
+                                        let nowIndicatorTop = isNowIndicator &&
+                                            slatCoords &&
+                                            slatCoords.safeComputeTop(nowDate); // might return void
+                                        if (typeof nowIndicatorTop === 'number') {
+                                            return (y(NowIndicatorContainer, { elClasses: ['fc-timegrid-now-indicator-arrow'], elStyle: { top: nowIndicatorTop }, isAxis: true, date: nowDate }));
+                                        }
+                                        return null;
+                                    })))),
                     },
                     {
                         key: 'cols',
@@ -13381,10 +13381,10 @@ var FullCalendar = (function (exports) {
             let { props, context } = this;
             return (y("div", { ref: this.rootElRef, className: "fc-timegrid-slots" },
                 y("table", { "aria-hidden": true, className: context.theme.getClass('table'), style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth,
-                        height: props.minHeight,
-                    } },
+                            minWidth: props.tableMinWidth,
+                            width: props.clientWidth,
+                            height: props.minHeight,
+                        } },
                     props.tableColGroupNode /* relies on there only being a single <col> for the axis */,
                     y(TimeColsSlatsBody, { slatElRefs: this.slatElRefs, axis: props.axis, slatMetas: props.slatMetas }))));
         }
@@ -13534,7 +13534,7 @@ var FullCalendar = (function (exports) {
             let lateralEnd = lateralStart;
             while ( // loop through entries that horizontally intersect
             (entry = entries[lateralEnd]) && // but not past the whole seg list
-                entry.span.start < subjectEntry.span.end) {
+            entry.span.start < subjectEntry.span.end) {
                 lateralEnd += 1;
             }
             if (lateralStart < lateralEnd) {
@@ -13608,7 +13608,7 @@ var FullCalendar = (function (exports) {
                 let seg = segs[i];
                 let spanStart = slatCoords.computeDateTop(seg.start, colDate);
                 let spanEnd = Math.max(spanStart + (eventMinHeight || 0), // :(
-                slatCoords.computeDateTop(seg.end, colDate));
+                    slatCoords.computeDateTop(seg.end, colDate));
                 vcoords.push({
                     start: Math.round(spanStart),
                     end: Math.round(spanEnd), //
@@ -13618,7 +13618,7 @@ var FullCalendar = (function (exports) {
         return vcoords;
     }
     function computeFgSegPlacements(segs, segVCoords, // might not have for every seg
-    eventOrderStrict, eventMaxStack) {
+                                    eventOrderStrict, eventMaxStack) {
         let segInputs = [];
         let dumbSegs = []; // segs without coords
         for (let i = 0; i < segs.length; i += 1) {
@@ -13674,12 +13674,12 @@ var FullCalendar = (function (exports) {
             let { options } = context;
             let isSelectMirror = options.selectMirror;
             let mirrorSegs = // yuck
-             (props.eventDrag && props.eventDrag.segs) ||
+                (props.eventDrag && props.eventDrag.segs) ||
                 (props.eventResize && props.eventResize.segs) ||
                 (isSelectMirror && props.dateSelectionSegs) ||
                 [];
             let interactionAffectedInstances = // TODO: messy way to compute this
-             (props.eventDrag && props.eventDrag.affectedInstances) ||
+                (props.eventDrag && props.eventDrag.affectedInstances) ||
                 (props.eventResize && props.eventResize.affectedInstances) ||
                 {};
             let sortedFgSegs = this.sortEventSegs(props.fgEventSegs, options.eventOrder);
@@ -13704,7 +13704,7 @@ var FullCalendar = (function (exports) {
             return this.renderPositionedFgSegs(sortedFgSegs, segIsInvisible, isDragging, isResizing, isDateSelecting, forcedKey);
         }
         renderPositionedFgSegs(segs, // if not mirror, needs to be sorted
-        segIsInvisible, isDragging, isResizing, isDateSelecting, forcedKey) {
+                               segIsInvisible, isDragging, isResizing, isDateSelecting, forcedKey) {
             let { eventMaxStack, eventShortHeight, eventOrderStrict, eventMinHeight } = this.context.options;
             let { date, slatCoords, eventSelection, todayRange, nowDate } = this.props;
             let isMirror = isDragging || isResizing || isDateSelecting;
@@ -13721,7 +13721,7 @@ var FullCalendar = (function (exports) {
                     let isInset = Boolean(rect) && rect.stackForward > 0;
                     let isShort = Boolean(rect) && (rect.span.end - rect.span.start) < eventShortHeight; // look at other places for this problem
                     return (y("div", { className: 'fc-timegrid-event-harness' +
-                            (isInset ? ' fc-timegrid-event-harness-inset' : ''), key: forcedKey || instanceId, style: Object.assign(Object.assign({ visibility: isVisible ? '' : 'hidden' }, vStyle), hStyle) },
+                                (isInset ? ' fc-timegrid-event-harness-inset' : ''), key: forcedKey || instanceId, style: Object.assign(Object.assign({ visibility: isVisible ? '' : 'hidden' }, vStyle), hStyle) },
                         y(TimeColEvent, Object.assign({ seg: seg, isDragging: isDragging, isResizing: isResizing, isDateSelecting: isDateSelecting, isSelected: instanceId === eventSelection, isShort: isShort }, getSegMeta(seg, todayRange, nowDate)))));
                 })));
         }
@@ -13751,12 +13751,12 @@ var FullCalendar = (function (exports) {
                 return null;
             }
             return segs.map((seg, i) => (y(NowIndicatorContainer
-            // key doesn't matter. will only ever be one
-            , { 
                 // key doesn't matter. will only ever be one
-                key: i, elClasses: ['fc-timegrid-now-indicator-line'], elStyle: {
-                    top: slatCoords.computeDateTop(seg.start, date),
-                }, isAxis: false, date: date })));
+                , {
+                    // key doesn't matter. will only ever be one
+                    key: i, elClasses: ['fc-timegrid-now-indicator-line'], elStyle: {
+                        top: slatCoords.computeDateTop(seg.start, date),
+                    }, isAxis: false, date: date })));
         }
         computeSegHStyle(segHCoords) {
             let { isRtl, options } = this.context;
@@ -13840,9 +13840,9 @@ var FullCalendar = (function (exports) {
             let eventResizeByRow = this.splitEventResize(props.eventResize, colCnt);
             return (y("div", { className: "fc-timegrid-cols", ref: this.rootElRef },
                 y("table", { role: "presentation", style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth,
-                    } },
+                            minWidth: props.tableMinWidth,
+                            width: props.clientWidth,
+                        } },
                     props.tableColGroupNode,
                     y("tbody", { role: "presentation" },
                         y("tr", { role: "row" },
@@ -13863,7 +13863,7 @@ var FullCalendar = (function (exports) {
                 props.clientWidth !== null // means sizing has stabilized
             ) {
                 props.onColCoords(new PositionCache(this.rootElRef.current, collectCellEls(this.cellElRefs.currentMap, props.cells), true, // horizontal
-                false));
+                    false));
             }
         }
     }
@@ -13920,11 +13920,11 @@ var FullCalendar = (function (exports) {
         render() {
             let { props, state } = this;
             return (y("div", { className: "fc-timegrid-body", ref: this.handleRootEl, style: {
-                    // these props are important to give this wrapper correct dimensions for interactions
-                    // TODO: if we set it here, can we avoid giving to inner tables?
-                    width: props.clientWidth,
-                    minWidth: props.tableMinWidth,
-                } },
+                        // these props are important to give this wrapper correct dimensions for interactions
+                        // TODO: if we set it here, can we avoid giving to inner tables?
+                        width: props.clientWidth,
+                        minWidth: props.tableMinWidth,
+                    } },
                 y(TimeColsSlats, { axis: props.axis, dateProfile: props.dateProfile, slatMetas: props.slatMetas, clientWidth: props.clientWidth, minHeight: props.expandRows ? props.clientHeight : '', tableMinWidth: props.tableMinWidth, tableColGroupNode: props.axis ? props.tableColGroupNode : null /* axis depends on the colgroup's shrinking */, onCoords: this.handleSlatCoords }),
                 y(TimeColsContent, { cells: props.cells, axis: props.axis, dateProfile: props.dateProfile, businessHourSegs: props.businessHourSegs, bgEventSegs: props.bgEventSegs, fgEventSegs: props.fgEventSegs, dateSelectionSegs: props.dateSelectionSegs, eventSelection: props.eventSelection, eventDrag: props.eventDrag, eventResize: props.eventResize, todayRange: props.todayRange, nowDate: props.nowDate, nowIndicatorSegs: props.nowIndicatorSegs, clientWidth: props.clientWidth, tableMinWidth: props.tableMinWidth, tableColGroupNode: props.tableColGroupNode, slatCoords: state.slatCoords, onColCoords: this.handleColCoords, forPrint: props.forPrint })));
         }
@@ -14161,11 +14161,11 @@ var FullCalendar = (function (exports) {
                 ], elAttrs: {
                     'data-date': formatDayString(dayDate),
                 }, renderProps: renderProps, generatorName: "dayHeaderContent", customGenerator: options.dayHeaderContent, defaultGenerator: renderInnerContent, classNameGenerator: options.dayHeaderClassNames, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, (InnerContent) => ( // TODO: force-hide top border based on :first-child
-            y("th", { scope: "colgroup", colSpan: 3, id: cellId, "aria-labelledby": textId },
-                y(InnerContent, { elTag: "div", elClasses: [
-                        'fc-list-day-cushion',
-                        theme.getClass('tableCellShaded'),
-                    ] })))));
+                y("th", { scope: "colgroup", colSpan: 3, id: cellId, "aria-labelledby": textId },
+                    y(InnerContent, { elTag: "div", elClasses: [
+                            'fc-list-day-cushion',
+                            theme.getClass('tableCellShaded'),
+                        ] })))));
         }
     }
     function renderInnerContent(props) {
@@ -14271,12 +14271,12 @@ var FullCalendar = (function (exports) {
             let { dayDates, dayRanges } = this.computeDateVars(props.dateProfile);
             let eventSegs = this.eventStoreToSegs(props.eventStore, props.eventUiBases, dayRanges);
             return (y(ViewContainer, { elRef: this.setRootEl, elClasses: [
-                    'fc-list',
-                    context.theme.getClass('table'),
-                    context.options.stickyHeaderDates !== false ?
-                        'fc-list-sticky' :
-                        '',
-                ], viewSpec: context.viewSpec },
+                        'fc-list',
+                        context.theme.getClass('table'),
+                        context.options.stickyHeaderDates !== false ?
+                            'fc-list-sticky' :
+                            '',
+                    ], viewSpec: context.viewSpec },
                 y(Scroller, { liquid: !props.isHeightAuto, overflowX: props.isHeightAuto ? 'visible' : 'hidden', overflowY: props.isHeightAuto ? 'visible' : 'auto' }, eventSegs.length > 0 ?
                     this.renderSegList(eventSegs, dayDates) :
                     this.renderEmptyMessage())));
@@ -14354,7 +14354,7 @@ var FullCalendar = (function (exports) {
                     if (!seg.isEnd && !allDay &&
                         dayIndex + 1 < dayRanges.length &&
                         range.end <
-                            dateEnv.add(dayRanges[dayIndex + 1].start, nextDayThreshold)) {
+                        dateEnv.add(dayRanges[dayIndex + 1].start, nextDayThreshold)) {
                         seg.end = range.end;
                         seg.isEnd = true;
                         break;
@@ -14467,23 +14467,23 @@ var FullCalendar = (function (exports) {
                 y("div", { className: "fc-multimonth-header", style: { marginBottom: rowHeight }, role: "presentation" },
                     y("div", { className: "fc-multimonth-title", id: state.labelId }, context.dateEnv.format(props.dateProfile.currentRange.start, props.titleFormat)),
                     y("table", { className: [
-                            'fc-multimonth-header-table',
-                            context.theme.getClass('table'),
-                        ].join(' '), role: "presentation" },
+                                'fc-multimonth-header-table',
+                                context.theme.getClass('table'),
+                            ].join(' '), role: "presentation" },
                         y("thead", { role: "rowgroup" },
                             y(DayHeader, { dateProfile: props.dateProfile, dates: dayTableModel.headerDates, datesRepDistinctDays: false })))),
                 y("div", { className: [
-                        'fc-multimonth-daygrid',
-                        'fc-daygrid',
-                        'fc-daygrid-body',
-                        !forPrint && 'fc-daygrid-body-balanced',
-                        forPrint && 'fc-daygrid-body-unbalanced',
-                        forPrint && 'fc-daygrid-body-natural',
-                    ].join(' '), style: { marginTop: -rowHeight } },
+                            'fc-multimonth-daygrid',
+                            'fc-daygrid',
+                            'fc-daygrid-body',
+                            !forPrint && 'fc-daygrid-body-balanced',
+                            forPrint && 'fc-daygrid-body-unbalanced',
+                            forPrint && 'fc-daygrid-body-natural',
+                        ].join(' '), style: { marginTop: -rowHeight } },
                     y("table", { className: [
-                            'fc-multimonth-daygrid-table',
-                            context.theme.getClass('table'),
-                        ].join(' '), style: { height: forPrint ? '' : tableHeight }, role: "presentation" },
+                                'fc-multimonth-daygrid-table',
+                                context.theme.getClass('table'),
+                            ].join(' '), style: { height: forPrint ? '' : tableHeight }, role: "presentation" },
                         y("tbody", { role: "rowgroup" },
                             y(TableRows, Object.assign({}, slicedProps, { dateProfile: dateProfile, cells: dayTableModel.cells, eventSelection: props.eventSelection, dayMaxEvents: !forPrint, dayMaxEventRows: !forPrint, showWeekNumbers: options.weekNumbers, clientWidth: props.clientWidth, clientHeight: props.clientHeight, forPrint: forPrint })))))));
         }
@@ -14697,3 +14697,50 @@ var FullCalendar = (function (exports) {
     return exports;
 
 })({});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        selectable: true,
+        select: function(info) {
+            // Abrir el modal
+            $('#solicitarAsesoriaModal').modal('show');
+
+            // Rellenar los campos de hora de inicio y fin
+            document.getElementById('horaInicio').value = info.startStr.substr(11, 5); // HH:mm
+            document.getElementById('horaFin').value = info.endStr.substr(11, 5); // HH:mm
+        }
+    });
+    calendar.render();
+
+    // Event listener for the submit event button
+    document.getElementById('submit-event').addEventListener('click', function() {
+        var tema = document.getElementById('tema').value;
+        var horaInicio = document.getElementById('horaInicio').value;
+        var horaFin = document.getElementById('horaFin').value;
+
+        if (tema && horaInicio && horaFin) {
+            // Crear un nuevo evento en el calendario
+            calendar.addEvent({
+                title: tema,
+                start: horaInicio,
+                end: horaFin,
+                allDay: false
+            });
+            // Ocultar el modal
+            $('#solicitarAsesoriaModal').modal('hide');
+            // Limpiar el formulario
+            document.getElementById('tema').value = '';
+            document.getElementById('horaInicio').value = '';
+            document.getElementById('horaFin').value = '';
+            document.getElementById('dudas').value = '';
+        }
+    });
+});
+

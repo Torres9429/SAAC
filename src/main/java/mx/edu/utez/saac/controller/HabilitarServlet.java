@@ -17,13 +17,18 @@ public class HabilitarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         UsuarioDao dao = new UsuarioDao();
-        HttpSession sesion = req.getSession();
         String mensaje;
         if (dao.habilitar(id)) {
+            System.out.println("Usuario habilitado");
             mensaje = "Usuario habilitado con éxito";
         } else {
-            mensaje = "Falló la habilitación";
+            mensaje = "Error en la habilitación";
+            System.out.println("Error de habilitación");
         }
-        resp.sendRedirect("habilitarUsuario.jsp?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+        HttpSession session = req.getSession();
+        session.setAttribute("mensajeHabilitacion", mensaje);
+
+        resp.sendRedirect("habilitarUsuario.jsp");
+        //resp.sendRedirect("habilitarUsuario.jsp?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
     }
 }

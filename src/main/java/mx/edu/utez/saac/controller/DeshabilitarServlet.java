@@ -17,12 +17,15 @@ public class DeshabilitarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         UsuarioDao dao = new UsuarioDao();
-        HttpSession sesion = req.getSession();
+        String mensaje;
         if(dao.eliminarLogico(id)){
-            sesion.setAttribute("mensaje","Usuario deshabilitado con éxito");
+            mensaje = "Usuario deshabilitado con éxito";
         }else{
-            sesion.setAttribute("mensaje","Falló la deshabilitación");
+            mensaje = "Falló la deshabilitación";
         }
+        HttpSession session = req.getSession();
+        session.setAttribute("mensajeHabilitacion", mensaje);
+
         resp.sendRedirect("habilitarUsuario.jsp");
     }
 }

@@ -61,7 +61,7 @@ public class UsuarioDao {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String fechaHoraFormatted = fechaHora.format(formatter);
                 PreparedStatement psInsert = con.prepareStatement(queryInsert);
-                psInsert.setInt(1,3);
+                psInsert.setInt(1,u.getId_tipo_usuario());
                 psInsert.setInt(2,0);
                 psInsert.setString(3, u.getNombre());
                 psInsert.setString(4, u.getApellido_paterno());

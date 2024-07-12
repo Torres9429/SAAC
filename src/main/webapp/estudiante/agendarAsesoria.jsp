@@ -13,6 +13,12 @@
     <script src='https://unpkg.com/@fullcalendar/core/main.js'></script>
     <script src='https://unpkg.com/@fullcalendar/daygrid/main.js'></script>
     <script src='../js/index.global.js'></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -91,71 +97,75 @@
                 ]
             });
 
-            calendar.render();
+        // calendar.render();
 
-            // Event listener for the add event button
-            document.getElementById('add-event-btn').addEventListener('click', function() {
-                var today = new Date().toISOString().split('T')[0];
-                eventForm(today);
-            });
+        // Event listener for the add event button
+        /*   document.getElementById('add-event-btn').addEventListener('click', function() {
+               var today = new Date().toISOString().split('T')[0];
+               eventForm(today);
+           });
 
-            // Event listener for the submit event button
-            document.getElementById('submit-event').addEventListener('click', function() {
-                var title = document.getElementById('title').value;
-                var start = document.getElementById('start').value;
+           // Event listener for the submit event button
+           document.getElementById('submit-event').addEventListener('click', function() {
+               var title = document.getElementById('title').value;
+               var start = document.getElementById('start').value;
 
-                if (title && start) {
-                    calendar.addEvent({
-                        title: title,
-                        start: start,
-                        allDay: true
-                    });
-                    // Hide the form
-                    document.getElementById('event-form').style.display = 'none';
-                    // Clear the form
-                    document.getElementById('title').value = '';
-                    document.getElementById('start').value = '';
-                }
-            });
-        });
+               if (title && start) {
+                   calendar.addEvent({
+                       title: title,
+                       start: start,
+                       allDay: true
+                   });
+                   // Hide the form
+                   document.getElementById('event-form').style.display = 'none';
+                   // Clear the form
+                   document.getElementById('title').value = '';
+                   document.getElementById('start').value = '';
+               }
+           });
+       });*/
 
-        function eventForm(startDate) {
+        /*function eventForm(startDate) {
             document.getElementById('event-form').style.display = 'block';
             document.getElementById('start').value = startDate;
-        }
+        }*/
 
-        // Obtén los elementos del DOM para la ventana emergente
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById("myModal");
-            var btn = document.getElementById("openModalBtn");
-            var span = document.getElementsByClassName("close-custom")[0];
-            var closeBtn = document.getElementById("submit-btn");
-            var cancelBtn = document.getElementById("cancel-btn");
+        /* // Obtén los elementos del DOM para la ventana emergente
+         document.addEventListener('DOMContentLoaded', function() {
+             var modal = document.getElementById("myModal");
+             var btn = document.getElementById("openModalBtn");
+             var span = document.getElementsByClassName("close-custom")[0];
+             var closeBtn = document.getElementById("submit-btn");
+             var cancelBtn = document.getElementById("cancel-btn");
 
-            // Cuando el usuario haga clic en el botón, abre la ventana emergente
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-            closeBtn.onclick = function() {
-                modal.style.display = "none";
-            }
+             // Cuando el usuario haga clic en el botón, abre la ventana emergente
+             btn.onclick = function() {
+                 modal.style.display = "block";
+             }
+             closeBtn.onclick = function() {
+                 modal.style.display = "none";
+             }
 
-            // Cerrar el modal al hacer clic en el botón de cancelar
-            cancelBtn.onclick = function() {
-                modal.style.display = "none";
-            }
-            // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
+             // Cerrar el modal al hacer clic en el botón de cancelar
+             cancelBtn.onclick = function() {
+                 modal.style.display = "none";
+             }
+             // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
+             span.onclick = function() {
+                 modal.style.display = "none";
+             }
 
-            // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        });
+             // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
+             window.onclick = function(event) {
+                 if (event.target == modal) {
+                     modal.style.display = "none";
+                 }
+             }
+         });*/
+
+
+
+
     </script>
     <style>
 
@@ -310,9 +320,11 @@
         }
 
     </style>
+    <jsp:include page="headerMenuUsuario.jsp" />
 </head>
 <body>
-<div class="container-fluid">
+
+<!--<div class="container-fluid">
     <header class="d-flex justify-content-center py-3 custom-header" >
         <ul class="nav nav-pills">
             <li class="nav-item dropdown">
@@ -355,12 +367,12 @@
                     <a class="dropdown-item" href="#">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
                     <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
-                    <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->
+                    <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>
                 </div>
             </li>
         </ul>
     </header>
-</div>
+</div>-->
 <div class="filtrosBusqueda">
     <div class="custom-select-container">
         <select class="custom-select" name="selectMateria" id="selectMateria">
@@ -397,50 +409,40 @@
 </div>
 
 <div id='calendar'></div>
-
-<button id="openModalBtn" class="btn btn-primary">Solicitar Asesoría</button>
-
-<div id="myModal" class="modal-custom">
-    <div class="modal-content-custom">
-        <div class="modal-header-custom">
-            <span class="close-custom">&times;</span>
-            <h2>Solicitar Asesoría</h2>
-        </div>
-        <div class="modal-body-custom">
-            <form id="solicitud-form">
-                <div class="form-group-custom">
-                    <label for="tema">Tema:</label>
-                    <input type="text" id="tema" name="tema" class="form-control" placeholder="Tema">
-                </div>
-                <div class="form-group-custom">
-                    <label for="hora-inicio">Hora de inicio:</label>
-                    <input type="time" id="hora-inicio" name="hora-inicio" class="form-control" placeholder="Hora de inicio">
-                </div>
-                <div class="form-group-custom">
-                    <label for="hora-fin">Hora de fin:</label>
-                    <input type="time" id="hora-fin" name="hora-fin" class="form-control" placeholder="Hora de fin">
-                </div>
-                <div class="form-group-custom">
-                    <label for="dudas">Dudas específicas:</label>
-                    <input type="text" id="dudas" name="dudas" class="form-control" placeholder="Dudas...">
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer-custom">
-            <button id="submit-btn" class="btn-custom">Solicitar</button>
-            <button id="cancel-btn" class="btn-custom">Cancelar</button>
+<!-- Modal HTML aquí -->
+<!-- Modal HTML -->
+<div class="modal fade" id="solicitarAsesoriaModal" tabindex="-1" role="dialog" aria-labelledby="solicitarAsesoriaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="solicitarAsesoriaLabel">Solicitar Asesoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="horarioForm" action="../horario" method="post">
+                    <div class="form-group">
+                        <label for="tema">Tema</label>
+                        <input type="text" class="form-control" id="tema">
+                    </div>
+                    <div class="form-group">
+                        <label for="horaInicio">Hora de Inicio</label>
+                        <input type="text" class="form-control" id="horaInicio" name="horaInicio">
+                    </div>
+                    <div class="form-group">
+                        <label for="horaFin">Hora de Fin</label>
+                        <input type="text" class="form-control" id="horaFin" name="horaFin">
+                    </div>
+                    <div class="form-group">
+                        <label for="dudas">Dudas específicas</label>
+                        <textarea class="form-control" id="dudas"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submit-event">Solicitar</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-<!--<button id="add-event-btn">Agregar Evento</button>
-
-<div id="event-form" style="display:none;">
-    <label for="title">Título del Evento:</label>
-    <input type="text" id="title" name="title"><br>
-    <label for="start">Fecha de Inicio:</label>
-    <input type="date" id="start" name="start"><br>
-    <button id="submit-event">Añadir Evento</button>
-</div>-->
-
 </body>
 </html>
