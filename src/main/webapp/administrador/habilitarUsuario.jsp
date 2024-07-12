@@ -98,7 +98,7 @@
         z-index: 1055;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 30%;
         height: 100%;
         overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
@@ -202,15 +202,13 @@
 <script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
 <script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    /*document.addEventListener('DOMContentLoaded', () => {
         const table = document.getElementById('example');
         new DataTable(table, {
             language: {
                 url: '${pageContext.request.contextPath}/js/es-MX.json'
             }
         });
-
-
         // Obtener mensaje de sesión
         const mensaje = '<%= (String) session.getAttribute("mensajeHabilitacion") %>';
 
@@ -234,10 +232,49 @@
                 `;
             document.body.appendChild(modal);
             modal.style.display = 'block';
+        }*/
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('example');
+        new DataTable(table, {
+            language: {
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
+            }
+        });
+
+        // Obtener mensaje de sesión
+        const mensaje = '<%= (String) session.getAttribute("mensajeHabilitacion") %>';
+        console.log('Mensaje obtenido de la sesión:', mensaje);
+
+        // Mostrar alert solo si el mensaje no es nulo ni vacío
+        if (mensaje && mensaje.trim().length > 0 && mensaje !== "null") {
+            console.log('El mensaje no es nulo ni vacío. Mostrando modal...');
+            const modal = document.createElement('div');
+            modal.classList.add('modal-custom');
+            modal.innerHTML = `
+                    <div class="modal-content-custom">
+                        <div class="modal-header-custom">
+                            <span class="close-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">&times;</span>
+                            <h2>Mensaje</h2>
+                        </div>
+                        <div class="modal-body-custom">
+                            <p>${mensaje}</p>
+                        </div>
+                        <div class="modal-footer-custom">
+                            <button class="btn-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">Cerrar</button>
+                        </div>
+                    </div>
+                `;
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+        } else {
+            console.log('El mensaje es nulo, vacío o "null". No se muestra el modal.');
         }
 
 
-        // Eliminar el atributo de sesión después de mostrar el mensaje
+
+
+    // Eliminar el atributo de sesión después de mostrar el mensaje
         <% session.removeAttribute("mensajeHabilitacion"); %>
 
     });
