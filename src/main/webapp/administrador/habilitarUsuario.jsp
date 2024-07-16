@@ -152,7 +152,7 @@
 </style>
 <jsp:include page="headerMenuAdministrador.jsp" />
 <div style="display: flex; align-content: center; height: 80%">
-    <div class="divText" style="" >
+    <div class="divText">
         <h1>Habilitar/ Deshabilitar usuario</h1>
     </div>
     <div class="divTable">
