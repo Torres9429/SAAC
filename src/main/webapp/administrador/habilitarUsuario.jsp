@@ -97,7 +97,7 @@
         z-index: 1055;
         left: 0;
         top: 0;
-        width: 30%;
+        width: 100%;
         height: 100%;
         overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
@@ -106,9 +106,8 @@
     .modal-content-custom {
         background-color: #fefefe;
         margin: 10% auto;
-        padding: 20px;
         border: 1px solid #888;
-        width: 80%;
+        width: 30%;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -119,34 +118,50 @@
         padding: 10px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .modal-body-custom {
         padding: 20px;
+        text-align: center;
     }
 
     .modal-footer-custom {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         padding: 10px;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
     }
 
+    .form-group-custom {
+        margin-bottom: 15px;
+    }
+
+    .btn-custom {
+        background-color: #002E60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #004080;
+    }
+
     .close-custom {
         color: #aaa;
+        float: right;
         font-size: 28px;
         font-weight: bold;
-        cursor: pointer;
     }
 
     .close-custom:hover,
     .close-custom:focus {
         color: black;
         text-decoration: none;
+        cursor: pointer;
     }
 
 </style>
@@ -193,6 +208,30 @@
     </table>
     </div>
 </div>
+
+<%
+    // Obtener el mensaje de la sesión
+    String mensaje = (String) session.getAttribute("mensajeHabilitacion");
+    // Eliminar el atributo de sesión después de obtener el mensaje
+    session.removeAttribute("mensajeHabilitacion");
+%>
+
+<% if (mensaje != null && !mensaje.isEmpty()) { %>
+<div class="modal-custom" style="display: block;">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2>Mensaje</h2>
+        </div>
+        <div class="modal-body-custom">
+            <p><%= mensaje %></p>
+        </div>
+        <div class="modal-footer-custom">
+            <button class="btn-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">Cerrar</button>
+        </div>
+    </div>
+</div>
+<% } %>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/js/datatables.js"></script>
@@ -207,34 +246,6 @@
             },
             pageLength: 8
         });
-        // Obtener mensaje de sesión
-        const mensaje = '<%= (String) session.getAttribute("mensajeHabilitacion") %>';
-
-        // Mostrar alert solo si el mensaje no es nulo ni vacío
-        if (mensaje && mensaje.trim().length > 0 && mensaje !== "null") {
-            const modal = document.createElement('div');
-            modal.classList.add('modal-custom');
-            modal.innerHTML = `
-                    <div class="modal-content-custom">
-                        <div class="modal-header-custom">
-                            <span class="close-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">&times;</span>
-                            <h2>Mensaje</h2>
-                        </div>
-                        <div class="modal-body-custom">
-                            <p>${mensaje}</p>
-                        </div>
-                        <div class="modal-footer-custom">
-                            <button class="btn-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">Cerrar</button>
-                        </div>
-                    </div>
-                `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
-
-
-        // Eliminar el atributo de sesión después de mostrar el mensaje
-
 
     });
 

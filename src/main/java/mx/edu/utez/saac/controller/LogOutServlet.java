@@ -13,12 +13,16 @@ import java.io.IOException;
 public class LogOutServlet extends HttpServlet {
     @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Invalida la sesión actual
-        request.getSession().invalidate();
-        //request.getSession().removeAttribute();
-        // Redirige a la página de inicio de sesión
-        response.sendRedirect("index.jsp");
+        HttpSession session = request.getSession(false); // Obtiene la sesión sin crear una nueva si no existe
+
+        if (session != null) {
+            session.invalidate(); // Invalida la sesión actual
+            session = request.getSession(); // Crea una nueva sesión para mostrar el mensaje de cerrar sesión
+            session.setAttribute("logoutMessage", "Sesión cerrada exitosamente."); // Mensaje de cerrar sesión
         }
+
+        response.sendRedirect("index.jsp"); // Redirige a la página de inicio de sesión
+    }
     }
 
 

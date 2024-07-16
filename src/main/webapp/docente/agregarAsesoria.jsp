@@ -18,6 +18,46 @@
     <jsp:include page="/docente/headerMenuDocente.jsp" />
 </head>
 <body>
+<script>
+    // Obtén los elementos del DOM para la ventana emergente
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById("myModal");
+        var btns = document.getElementsByClassName("openModalBtn");
+        var span = document.getElementsByClassName("close-custom")[0];
+        var closeBtn = document.getElementById("submit-btn");
+        var cancelBtn = document.getElementById("cancel-btn");
+
+        // Abre el modal cuando se hace clic en cualquier botón "Agregar"
+        Array.from(btns).forEach(function(btn) {
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+        });
+
+        // Cierra el modal al hacer clic en el botón "Cancelar"
+        cancelBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Cierra el modal al hacer clic en el botón "Solicitar"
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            // Aquí puedes enviar el formulario o realizar otra acción
+        }
+
+        // Cierra el modal al hacer clic en el botón de cerrar (x)
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Cierra el modal al hacer clic en cualquier lugar fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+</script>
 <style>
     .divTable{
         width: 80%;
@@ -52,7 +92,7 @@
         background-color: #80C9BA;
         color: #002E60;
     }
-    .btn {
+    button {
         background-color: #3A4C60;
         border: none;
         color: white;
@@ -63,7 +103,7 @@
         cursor: pointer;
         border-radius: 4px;
     }
-    .btn:hover{
+    button:hover{
         background-color: #4B6B76;
         color: white;
     }
@@ -82,6 +122,78 @@
         position: relative; /* Añadido para z-index funcione */
         z-index: 2;
     }
+    .modal-custom {
+        display: none;
+        position: fixed;
+        z-index: 1055;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content-custom {
+        background-color: #fefefe;
+        margin: 10% auto;
+        border: 1px solid #888;
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header-custom {
+        background-color: #002E60;
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .modal-body-custom {
+        padding: 20px;
+    }
+
+    .modal-footer-custom {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .form-group-custom {
+        margin-bottom: 15px;
+    }
+
+    .btn-custom {
+        background-color: #002E60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #004080;
+    }
+
+    .close-custom {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-custom:hover,
+    .close-custom:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
 </style>
     <div style="display: flex; align-content: center; height: 80%">>
         <div class="divText">
@@ -104,40 +216,73 @@
                     <td>Lunes</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
                 <tr>
                     <td>Martes</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
                 <tr>
                     <td>Miércoles</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
                 <tr>
                     <td>Jueves</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
                 <tr>
                     <td>Viernes</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
                 <tr>
                     <td>Sábado</td>
                     <td>-----------------</td>
                     <td>-----------------</td>
-                    <td><button class="btn">Agregar</button></td>
+                    <td><button class="openModalBtn">Agregar</button></td>
                 </tr>
             </table>
         </div>
     </div>
+
+<!--button id="openModalBtn" class="btn btn-primary">Solicitar Asesoría</button-->
+
+<div id="myModal" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom">&times;</span>
+            <h2>Agregar horario</h2>
+        </div>
+        <div class="modal-body-custom">
+            <form id="solicitud-form">
+
+                <div class="form-group-custom">
+                    <label for="hora-inicio">Hora de inicio:</label>
+                    <input type="time" id="hora-inicio" name="hora-inicio" class="form-control" placeholder="Hora de inicio">
+                </div>
+                <div class="form-group-custom">
+                    <label for="hora-fin">Hora de fin:</label>
+                    <input type="time" id="hora-fin" name="hora-fin" class="form-control" placeholder="Hora de fin">
+                </div>
+                <div class="form-group-custom">
+                    <label for="dudas">Materia:</label>
+                    <input type="text" id="dudas" name="dudas" class="form-control" placeholder="Materia">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer-custom">
+            <button id="submit-btn" class="btn-custom">Solicitar</button>
+            <button id="cancel-btn" class="btn-custom">Cancelar</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
