@@ -22,7 +22,7 @@ public class ObtenerCarrerasServlet extends HttpServlet {
         CarreraDao dao = new CarreraDao();
         list = dao.getAll();
 
-        session.setAttribute("materia",list);
+        session.setAttribute("carreras",list);
         resp.sendRedirect("registrarUsuario.jsp");
     }
 }

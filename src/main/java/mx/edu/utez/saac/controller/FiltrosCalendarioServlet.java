@@ -22,7 +22,7 @@ public class FiltrosCalendarioServlet extends HttpServlet {
         MateriaDao dao = new MateriaDao();
         lista = dao.getAll();
 
-        session.setAttribute("materia",lista);
+        session.setAttribute("materias",lista);
         resp.sendRedirect("docente/calendarioDocente.jsp");
     }
 }

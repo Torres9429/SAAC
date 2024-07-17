@@ -1,4 +1,12 @@
-<%--
+
+<%
+    // Estas lineas lo que hacen es borrar la caché, si el usuario cierra la sesión, y quiere regresar a la página de atras no lo dejaría
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setDateHeader("Expires", 0); // Proxies.
+%>
+
+<%@ page import="mx.edu.utez.saac.model.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: rocit
   Date: 06/07/2024
@@ -9,8 +17,14 @@
 <html>
 <head>
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
 <div class="container-fluid">
     <header class="d-flex justify-content-center py-3 custom-header" >
         <ul class="nav nav-pills">
@@ -66,5 +80,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </div>
+
 </body>
 </html>

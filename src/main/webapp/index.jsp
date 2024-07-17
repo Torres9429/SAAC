@@ -31,7 +31,7 @@
                         Iniciar sesión
                     </button>
                     <a href="solicitudRecuperacion.jsp" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    <a href="registrarUsuario.jsp" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
+                    <a href="getCarreras" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
 
                 </center>
             </div>
@@ -44,6 +44,16 @@
         <p style="color: red"><%= mensaje %></p>
         <%
                 sesion.removeAttribute("mensaje"); // Eliminar el mensaje de la sesión
+            }
+        %>
+        <%-- Mostrar mensaje de cerrar sesión si existe --%>
+        <%
+            String logoutMessage = (String) sesion.getAttribute("logoutMessage");
+            if (logoutMessage != null) {
+        %>
+        <p style="color: green"><%= logoutMessage %></p>
+        <%
+                sesion.removeAttribute("logoutMessage"); // Eliminar el mensaje de cierre de sesión
             }
         %>
 

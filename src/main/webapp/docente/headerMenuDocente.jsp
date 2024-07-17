@@ -5,10 +5,19 @@
   Time: 10:57 a. m.
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    // Estas lineas lo que hacen es borrar la caché, si el usuario cierra la sesión, y quiere regresar a la página de atras no lo dejaría
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setDateHeader("Expires", 0); // Proxies.
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<<html>
+<html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -20,7 +29,7 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="calendarioDocente.jsp">Agregar</a>
+                    <a class="dropdown-item" href="../filtrosCal">Agregar</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="#">Consultar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>

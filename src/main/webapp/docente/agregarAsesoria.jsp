@@ -1,4 +1,4 @@
-<%--
+<%@ page import="mx.edu.utez.saac.model.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: rocit
   Date: 15/07/2024
@@ -18,6 +18,10 @@
     <jsp:include page="/docente/headerMenuDocente.jsp" />
 </head>
 <body>
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 2) {
+%>
 <script>
     // Obtén los elementos del DOM para la ventana emergente
     document.addEventListener('DOMContentLoaded', function() {
@@ -283,6 +287,10 @@
         </div>
     </div>
 </div>
-
+<%
+    } else {
+        response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -21,6 +22,7 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <jsp:include page="headerMenuDocente.jsp" />
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -262,6 +264,7 @@
             align-items: center; /* Centra el contenido verticalmente */
             margin: 5px;
         }
+
         .divTable{
             width: 80%;
             margin: 15px;
@@ -352,10 +355,13 @@
         }
 
     </style>
-    <jsp:include page="headerMenuDocente.jsp" />
+
 </head>
 <body>
-
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 2) {
+%>
     <div class="filtrosBusqueda">
             <div class="custom-select-container">
                 <select class="custom-select" name="selectMateria" id="selectMateria">
@@ -363,8 +369,6 @@
                     <c:forEach items="${materias}" var="materia">
                         <option value="${materia.id_materia}">${materia.materia}</option>
                     </c:forEach>
-                    <option value="1">Aplicaciones web</option>
-                    <option value="2">Base de datos</option>
                 </select>
             </div>
             <div class="custom-select-container">
@@ -431,5 +435,10 @@
         </div>
     </div>
 </div>
+    <%
+        } else {
+        response.sendRedirect("../accesoDenegado.jsp");
+        }
+    %>
 </body>
 </html>

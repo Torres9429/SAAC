@@ -24,10 +24,12 @@ public class UsuarioDao {
             PreparedStatement ps = con.prepareStatement(query); // forma de evitar que inyecten query
             ps.setString(1,correo);
             ps.setString(2,contrasena);
-            //ps.setString(3,codigo);
             System.out.println(ps);
             ResultSet rs = ps.executeQuery(); // ejecutar
             if (rs.next()){
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setContrasena(rs.getString("contrasena"));
                 usuario.setEstado(rs.getBoolean("status"));

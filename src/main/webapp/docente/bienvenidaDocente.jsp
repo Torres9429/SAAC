@@ -1,4 +1,4 @@
-<%--
+<%@ page import="mx.edu.utez.saac.model.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: estef
   Date: 12/07/2024
@@ -17,9 +17,13 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <jsp:include page="/docente/headerMenuDocente.jsp" />
 </head>
 <body class="body-image">
-<jsp:include page="/docente/headerMenuDocente.jsp" />
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 2) {
+%>
 
 <div class="caja">
     <h1 style="color: #009475; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-top: 10px;">¡Bienvenido Halcón!</h1>
@@ -41,6 +45,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
+<%
+    } else {
+        response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

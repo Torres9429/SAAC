@@ -17,9 +17,13 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
     <link rel="stylesheet"type="text/css"  href="../css/bootstrap.css">
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
+    <jsp:include page="headerMenuAdministrador.jsp" />
 </head>
 <body>
-
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 1) {
+%>
 <style>
     .divTable{
         width: 80%;
@@ -165,7 +169,8 @@
     }
 
 </style>
-<jsp:include page="headerMenuAdministrador.jsp" />
+
+
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText">
         <h1>Habilitar/ Deshabilitar usuario</h1>
@@ -244,13 +249,17 @@
             language: {
                 url: '${pageContext.request.contextPath}/js/es-MX.json'
             },
-            pageLength: 8
+            pageLength: 7
         });
 
     });
 
 
 </script>
-
+<%
+    } else {
+    response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

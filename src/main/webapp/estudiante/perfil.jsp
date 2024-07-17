@@ -9,9 +9,14 @@
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='../css/bootstrap.css'>
     <title>Ver Perfil</title>
+    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
-<jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 3) {
+%>
+
 
 <%
     HttpSession sesion = request.getSession();
@@ -62,5 +67,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<%
+    } else {
+    response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

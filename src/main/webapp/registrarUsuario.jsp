@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +11,7 @@
     <link rel="icon" href="img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='css/bootstrap.css'>
     <link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -36,11 +38,14 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="carreraRegistro" name="carreraRegistro" required>
-                        <option value="">Carrera</option>
-                        <option value="14">Desarrollo de Software Multiplataforma</option>
+                        <option value="" selected disabled>Carrera</option>
+                        <c:forEach items="${carreras}" var="carrera">
+                            <option value="${carrera.id_carrera}">${carrera.carrera}</option>
+                        </c:forEach>
+                        <!--<option value="1">Desarrollo de Software Multiplataforma</option>
                         <option value="2">Infraestructura de redes dígitales</option>
                         <option value="3">Diseño Digital</option>
-                        <option value="4">Mantenimiento Industrial</option>
+                        <option value="4">Mantenimiento Industrial</option>-->
                     </select>
                 </div>
                 <div class="form-group">
@@ -82,6 +87,20 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        // Llama al servlet para obtener las carreras al cargar la página
+        $.ajax({
+            url: 'getCarreras',  // URL del servlet
+            type: 'GET',
+            success: function(data) {
+                // Aquí puedes procesar la respuesta si es necesario
+                console.log('Carreras cargadas correctamente');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al cargar las carreras:', error);
+            }
+        });
+    });
     function validarCorreo() {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@utez\.edu\.mx$/;
         const correo = document.getElementById('correoRegistro').value;
@@ -95,6 +114,7 @@
         mensajeError.textContent = ''; // Limpiar cualquier mensaje de error previo
         return true;
     }
+
 </script>
 </body>
 

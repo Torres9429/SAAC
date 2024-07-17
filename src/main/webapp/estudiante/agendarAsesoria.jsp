@@ -1,4 +1,6 @@
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +21,8 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <jsp:include page="headerMenuUsuario.jsp" />
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -97,74 +101,86 @@
                 ]
             });
 
-        // calendar.render();
+            // calendar.render();
 
-        // Event listener for the add event button
-        /*   document.getElementById('add-event-btn').addEventListener('click', function() {
-               var today = new Date().toISOString().split('T')[0];
-               eventForm(today);
-           });
+            // Event listener for the add event button
+            /*   document.getElementById('add-event-btn').addEventListener('click', function() {
+                   var today = new Date().toISOString().split('T')[0];
+                   eventForm(today);
+               });
 
-           // Event listener for the submit event button
-           document.getElementById('submit-event').addEventListener('click', function() {
-               var title = document.getElementById('title').value;
-               var start = document.getElementById('start').value;
+               // Event listener for the submit event button
+               document.getElementById('submit-event').addEventListener('click', function() {
+                   var title = document.getElementById('title').value;
+                   var start = document.getElementById('start').value;
 
-               if (title && start) {
-                   calendar.addEvent({
-                       title: title,
-                       start: start,
-                       allDay: true
-                   });
-                   // Hide the form
-                   document.getElementById('event-form').style.display = 'none';
-                   // Clear the form
-                   document.getElementById('title').value = '';
-                   document.getElementById('start').value = '';
-               }
-           });
-       });*/
+                   if (title && start) {
+                       calendar.addEvent({
+                           title: title,
+                           start: start,
+                           allDay: true
+                       });
+                       // Hide the form
+                       document.getElementById('event-form').style.display = 'none';
+                       // Clear the form
+                       document.getElementById('title').value = '';
+                       document.getElementById('start').value = '';
+                   }
+               });
+           });*/
 
-        /*function eventForm(startDate) {
-            document.getElementById('event-form').style.display = 'block';
-            document.getElementById('start').value = startDate;
-        }*/
+            /*function eventForm(startDate) {
+                document.getElementById('event-form').style.display = 'block';
+                document.getElementById('start').value = startDate;
+            }*/
 
-        /* // Obtén los elementos del DOM para la ventana emergente
-         document.addEventListener('DOMContentLoaded', function() {
-             var modal = document.getElementById("myModal");
-             var btn = document.getElementById("openModalBtn");
-             var span = document.getElementsByClassName("close-custom")[0];
-             var closeBtn = document.getElementById("submit-btn");
-             var cancelBtn = document.getElementById("cancel-btn");
+            /* // Obtén los elementos del DOM para la ventana emergente
+             document.addEventListener('DOMContentLoaded', function() {
+                 var modal = document.getElementById("myModal");
+                 var btn = document.getElementById("openModalBtn");
+                 var span = document.getElementsByClassName("close-custom")[0];
+                 var closeBtn = document.getElementById("submit-btn");
+                 var cancelBtn = document.getElementById("cancel-btn");
 
-             // Cuando el usuario haga clic en el botón, abre la ventana emergente
-             btn.onclick = function() {
-                 modal.style.display = "block";
-             }
-             closeBtn.onclick = function() {
-                 modal.style.display = "none";
-             }
-
-             // Cerrar el modal al hacer clic en el botón de cancelar
-             cancelBtn.onclick = function() {
-                 modal.style.display = "none";
-             }
-             // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
-             span.onclick = function() {
-                 modal.style.display = "none";
-             }
-
-             // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
-             window.onclick = function(event) {
-                 if (event.target == modal) {
+                 // Cuando el usuario haga clic en el botón, abre la ventana emergente
+                 btn.onclick = function() {
+                     modal.style.display = "block";
+                 }
+                 closeBtn.onclick = function() {
                      modal.style.display = "none";
                  }
-             }
-         });*/
 
+                 // Cerrar el modal al hacer clic en el botón de cancelar
+                 cancelBtn.onclick = function() {
+                     modal.style.display = "none";
+                 }
+                 // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
+                 span.onclick = function() {
+                     modal.style.display = "none";
+                 }
 
+                 // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
+                 window.onclick = function(event) {
+                     if (event.target == modal) {
+                         modal.style.display = "none";
+                     }
+                 }*/
+        });
 
+        $(document).ready(function() {
+            // Llama al servlet para obtener las carreras al cargar la página
+            $.ajax({
+                url: '/filtrosCal',  // URL del servlet
+                type: 'GET',
+                success: function(data) {
+                    // Aquí puedes procesar la respuesta si es necesario
+                    console.log('datos cargados correctamente');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+        });
 
     </script>
     <style>
@@ -248,6 +264,23 @@
             align-items: center; /* Centra el contenido verticalmente */
             margin: 5px;
         }
+
+        .divTable{
+            width: 80%;
+            margin: 15px;
+            height: 100%;
+        }
+        .divText{
+            border-right: 4px solid #BFB4B4;
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Centra horizontalmente */
+            color: #009475;
+            height: 100%; /* Ocupa toda la altura del padre */
+            margin: 15px;
+        }
         /* Estilos para la ventana emergente */
         .modal-custom {
             display: none;
@@ -322,70 +355,25 @@
         }
 
     </style>
-    <jsp:include page="headerMenuUsuario.jsp" />
+
 </head>
 <body>
-
-<!--<div class="container-fluid">
-    <header class="d-flex justify-content-center py-3 custom-header" >
-        <ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Asesoría
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Agendar</a>
-                    <a class="dropdown-item" href="#">Cancelar</a>
-                    <a class="dropdown-item" href="#">Reagendar</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Calendario
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Calificaciones
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Perfil
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="perfil.jsp">Ver</a>
-                    <a class="dropdown-item" href="#">Modificar</a>
-                    <a class="dropdown-item" href="#">Restablecer contraseña</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="/logout" class="dropdown-item">Cerrar Sesión</a>
-                    <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>
-                </div>
-            </li>
-        </ul>
-    </header>
-</div>-->
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 3) {
+%>
 <div class="filtrosBusqueda">
     <div class="custom-select-container">
         <select class="custom-select" name="selectMateria" id="selectMateria">
-            <option value="">Materia</option>
-            <option value="1">Aplicaciones web</option>
-            <option value="2">Base de datos</option>
+            <option  value="" selected disabled>Materia</option>
+            <c:forEach items="${materias}" var="materia">
+                <option value="${materia.id_materia}">${materia.materia}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="custom-select-container">
         <select class="custom-select" name="selectCarrera" id="selectCarrera">
-            <option value="">Carrera</option>
+            <option value="" selected disabled>Carrera</option>
             <option value="1">Desarrollo de software</option>
             <option value="2">Infraestructura de redes dígitales</option>
         </select>
@@ -409,8 +397,9 @@
     <p class="status " style="background-color: #8C3AAA">Modificada</p>
     <p class="status " style="background-color: #043B78">Finalizada</p>
 </div>
-
 <div id='calendar'></div>
+
+
 <!-- Modal HTML aquí -->
 <!-- Modal HTML -->
 <div class="modal fade" id="solicitarAsesoriaModal" tabindex="-1" role="dialog" aria-labelledby="solicitarAsesoriaLabel" aria-hidden="true">
@@ -446,5 +435,10 @@
         </div>
     </div>
 </div>
+<%
+    } else {
+        response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>
