@@ -216,6 +216,21 @@ public class UsuarioDao {
         }
         return flag;
     }
+    public boolean eliminarFisico(int id) {
+        boolean flag = false;
+        String query = "delete from usuario where id = ?";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                flag = true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
     public boolean habilitar(int id) {
         boolean flag = false;

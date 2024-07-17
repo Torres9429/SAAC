@@ -1,4 +1,6 @@
-<%--
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page import="mx.edu.utez.saac.dao.UsuarioDao" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: rocit
   Date: 11/07/2024
@@ -12,7 +14,11 @@
     <jsp:include page="headerMenuAdministrador.jsp"/>
 </head>
 <body>
-
+<%-- Filtros de sesión para ADMIN--%>
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 1) {
+%>
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText" style="" >
         <h1>Habilitar/ Deshabilitar usuario</h1>
@@ -48,9 +54,8 @@
                     <%=u.getCorreo()%>
                 </td>
                 <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
-                <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
-                <td><a href="habilitar?id=<%=u.getId()%>">Habilitar</a></td>
-                <td><a href="deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
+                <td><a href="habilitar?id=<%=u.getId()%>">Aprobar</a></td>
+                <td><a href="rechazar?id=<%=u.getId()%>">Rechazar</a></td>
             </tr>
             <% } %>
             </tbody>
@@ -104,6 +109,10 @@
     });
 
 </script>
-
+<%
+    } else {
+    response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

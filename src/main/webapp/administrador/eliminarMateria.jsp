@@ -1,3 +1,4 @@
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -104,6 +105,11 @@
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
+<%-- Filtros de sesión para ADMIN--%>
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 1) {
+%>
 <div class="form-container">
     <div class="form-sidebar">
         <h1>Eliminar Materia</h1>
@@ -135,5 +141,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<%
+    } else {
+    response.sendRedirect("../accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

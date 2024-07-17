@@ -29,7 +29,7 @@
                     <a class="dropdown-item" href="#">Agregar</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="#">Consultar</a>
-                    <a class="dropdown-item" href="#">Aprobar/Rechazar</a>
+                    <a class="dropdown-item" href="aprobarUsuario.jsp">Aprobar/Rechazar</a>
                     <a class="dropdown-item" href="habilitarUsuario.jsp">Habilitar/Deshabilitar</a>
                 </div>
             </li>

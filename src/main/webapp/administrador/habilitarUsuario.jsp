@@ -20,6 +20,7 @@
     <jsp:include page="headerMenuAdministrador.jsp" />
 </head>
 <body>
+<%-- Filtros de sesión para ADMIN--%>
 <%
     Usuario user = (Usuario) session.getAttribute("user");
     if (user != null && user.getId_tipo_usuario() == 1) {
