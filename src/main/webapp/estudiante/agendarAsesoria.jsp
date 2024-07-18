@@ -374,6 +374,9 @@
     <div class="custom-select-container">
         <select class="custom-select" name="selectCarrera" id="selectCarrera">
             <option value="" selected disabled>Carrera</option>
+            <c:forEach items="${carreras}" var="carrera">
+                <option value="${carrera.id_carrera}">${carrera.carrera}</option>
+            </c:forEach>
             <option value="1">Desarrollo de software</option>
             <option value="2">Infraestructura de redes dígitales</option>
         </select>
@@ -381,6 +384,9 @@
     <div class="custom-select-container">
         <select class="custom-select" name="selectDivision" id="selectDivision">
             <option value="">División académica</option>
+            <c:forEach items="${divisiones}" var="division">
+                <option value="${division.id_division}">${division.division_academica}</option>
+            </c:forEach>
             <option value="1">DATID</option>
             <option value="2">DAMI</option>
         </select>
