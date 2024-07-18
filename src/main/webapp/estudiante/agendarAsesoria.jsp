@@ -387,6 +387,7 @@
             <c:forEach items="${divisiones}" var="division">
                 <option value="${division.id_division}">${division.division_academica}</option>
             </c:forEach>
+
             <option value="1">DATID</option>
             <option value="2">DAMI</option>
         </select>
