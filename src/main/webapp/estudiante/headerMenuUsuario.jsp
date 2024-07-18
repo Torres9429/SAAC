@@ -34,7 +34,7 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Agendar</a>
+                    <a class="dropdown-item" href="../getMateriasEst">Agendar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
                 </div>

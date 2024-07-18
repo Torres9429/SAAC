@@ -9,12 +9,12 @@
     <title>Calendario</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/bootstrap.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/bootstrap.css'>
     <link href='https://unpkg.com/@fullcalendar/core/main.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/daygrid/main.css' rel='stylesheet' />
     <script src='https://unpkg.com/@fullcalendar/core/main.js'></script>
     <script src='https://unpkg.com/@fullcalendar/daygrid/main.js'></script>
-    <script src='../js/index.global.js'></script>
+    <script src='${pageContext.request.contextPath}/js/index.global.js'></script>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>

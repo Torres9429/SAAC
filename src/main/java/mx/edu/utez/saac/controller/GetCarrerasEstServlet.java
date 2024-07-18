@@ -7,22 +7,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saac.dao.CarreraDao;
+import mx.edu.utez.saac.dao.MateriaDao;
 import mx.edu.utez.saac.model.Carrera;
+import mx.edu.utez.saac.model.Materia;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "ObtenerCarrerasServlet", value = "/getCarreras")
-public class ObtenerCarrerasServlet extends HttpServlet {
+public class GetCarrerasEstServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        ArrayList<Carrera> list = new ArrayList<>();
+        CarreraDao carreraDao = new CarreraDao();
+        ArrayList<Carrera> carreras = carreraDao.getAll();
+        req.setAttribute("carreras",  carreras);
+        req.getRequestDispatcher("estudiante/agendarAsesoria.jsp").forward(req, resp);
 
-        CarreraDao dao = new CarreraDao();
-        list = dao.getAll();
-
-        session.setAttribute("carreras",list);
-        resp.sendRedirect("registrarUsuario.jsp");
     }
 }
