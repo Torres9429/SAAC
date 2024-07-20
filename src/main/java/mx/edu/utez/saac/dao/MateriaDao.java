@@ -29,4 +29,8 @@ public class MateriaDao {
         }
         return lista;
     }
+
+    public boolean insert(Materia materia) {
+        return false;
+    }
 }
