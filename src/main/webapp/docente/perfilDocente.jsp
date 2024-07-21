@@ -63,6 +63,11 @@
         color: white;
         border-radius: 5px;
         margin: 5px;
+        border-style: hidden;
+    }
+    button:hover{
+        background-color: #4B6B76;
+        color: white;
     }
     .div-btn {
         display: flex;
@@ -78,6 +83,90 @@
 
     .input-no-editar {
         background-color: transparent; /* Color de fondo cuando no se edita */
+    }
+    .btn-custom {
+        background-color: #3A4C60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .btn-custom:hover {
+        background-color: #536880;
+    }
+    .modal-custom {
+        display: none;
+        position: fixed;
+        z-index: 1055;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content-custom {
+        background-color: #fefefe;
+        margin: 10% auto;
+        border: 1px solid #888;
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header-custom {
+        background-color: #002E60;
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .modal-body-custom {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .modal-footer-custom {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .form-group-custom {
+        margin-bottom: 15px;
+    }
+
+    .btn-custom {
+        background-color: #002E60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #004080;
+    }
+
+    .close-custom {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-custom:hover,
+    .close-custom:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
     }
 </style>
 <div class="cont">
@@ -101,7 +190,7 @@
         <p>Carrera</p>
     </div>
     <div class="div-info">
-        <form action="perfil" method="post">
+        <form action="perfil" method="post" id="perfilForm">
             <div class="campos-form">
                 <label for="nombre">Nombre:</label><br>
                 <input type="text" disabled name="nombre" id="nombre" value="<%= userDetails != null ? userDetails.getNombre() : "" %>">
@@ -125,9 +214,48 @@
                 </div> -->
             <div class="div-btn">
                 <button type="button" id="activar-btn" onclick="activarInputs()">Editar perfil</button>
-                <button type="submit" id="guardar-btn" style="display: none;">Guardar</button>
+                <button type="submit" id="guardar-btn" style="display: none;" onclick="mostrarModalConfirmacion()">Guardar</button>
             </div>
         </form>
+    </div>
+</div>
+<%
+    // Obtener el mensaje de la sesión
+    String mensaje = (String) session.getAttribute("mensajeHabilitacion");
+    // Eliminar el atributo de sesión después de obtener el mensaje
+    session.removeAttribute("mensajeHabilitacion");
+%>
+
+<% if (mensaje != null && !mensaje.isEmpty()) { %>
+<div class="modal-custom" style="display: block;">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2>Mensaje</h2>
+        </div>
+        <div class="modal-body-custom">
+            <p><%= mensaje %></p>
+        </div>
+        <div class="modal-footer-custom">
+            <button class="btn-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">Cerrar</button>
+        </div>
+    </div>
+</div>
+<% } %>
+<!-- Modal de Confirmación -->
+<div id="modalConfirmacion" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom" onclick="cerrarModalConfirmacion()">&times;</span>
+            <h2>Confirmación</h2>
+        </div>
+        <div class="modal-body-custom">
+            <p>¿Estás seguro de que deseas guardar los cambios?</p>
+        </div>
+        <div class="modal-footer-custom">
+            <button class="btn-custom" onclick="confirmarGuardar()">Sí</button>
+            <button class="btn-custom" onclick="cerrarModalConfirmacion()">No</button>
+        </div>
     </div>
 </div>
 <script>
@@ -160,6 +288,24 @@
         document.getElementById("activar-btn").style.display = "none";
         document.getElementById("guardar-btn").style.display = "block";
     }
+    function mostrarModalConfirmacion() {
+        document.getElementById('modalConfirmacion').style.display = 'block';
+        return false;  // Prevenir el envío del formulario
+    }
+
+    function cerrarModalConfirmacion() {
+        document.getElementById('modalConfirmacion').style.display = 'none';
+    }
+
+    function confirmarGuardar() {
+        document.getElementById('modalConfirmacion').style.display = 'none';
+        document.getElementById('perfilForm').submit();  // Enviar el formulario
+    }
+    // Prevenir el envío del formulario hasta que se confirme
+    document.getElementById('perfilForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevenir el envío del formulario
+        mostrarModalConfirmacion();  // Mostrar el modal de confirmación
+    });
 </script>
 </body>
 </html>

@@ -47,7 +47,7 @@ public class PerfilServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Usuario usuario = (Usuario) session.getAttribute("user");
-
+        String mensaje;
         if (usuario != null) {
             int userId = usuario.getId();
             String nombre = req.getParameter("nombre");
@@ -68,15 +68,19 @@ public class PerfilServlet extends HttpServlet {
                 // Actualización exitosa, redirige al perfil actualizado
                 resp.sendRedirect(req.getContextPath() + "/perfil");
                 System.out.println("Actualización exitosa");
+                mensaje = "¡Los cambios ingresados han sido guardados exitosamente!";
             } else {
                 // Error en la actualización, redirige al perfil con un mensaje de error
                 req.setAttribute("error", "No se pudo actualizar la información.");
                 req.getRequestDispatcher("/docente/perfilDocente.jsp").forward(req, resp);
                 System.out.println("Error en la actualización");
+                mensaje = "Ocurrió un error al guardar los cambios, por favor, inténtelo más tarde";
             }
+            session.setAttribute("mensajeHabilitacion", mensaje);
         } else {
             resp.sendRedirect("index.jsp");
         }
+
     }
 }
 
