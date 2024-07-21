@@ -1,5 +1,7 @@
 package mx.edu.utez.saac.model;
 
+import java.time.LocalDateTime;
+
 public class Usuario {
     private String nombre;
     private String apellido_paterno;
@@ -13,7 +15,7 @@ public class Usuario {
     private int id;
     private int id_tipo_usuario;
     private String codigo;
-    private String fecha_creacion;
+    private LocalDateTime fecha_creacion;
 
     public Usuario() {
     }
@@ -44,7 +46,7 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo, String fecha_creacion) {
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo, LocalDateTime fecha_creacion) {
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
         this.apellido_materno = apellido_materno;
@@ -156,11 +158,11 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public String getFecha_creacion() {
+    public LocalDateTime getFecha_creacion() {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(String fecha_creacion) {
+    public void setFecha_creacion(LocalDateTime fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
 }

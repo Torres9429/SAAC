@@ -1,16 +1,18 @@
 package mx.edu.utez.saac.dao;
 
+import com.google.api.client.util.DateTime;
 import mx.edu.utez.saac.model.Usuario;
 import mx.edu.utez.saac.utils.DatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
+
+import static mx.edu.utez.saac.utils.DatabaseConnectionManager.getConnection;
 
 public class UsuarioDao {
     // CRUD para usuario
@@ -20,7 +22,7 @@ public class UsuarioDao {
         String query = "select * from usuario where correo = ? and contrasena = sha2(?, 256);";
 
         try {
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query); // forma de evitar que inyecten query
             ps.setString(1,correo);
             ps.setString(2,contrasena);
@@ -51,7 +53,7 @@ public class UsuarioDao {
         String queryInsert = "INSERT INTO usuario(id_tipo_usuario,status,nombre, apellido_paterno, apellido_materno, edad, matricula, carrera, correo, contrasena, codigo, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, SHA2(?, 256), ?, ?);";
 
         try {
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
 
             // Ver si el usuario ya existe
             PreparedStatement psCheck = con.prepareStatement(queryCheck);
@@ -98,7 +100,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "update usuario set codigo = ? where id_usuario = ?;";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,codigo);
             ps.setInt(2,u.getId());
@@ -116,7 +118,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "SELECT * FROM usuario WHERE codigo = ?";
         try {
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -137,7 +139,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "update usuario set contrasena = sha2(?,256), codigo = null where codigo = ?";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,contrasena);
             ps.setString(2, codigo);
@@ -156,7 +158,7 @@ public class UsuarioDao {
         Usuario usuario = new Usuario();
         String query = "select * from usuario where correo = ?;";
         try {
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,correo);
             ResultSet rs = ps.executeQuery();
@@ -180,7 +182,7 @@ public class UsuarioDao {
         ArrayList<Usuario> lista = new ArrayList<>();
         String query = "select * from usuario;";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -205,7 +207,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "update usuario set status = false where id_usuario = ?";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -220,7 +222,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "delete from usuario where id = ?";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -236,7 +238,7 @@ public class UsuarioDao {
         boolean flag = false;
         String query = "update usuario set status = true where id_usuario = ?";
         try{
-            Connection con = DatabaseConnectionManager.getConnection();
+            Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -247,4 +249,58 @@ public class UsuarioDao {
         }
         return flag;
     }
+
+    public Usuario getUsuarioById(int id) {
+        Usuario usuario = null;
+        String query = "SELECT * FROM usuario WHERE id_usuario = ?"; // Asegúrate de que el nombre de la columna es correcto
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            System.out.println("Ejecutando consulta con ID: " + id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                usuario = new Usuario();
+                usuario.setId(resultSet.getInt("id_usuario"));
+                usuario.setNombre(resultSet.getString("nombre"));
+                usuario.setApellido_paterno(resultSet.getString("apellido_paterno"));
+                usuario.setApellido_materno(resultSet.getString("apellido_materno"));
+                usuario.setEdad(resultSet.getInt("edad"));
+                usuario.setMatricula(resultSet.getString("matricula"));
+
+
+
+                // Depuración: Imprimir valores recuperados
+                System.out.println("Usuario recuperado: " + usuario);
+            } else {
+                System.out.println("No se encontró el usuario con id: " + id);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la consulta SQL: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+    public boolean guardarDatos(Usuario usuario){
+        boolean flag = false;
+        String query = "update usuario set nombre = ?, apellido_paterno = ?, apellido_materno = ?, edad = ? where id_usuario = ?;";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido_paterno());
+            ps.setString(3, usuario.getApellido_materno());
+            ps.setInt(4, usuario.getEdad());
+            ps.setInt(5, usuario.getId());
+            if (ps.executeUpdate() > 0) {
+                flag = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 }
