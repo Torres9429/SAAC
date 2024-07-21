@@ -220,7 +220,7 @@ public class UsuarioDao {
     }
     public boolean eliminarFisico(int id) {
         boolean flag = false;
-        String query = "delete from usuario where id = ?";
+        String query = "delete from usuario where id_usuario = ?";
         try{
             Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -301,5 +301,31 @@ public class UsuarioDao {
             e.printStackTrace();
         }
         return flag;
+    }
+    public ArrayList<Usuario> getDeshabilitados() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        String query = "SELECT * FROM usuario WHERE status = 0;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id_usuario"));
+                u.setMatricula(rs.getString("matricula"));
+                u.setNombre(rs.getString("nombre"));
+                u.setApellido_paterno(rs.getString("apellido_paterno"));
+                u.setApellido_materno(rs.getString("apellido_materno"));
+                u.setCorreo(rs.getString("correo"));
+                u.setEstado(rs.getBoolean("status"));
+                lista.add(u);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

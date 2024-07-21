@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saac.dao.UsuarioDao;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 @WebServlet(name = "HabilitarServlet", value = "/habilitar")
 public class HabilitarServlet extends HttpServlet {
@@ -18,17 +17,28 @@ public class HabilitarServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         UsuarioDao dao = new UsuarioDao();
         String mensaje;
-        if (dao.habilitar(id)) {
-            System.out.println("Usuario habilitado");
-            mensaje = "Usuario habilitado con éxito";
+        boolean success = dao.habilitar(id);
+
+        // Obtener el parámetro de redirección
+        String redirectPage = req.getParameter("page");
+
+        if (success) {
+            mensaje = (redirectPage.equals("aprobar"))
+                    ? "Usuario aprobado y habilitado con éxito"
+                    : "Usuario habilitado con éxito";
         } else {
-            mensaje = "Error en la habilitación";
-            System.out.println("Error de habilitación");
+            mensaje = (redirectPage.equals("aprobar"))
+                    ? "Error al aprobar y habilitar el usuario"
+                    : "Error en la habilitación del usuario";
         }
+
         HttpSession session = req.getSession();
         session.setAttribute("mensajeHabilitacion", mensaje);
 
-        resp.sendRedirect("administrador/habilitarUsuario.jsp");
-        //resp.sendRedirect("habilitarUsuario.jsp?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+        if ("aprobar".equals(redirectPage)) {
+            resp.sendRedirect(req.getContextPath() + "/administrador/aprobarUsuario.jsp");
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/administrador/habilitarUsuario.jsp");
+        }
     }
 }

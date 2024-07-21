@@ -17,11 +17,16 @@ public class EFisicoServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         UsuarioDao dao = new UsuarioDao();
         HttpSession sesion = req.getSession();
-        if(dao.eliminarFisico(id)){
-            sesion.setAttribute("mensaje","Usuario eliminado fisicamente con exito");
-        }else{
-            sesion.setAttribute("mensaje","Falló la eliminación fisica");
+        String mensaje;
+
+        if (dao.eliminarFisico(id)) {
+            mensaje = "Usuario eliminado con éxito";
+        } else {
+            mensaje = "Error en la eliminación";
         }
-        resp.sendRedirect("aprobarUsuario.jsp");
+
+        HttpSession session = req.getSession();
+        session.setAttribute("mensajeHabilitacion", mensaje);
+        resp.sendRedirect(req.getContextPath() + "/administrador/aprobarUsuario.jsp");
     }
 }

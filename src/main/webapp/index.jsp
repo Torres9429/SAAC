@@ -31,7 +31,7 @@
                         Iniciar sesión
                     </button>
                     <a href="solicitudRecuperacion.jsp" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    <a href="getCarreras" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
+                    <a href="${pageContext.request.contextPath}/getCarreras?page=registrar" class="forgot-password">¿No tienes una cuenta? Registrarse</a>
 
                 </center>
             </div>
