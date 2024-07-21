@@ -160,7 +160,6 @@
         document.getElementById("activar-btn").style.display = "none";
         document.getElementById("guardar-btn").style.display = "block";
     }
-
 </script>
 </body>
 </html>

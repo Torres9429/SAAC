@@ -78,7 +78,6 @@ public class PerfilServlet extends HttpServlet {
             resp.sendRedirect("index.jsp");
         }
     }
-
 }
 
 
