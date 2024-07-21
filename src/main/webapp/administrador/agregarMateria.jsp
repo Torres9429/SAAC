@@ -8,7 +8,93 @@
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='../css/bootstrap.css'>
     <style>
-        /* Tu código CSS aquí */
+        .divText {
+            border-right: 4px solid #BFB4B4;
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #009475;
+            height: 100%;
+            margin: 15px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .box {
+            background-color: #40AE97;
+            padding: 40px;
+            border-radius: 8px;
+            width: 60%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-sidebar {
+            width: 20%;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 2px solid #009475;
+            padding: 15px;
+            height: 100vh; /* Añadido para ocupar toda la altura de la ventana */
+        }
+        .form-sidebar h1 {
+            color: #009475;
+        }
+        .form-content {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .form-group label {
+            color: #002E60;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #3A4C60;
+            border-color: #007BFF;
+            padding: 10px 20px;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #2c3e50;
+        }
     </style>
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
@@ -48,23 +134,15 @@
                 <div class="form-group">
                     <label for="id_maestro">Maestro:</label>
                     <select class="form-control" id="id_maestro" name="id_maestro" required>
-                        <option value="1">Maestro 1</option>
-                        <option value="2">Maestro 2</option>
-                        <option value="3">Maestro 3</option>
+                        <option value="Maestro 1">Maestro 1</option>
+                        <option value="Maestro 2">Maestro 2</option>
+                        <option value="Maestro 3">Maestro 3</option>
                     </select>
                 </div>
                 <div class="btn-container">
                     <button type="submit" class="btn btn-primary">Agregar Materia</button>
                 </div>
             </form>
-            <% if (session.getAttribute("mensajeError") != null) { %>
-            <div class="alert alert-danger mt-3">
-                <%= session.getAttribute("mensajeError") %>
-                <%
-                    session.removeAttribute("mensajeError"); // Remove the error message after displaying it
-                %>
-            </div>
-            <% } %>
         </div>
     </div>
 </div>
