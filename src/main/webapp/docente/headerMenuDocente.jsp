@@ -29,8 +29,8 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../filtrosCal">Agregar</a>
-                    <a class="dropdown-item" href="#">Modificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?page=agregarAsesoria">Agregar</a>
+                    <a class="dropdown-item" href="../getHorarios">Modificar</a>
                     <a class="dropdown-item" href="#">Consultar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
@@ -42,7 +42,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../agendarAsesoria.jsp">Ver</a>
+                    <a class="dropdown-item" href="calendarioDocente.jsp">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                 </div>
             </li>
