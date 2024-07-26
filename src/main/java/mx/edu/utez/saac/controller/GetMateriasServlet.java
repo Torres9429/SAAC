@@ -32,9 +32,19 @@ public class GetMateriasServlet extends HttpServlet {
         ArrayList<Carrera> carreras = carreraDao.getAll();
         req.setAttribute("carreras", carreras);
 
-        req.getRequestDispatcher("estudiante/agendarAsesoria.jsp").forward(req, resp);
+        HorarioDao horarioDao = new HorarioDao();
+        ArrayList<Horario> horarios = horarioDao.getAll();
+        req.setAttribute("horarios", horarios);
 
+        // Obtener el parámetro que determina el JSP a despachar
+        String jspDestino = req.getParameter("jsp");
 
+        // Determinar el JSP a despachar
+        if ("agendarEstudiante".equals(jspDestino)) {
+            req.getRequestDispatcher("estudiante/agendarAsesoria.jsp").forward(req, resp);
+        } else if ("agregarDocente".equals(jspDestino)) {
+            req.getRequestDispatcher("docente/agregarAsesoria.jsp").forward(req, resp);
+        }
 
         /*/ Obtener el parámetro de redirección
         String page = req.getParameter("page");

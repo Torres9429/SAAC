@@ -15,7 +15,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -29,8 +29,8 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?page=agregarAsesoria">Agregar</a>
-                    <a class="dropdown-item" href="../getHorarios">Modificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?jsp=agregarDocente">Agregar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios">Modificar</a>
                     <a class="dropdown-item" href="#">Consultar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
@@ -42,7 +42,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="calendarioDocente.jsp">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMateriasDoc">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                 </div>
             </li>
@@ -52,7 +52,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../agendarAsesoria.jsp">Calificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMateriasDoc">Calificar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

@@ -53,6 +53,28 @@ public class HorarioDao {
         }
         return list;
     }
+    public ArrayList<Horario> getAll(){
+        ArrayList<Horario> list = new ArrayList<>();
+        String query = "{CALL GetHorarios}";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Horario horario = new Horario();
+                horario.setId_horario(rs.getInt("id_horario"));
+                horario.setHora_inicio(rs.getTime("hora_inicio"));
+                horario.setHora_fin(rs.getTime("hora_fin"));
+                horario.setDia(rs.getDate("dia"));
+                horario.setMateria(rs.getInt("id_materia"));
+                horario.setId_usuario(rs.getInt("id_usuario"));
+                horario.setNombre_materia(rs.getString("materia"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     /*public ArrayList<Horario> getHorarios(int idUsuario){
         ArrayList<Horario> list = new ArrayList<>();
