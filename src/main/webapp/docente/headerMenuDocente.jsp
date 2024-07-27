@@ -30,8 +30,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?jsp=agregarDocente">Agregar</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios">Modificar</a>
-                    <a class="dropdown-item" href="#">Consultar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios?jsp=modificar">Modificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios?jsp=consultar">Consultar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
                 </div>

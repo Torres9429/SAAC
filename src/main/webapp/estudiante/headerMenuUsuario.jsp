@@ -18,8 +18,8 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -34,7 +34,7 @@
                     Asesoría
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../getMaterias">Agendar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?jsp=agendarEstudiante">Agendar</a>
                     <a class="dropdown-item" href="#">Cancelar</a>
                     <a class="dropdown-item" href="#">Reagendar</a>
                 </div>
@@ -45,7 +45,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?jsp=agendarEstudiante">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agendarAsesoria.jsp">Ver</a>
+                    <a class="dropdown-item" href="/${pageContext.request.contextPath}/agendarAsesoria.jsp">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -63,9 +63,9 @@
                     Perfil
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="perfil.jsp">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/perfil.jsp">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
-                    <a class="dropdown-item" href="../restablecerContraUsuario.jsp">Restablecer contraseña</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/restablecerContraUsuario.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
                     <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a> <!--enlace a servlet-->
                     <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->

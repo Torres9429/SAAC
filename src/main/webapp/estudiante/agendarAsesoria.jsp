@@ -1,4 +1,5 @@
-<%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saac.model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Calendario</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/bootstrap.css'>
     <link href='https://unpkg.com/@fullcalendar/core/main.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -23,250 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <jsp:include page="headerMenuUsuario.jsp" />
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            const fechaActual = new Date();
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialDate: fechaActual,
-                initialView: 'timeGridWeek',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                },
-                height: 'auto',
-                navLinks: true,
-                editable: true,
-                selectable: true,
-                selectMirror: true,
-                nowIndicator: true,
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: '2023-01-01',
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2023-01-07',
-                        end: '2023-01-10'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2023-01-09T16:00:00'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2023-01-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2023-01-11',
-                        end: '2023-01-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2023-01-12T10:30:00',
-                        end: '2023-01-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2023-01-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2023-01-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2023-01-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2023-01-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2023-01-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2023-01-28'
-                    }
-                ]
-            });
-
-            // calendar.render();
-
-            // Event listener for the add event button
-            /*   document.getElementById('add-event-btn').addEventListener('click', function() {
-                   var today = new Date().toISOString().split('T')[0];
-                   eventForm(today);
-               });
-
-               // Event listener for the submit event button
-               document.getElementById('submit-event').addEventListener('click', function() {
-                   var title = document.getElementById('title').value;
-                   var start = document.getElementById('start').value;
-
-                   if (title && start) {
-                       calendar.addEvent({
-                           title: title,
-                           start: start,
-                           allDay: true
-                       });
-                       // Hide the form
-                       document.getElementById('event-form').style.display = 'none';
-                       // Clear the form
-                       document.getElementById('title').value = '';
-                       document.getElementById('start').value = '';
-                   }
-               });
-           });*/
-
-            /*function eventForm(startDate) {
-                document.getElementById('event-form').style.display = 'block';
-                document.getElementById('start').value = startDate;
-            }*/
-
-            /* // Obtén los elementos del DOM para la ventana emergente
-             document.addEventListener('DOMContentLoaded', function() {
-                 var modal = document.getElementById("myModal");
-                 var btn = document.getElementById("openModalBtn");
-                 var span = document.getElementsByClassName("close-custom")[0];
-                 var closeBtn = document.getElementById("submit-btn");
-                 var cancelBtn = document.getElementById("cancel-btn");
-
-                 // Cuando el usuario haga clic en el botón, abre la ventana emergente
-                 btn.onclick = function() {
-                     modal.style.display = "block";
-                 }
-                 closeBtn.onclick = function() {
-                     modal.style.display = "none";
-                 }
-
-                 // Cerrar el modal al hacer clic en el botón de cancelar
-                 cancelBtn.onclick = function() {
-                     modal.style.display = "none";
-                 }
-                 // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
-                 span.onclick = function() {
-                     modal.style.display = "none";
-                 }
-
-                 // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
-                 window.onclick = function(event) {
-                     if (event.target == modal) {
-                         modal.style.display = "none";
-                     }
-                 }*/
-        });
-
-        /*  $(document).ready(function() {
-              // Llama al servlet para obtener las carreras al cargar la página
-              $.ajax({
-                  url: '/filtrosCal',  // URL del servlet
-                  type: 'GET',
-                  success: function(data) {
-                      // Aquí puedes procesar la respuesta si es necesario
-                      console.log('datos cargados correctamente');
-                  },
-                  error: function(xhr, status, error) {
-                      console.error('Error al cargar los datos:', error);
-                  }
-              });
-          });*/
-
-        /*
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('selectDivision').addEventListener('change', function () {
-                const divisionId = this.value;
-                fetchCarreras(divisionId);
-            });
-
-            document.getElementById('selectCarrera').addEventListener('change', function () {
-                const carreraId = this.value;
-                fetchMaterias(carreraId);
-            });
-        });
-        */
-
-        // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
-        // Convertir datos de JSP a JavaScript
-        var divisiones = [];
-        <c:forEach items="${divisiones}" var="division">
-        divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
-        </c:forEach>;
-
-        var carreras = [];
-        <c:forEach items="${carreras}" var="carrera">
-        carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
-        </c:forEach>;
-
-        var materias = [];
-        <c:forEach items="${materias}" var="materia">
-        materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
-        </c:forEach>;
-
-
-        console.log(divisiones);
-        console.log(carreras);
-        console.log(materias);
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var selectDivision = document.getElementById('selectDivision');
-            var selectCarrera = document.getElementById('selectCarrera');
-            var selectMateria = document.getElementById('selectMateria');
-
-            selectDivision.addEventListener('change', function() {
-                var divisionId = this.value;
-                updateCarreras(divisionId);
-            });
-
-            selectCarrera.addEventListener('change', function() {
-                var carreraId = this.value;
-                updateMaterias(carreraId);
-            });
-
-            function updateCarreras(divisionId) {
-                var filteredCarreras = carreras.filter(function(carrera) {
-                    return carrera.divisionId == divisionId;
-                });
-
-                selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
-                filteredCarreras.forEach(function(carrera) {
-                    var option = document.createElement('option');
-                    option.value = carrera.id;
-                    option.text = carrera.nombre;
-                    selectCarrera.appendChild(option);
-                });
-
-                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
-            }
-
-            function updateMaterias(carreraId) {
-                var filteredMaterias = materias.filter(function(materia) {
-                    return materia.carreraId == carreraId;
-                });
-
-                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
-                filteredMaterias.forEach(function(materia) {
-                    var option = document.createElement('option');
-                    option.value = materia.id;
-                    option.text = materia.nombre;
-                    selectMateria.appendChild(option);
-                });
-            }
-        });
-        // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
-
-    </script>
     <style>
 
         body {
@@ -445,7 +203,246 @@
 <%
     Usuario user = (Usuario) session.getAttribute("user");
     if (user != null && user.getId_tipo_usuario() == 3) {
+        int userId = user.getId();
+        List<Materia> materias = (List<Materia>) request.getAttribute("materias");
+        List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
+        List<Division> divisiones = (List<Division>) request.getAttribute("divisiones");
+        List<Carrera> carreras = (List<Carrera>) request.getAttribute("carreras");
+
+        // Añadir código de depuración
+        if (materias == null || materias.isEmpty()) {
+            System.out.println("No hay materias disponibles");
+        } else {
+            System.out.println("Materias disponibles: " + materias.size());
+        }
+
+        if (horarios == null || horarios.isEmpty()) {
+            System.out.println("No hay horarios disponibles");
+        } else {
+            System.out.println("Horarios disponibles: " + horarios.size());
+        }
 %>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        const fechaActual = new Date();
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            //locale: 'es',
+            initialDate: fechaActual,
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            height: 'auto',
+            navLinks: true,
+            editable: true,
+            selectable: true,
+            selectMirror: true,
+            nowIndicator: true,
+            events: [<c:forEach items="${horarios}" var="horario">
+                {
+                    title: '${horario.nombre_materia}',
+                    start: '${horario.dia}T${horario.hora_inicio}',
+                    end: '${horario.dia}T${horario.hora_fin}'
+                },
+                </c:forEach>]
+        });
+
+        function loadEvents() {
+            fetch('getMaterias')
+                .then(response => response.json())
+                .then(data => {
+                    calendar.removeAllEvents();
+                    data.forEach(event => {
+                        calendar.addEvent({
+                            title: event.nombre_materia,
+                            start: event.dia + 'T' + event.hora_inicio,
+                            end: event.dia + 'T' + event.hora_fin
+                        });
+                    });
+                });
+        }
+
+        calendar.render();
+        loadEvents();
+
+        // Recargar eventos periódicamente
+        setInterval(loadEvents, 300000);
+    });
+
+
+
+    // calendar.render();
+
+    // Event listener for the add event button
+    /*   document.getElementById('add-event-btn').addEventListener('click', function() {
+           var today = new Date().toISOString().split('T')[0];
+           eventForm(today);
+       });
+
+       // Event listener for the submit event button
+       document.getElementById('submit-event').addEventListener('click', function() {
+           var title = document.getElementById('title').value;
+           var start = document.getElementById('start').value;
+
+           if (title && start) {
+               calendar.addEvent({
+                   title: title,
+                   start: start,
+                   allDay: true
+               });
+               // Hide the form
+               document.getElementById('event-form').style.display = 'none';
+               // Clear the form
+               document.getElementById('title').value = '';
+               document.getElementById('start').value = '';
+           }
+       });
+   });*/
+
+    /*function eventForm(startDate) {
+        document.getElementById('event-form').style.display = 'block';
+        document.getElementById('start').value = startDate;
+    }*/
+
+    /* // Obtén los elementos del DOM para la ventana emergente
+     document.addEventListener('DOMContentLoaded', function() {
+         var modal = document.getElementById("myModal");
+         var btn = document.getElementById("openModalBtn");
+         var span = document.getElementsByClassName("close-custom")[0];
+         var closeBtn = document.getElementById("submit-btn");
+         var cancelBtn = document.getElementById("cancel-btn");
+
+         // Cuando el usuario haga clic en el botón, abre la ventana emergente
+         btn.onclick = function() {
+             modal.style.display = "block";
+         }
+         closeBtn.onclick = function() {
+             modal.style.display = "none";
+         }
+
+         // Cerrar el modal al hacer clic en el botón de cancelar
+         cancelBtn.onclick = function() {
+             modal.style.display = "none";
+         }
+         // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
+         span.onclick = function() {
+             modal.style.display = "none";
+         }
+
+         // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
+         window.onclick = function(event) {
+             if (event.target == modal) {
+                 modal.style.display = "none";
+             }
+         }*/
+
+
+    /*  $(document).ready(function() {
+          // Llama al servlet para obtener las carreras al cargar la página
+          $.ajax({
+              url: '/filtrosCal',  // URL del servlet
+              type: 'GET',
+              success: function(data) {
+                  // Aquí puedes procesar la respuesta si es necesario
+                  console.log('datos cargados correctamente');
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error al cargar los datos:', error);
+              }
+          });
+      });*/
+
+    /*
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('selectDivision').addEventListener('change', function () {
+            const divisionId = this.value;
+            fetchCarreras(divisionId);
+        });
+
+        document.getElementById('selectCarrera').addEventListener('change', function () {
+            const carreraId = this.value;
+            fetchMaterias(carreraId);
+        });
+    });
+    */
+
+    // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
+    // Convertir datos de JSP a JavaScript
+    var divisiones = [];
+    <c:forEach items="${divisiones}" var="division">
+    divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
+    </c:forEach>;
+
+    var carreras = [];
+    <c:forEach items="${carreras}" var="carrera">
+    carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
+    </c:forEach>;
+
+    var materias = [];
+    <c:forEach items="${materias}" var="materia">
+    materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
+    </c:forEach>;
+
+
+    console.log(divisiones);
+    console.log(carreras);
+    console.log(materias);
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectDivision = document.getElementById('selectDivision');
+        var selectCarrera = document.getElementById('selectCarrera');
+        var selectMateria = document.getElementById('selectMateria');
+
+        selectDivision.addEventListener('change', function() {
+            var divisionId = this.value;
+            updateCarreras(divisionId);
+        });
+
+        selectCarrera.addEventListener('change', function() {
+            var carreraId = this.value;
+            updateMaterias(carreraId);
+        });
+
+        function updateCarreras(divisionId) {
+            var filteredCarreras = carreras.filter(function(carrera) {
+                return carrera.divisionId == divisionId;
+            });
+
+            selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
+            filteredCarreras.forEach(function(carrera) {
+                var option = document.createElement('option');
+                option.value = carrera.id;
+                option.text = carrera.nombre;
+                selectCarrera.appendChild(option);
+            });
+
+            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
+        }
+
+        function updateMaterias(carreraId) {
+            var filteredMaterias = materias.filter(function(materia) {
+                return materia.carreraId == carreraId;
+            });
+
+            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
+            filteredMaterias.forEach(function(materia) {
+                var option = document.createElement('option');
+                option.value = materia.id;
+                option.text = materia.nombre;
+                selectMateria.appendChild(option);
+            });
+        }
+    });
+    // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
+
+</script>
+
 <div class="filtrosBusqueda">
     <div class="custom-select-container">
         <select class="custom-select" name="selectDivision" id="selectDivision">

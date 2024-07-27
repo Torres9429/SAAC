@@ -36,7 +36,16 @@ public class GetHorarios extends HttpServlet {
             HorarioDao dao = new HorarioDao();
             ArrayList<Horario> horarios = dao.getHorarios(idUsuario);
             req.setAttribute("horarios", horarios);
-            req.getRequestDispatcher("docente/modificarAsesoria.jsp").forward(req, resp);
+            // Obtener el parámetro que determina el JSP a despachar
+            String jspDestino = req.getParameter("jsp");
+
+            // Determinar el JSP a despachar
+            if ("modificar".equals(jspDestino)) {
+                req.getRequestDispatcher("docente/modificarAsesoria.jsp").forward(req, resp);
+            } else if ("consultar".equals(jspDestino)) {
+                req.getRequestDispatcher("docente/consultarAsesoria.jsp").forward(req, resp);
+            }
+
         } else {
             resp.sendRedirect("../accesoDenegado.jsp");
         }
