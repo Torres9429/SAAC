@@ -12,11 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<%-- Recuperar la sesion --%>
-<%
-    Usuario user = (Usuario) session.getAttribute("user");
-    if (user != null && user.getId_tipo_usuario() == 1) {
-%>
+
 <div class="container-fluid">
     <header class="d-flex justify-content-center py-3 custom-header" >
         <ul class="nav nav-pills">
@@ -26,7 +22,7 @@
                     Usuario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Agregar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getCarreras?page=agregar">Agregar</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="#">Consultar</a>
                     <a class="dropdown-item" href="aprobarUsuario.jsp">Aprobar/Rechazar</a>
@@ -85,10 +81,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<%
-    } else {
-        response.sendRedirect("../accesoDenegado.jsp");
-    }
-%>
+
 </body>
 </html>

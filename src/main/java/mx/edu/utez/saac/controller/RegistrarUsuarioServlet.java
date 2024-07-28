@@ -24,30 +24,45 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         u.setCarrera(Integer.parseInt(req.getParameter("carreraRegistro")));
         u.setCorreo(req.getParameter("correoRegistro"));
         u.setId_tipo_usuario(Integer.parseInt(req.getParameter("rolRegistro")));
+
+        String source = req.getParameter("source");
+
         if (req.getParameter("contraseña1Registro").equals(req.getParameter("contraseña2Registro"))){
             u.setContrasena(req.getParameter("contraseña1Registro"));
             System.out.println("Contraseñas correctas");
-        }else {
+        } else {
             //Si las contraseñas son diferentes
             HttpSession session = req.getSession();
             session.setAttribute("mensajeError","Las contraseñas no coinciden");
-            resp.sendRedirect(("registrarUsuario.jsp"));
+            if ("agregarU".equals(source)) {
+                req.getRequestDispatcher("administrador/agregarUsuario.jsp").forward(req, resp);
+            } else if ("registrarU".equals(source)) {
+                req.getRequestDispatcher("registrarUsuario.jsp").forward(req, resp);
+            }
             System.out.println("Contraseñas diferentes");
             return;
         }
+
         u.setEstado(true);
 
         //Se debe mandar a llamar un DAO que permita insertar
         UsuarioDao dao = new UsuarioDao();
-        if (dao.insert(u)){
+        if (dao.insert(u)) {
             //respuesta hacia un jsp
-            resp.sendRedirect("index.jsp");
-
-        }else {
+            if ("agregarU".equals(source)) {
+                req.getRequestDispatcher("administrador/agregarUsuario.jsp").forward(req, resp);
+            } else if ("registrarU".equals(source)) {
+                req.getRequestDispatcher("registrarUsuario.jsp").forward(req, resp);
+            }
+        } else {
             //la info no se insertó y regresa al formulario
             HttpSession session = req.getSession();
             session.setAttribute("mensajeError","Puede que el usuario ya esté registrado");
-            resp.sendRedirect("registrarUsuario.jsp");
+            if ("agregarU".equals(source)) {
+                req.getRequestDispatcher("administrador/agregarUsuario.jsp").forward(req, resp);
+            } else if ("registrarU".equals(source)) {
+                req.getRequestDispatcher("registrarUsuario.jsp").forward(req, resp);
+            }
         }
     }
 }

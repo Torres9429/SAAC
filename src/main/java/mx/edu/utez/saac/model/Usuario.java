@@ -14,6 +14,7 @@ public class Usuario {
     private boolean estado;
     private int id;
     private int id_tipo_usuario;
+    private String tipo_usuario;
     private String codigo;
     private LocalDateTime fecha_creacion;
 
@@ -33,7 +34,7 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, String estado, int id) {
+    public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, String estado, int id, String tipo_usuario) {
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
         this.apellido_materno = apellido_materno;
@@ -44,6 +45,7 @@ public class Usuario {
         this.contrasena = contrasena;
         this.estado = Boolean.parseBoolean(estado);
         this.id = id;
+        this.tipo_usuario = tipo_usuario;
     }
 
     public Usuario(String nombre, String apellido_paterno, String apellido_materno, int edad, String matricula, int carrera, String correo, String contrasena, boolean estado, int id, int id_tipo_usuario, String codigo, LocalDateTime fecha_creacion) {
@@ -164,5 +166,13 @@ public class Usuario {
 
     public void setFecha_creacion(LocalDateTime fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public String getTipo_usuario() {
+        return tipo_usuario;
+    }
+
+    public void setTipo_usuario(String tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
     }
 }

@@ -192,9 +192,11 @@ public class UsuarioDao {
                 u.setNombre(rs.getString("nombre"));
                 u.setApellido_paterno(rs.getString("apellido_paterno"));
                 u.setApellido_materno(rs.getString("apellido_materno"));
+                u.setEdad(rs.getInt("edad"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setCorreo(rs.getString("correo"));
                 u.setEstado(rs.getBoolean("status"));
+                u.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
                 lista.add(u);
             }
         }catch(SQLException e){

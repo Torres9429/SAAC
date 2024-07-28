@@ -21,6 +21,7 @@
     <div class="row">
         <div class="col">
             <form action="registrarUsuario" method="post" id="registro-form" onsubmit="return validarCorreo()">
+                <input type="hidden" name="source" value="registrarU">
                 <div class="form-group">
                     <input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" placeholder="Nombre(s)" required>
                 </div>

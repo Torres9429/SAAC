@@ -25,7 +25,9 @@ public class GetCarrerasEstServlet extends HttpServlet {
             req.getRequestDispatcher("registrarUsuario.jsp").forward(req, resp);
         } else if ("agendar".equals(page)) {
             req.getRequestDispatcher("estudiante/agendarAsesoria.jsp").forward(req, resp);
-        } else {
+        } else if ("agregar".equals(page)) {
+            req.getRequestDispatcher("administrador/agregarUsuario.jsp").forward(req, resp);
+        }else {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Página no especificada o desconocida.");
         }
     }
