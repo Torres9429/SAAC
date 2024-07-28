@@ -35,7 +35,7 @@ public class GetMateriasServlet extends HttpServlet {
         HorarioDao horarioDao = new HorarioDao();
         ArrayList<Horario> horarios = horarioDao.getAll();
         req.setAttribute("horarios", horarios);
-
+        System.out.println("horarios:"+horarios.size());
         // Obtener el parámetro que determina el JSP a despachar
         String jspDestino = req.getParameter("jsp");
 

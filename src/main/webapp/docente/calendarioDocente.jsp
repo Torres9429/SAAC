@@ -80,7 +80,15 @@
                     start: '${horario.dia}T${horario.hora_inicio}',
                     end: '${horario.dia}T${horario.hora_fin}'
                 },
-                </c:forEach>]
+                </c:forEach>],
+            eventClick: function(info) {
+                var event = info.event;
+                // Mostrar los detalles del evento en el modal
+                $('#tema').val(event.title);
+                $('#horaInicio').val(event.start.toISOString().substring(0, 16));
+                $('#horaFin').val(event.end.toISOString().substring(0, 16));
+                $('#solicitarAsesoriaModal').modal('show');
+            }
         });
 
         function loadEvents() {
@@ -103,6 +111,7 @@
 
         // Recargar eventos periódicamente
         setInterval(loadEvents, 300000);
+    });
 
         // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
         // Convertir datos de JSP a JavaScript
@@ -121,11 +130,9 @@
         materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
         </c:forEach>;
 
-
         console.log(divisiones);
         console.log(carreras);
         console.log(materias);
-
 
         document.addEventListener('DOMContentLoaded', function() {
             var selectDivision = document.getElementById('selectDivision');
@@ -172,7 +179,7 @@
                 });
             }
         });
-    });
+
     // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
 
 </script>

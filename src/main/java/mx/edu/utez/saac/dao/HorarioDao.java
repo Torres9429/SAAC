@@ -71,6 +71,7 @@ public class HorarioDao {
                 horario.setId_usuario(rs.getInt("id_usuario"));
                 horario.setNombre_materia(rs.getString("materia"));
                 horario.setNombre_docente(rs.getString("nombre_completo"));
+                list.add(horario);
             }
         } catch (SQLException e) {
             e.printStackTrace();

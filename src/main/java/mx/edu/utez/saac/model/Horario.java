@@ -12,6 +12,8 @@ public class Horario {
     private String nombre_materia;
     private int id_usuario;
     private String nombre_docente;
+    private int id_lugar;
+    private String lugar;
 
     public Horario() {
     }

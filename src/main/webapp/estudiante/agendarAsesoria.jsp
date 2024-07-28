@@ -1,5 +1,7 @@
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page import="mx.edu.utez.saac.model.Horario" %>
+<%@ page import="mx.edu.utez.saac.model.Materia" %>
 <%@ page import="java.util.List" %>
-<%@ page import="mx.edu.utez.saac.model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -9,7 +11,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Calendario</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
+    <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
     <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/bootstrap.css'>
     <link href='https://unpkg.com/@fullcalendar/core/main.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -206,25 +208,12 @@
         int userId = user.getId();
         List<Materia> materias = (List<Materia>) request.getAttribute("materias");
         List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
-        List<Division> divisiones = (List<Division>) request.getAttribute("divisiones");
-        List<Carrera> carreras = (List<Carrera>) request.getAttribute("carreras");
-
-        // Añadir código de depuración
-        if (materias == null || materias.isEmpty()) {
-            System.out.println("No hay materias disponibles");
-        } else {
-            System.out.println("Materias disponibles: " + materias.size());
-        }
-
-        if (horarios == null || horarios.isEmpty()) {
-            System.out.println("No hay horarios disponibles");
-        } else {
-            System.out.println("Horarios disponibles: " + horarios.size());
-        }
 %>
 <script>
-
     document.addEventListener('DOMContentLoaded', function() {
+        var userId = <%= userId %>;
+        console.log("ID del usuario: " + userId);
+
         var calendarEl = document.getElementById('calendar');
         const fechaActual = new Date();
 
@@ -247,9 +236,27 @@
                 {
                     title: '${horario.nombre_materia}',
                     start: '${horario.dia}T${horario.hora_inicio}',
-                    end: '${horario.dia}T${horario.hora_fin}'
+                    end: '${horario.dia}T${horario.hora_fin}',
+                    extendedProps: {
+                        docenteId: '${horario.id_usuario}',
+                        nombreDocente: '${horario.nombre_docente}',
+                        materiaId: '${horario.materia}'
+                    }
                 },
-                </c:forEach>]
+                </c:forEach>],
+            eventClick: function(info) {
+                var event = info.event;
+                // Mostrar los detalles del evento en el modal
+                $('#tema').val(event.title);
+                $('#horaInicio').val(event.start.toISOString().substring(0, 16));
+                $('#horaFin').val(event.end.toISOString().substring(0, 16));
+                $('#docenteId').val(event.extendedProps.docenteId); // Establecer el ID del docente en el input hidden
+                $('#docente').val(event.extendedProps.nombreDocente); // Mostrar nombre del docente en la descripción
+                $('#idUsuario').val(userId);
+                $('#idMateria').val(event.extendedProps.materiaId);
+                $('#solicitarAsesoriaModal').modal('show');
+
+            }
         });
 
         function loadEvents() {
@@ -259,9 +266,14 @@
                     calendar.removeAllEvents();
                     data.forEach(event => {
                         calendar.addEvent({
-                            title: event.nombre_materia,
-                            start: event.dia + 'T' + event.hora_inicio,
-                            end: event.dia + 'T' + event.hora_fin
+                            title: '${horario.nombre_materia}',
+                            start: '${horario.dia}T${horario.hora_inicio}',
+                            end: '${horario.dia}T${horario.hora_fin}',
+                            extendedProps: {
+                                docenteId: '${horario.id_usuario}',
+                                nombreDocente: '${horario.nombre_docente}',
+                                materiaId: '${horario.materia}'
+                            }
                         });
                     });
                 });
@@ -269,180 +281,80 @@
 
         calendar.render();
         loadEvents();
-
-        // Recargar eventos periódicamente
-        setInterval(loadEvents, 300000);
     });
 
+        // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
+        // Convertir datos de JSP a JavaScript
+        var divisiones = [];
+        <c:forEach items="${divisiones}" var="division">
+        divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
+        </c:forEach>;
+
+        var carreras = [];
+        <c:forEach items="${carreras}" var="carrera">
+        carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
+        </c:forEach>;
+
+        var materias = [];
+        <c:forEach items="${materias}" var="materia">
+        materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
+        </c:forEach>;
 
 
-    // calendar.render();
-
-    // Event listener for the add event button
-    /*   document.getElementById('add-event-btn').addEventListener('click', function() {
-           var today = new Date().toISOString().split('T')[0];
-           eventForm(today);
-       });
-
-       // Event listener for the submit event button
-       document.getElementById('submit-event').addEventListener('click', function() {
-           var title = document.getElementById('title').value;
-           var start = document.getElementById('start').value;
-
-           if (title && start) {
-               calendar.addEvent({
-                   title: title,
-                   start: start,
-                   allDay: true
-               });
-               // Hide the form
-               document.getElementById('event-form').style.display = 'none';
-               // Clear the form
-               document.getElementById('title').value = '';
-               document.getElementById('start').value = '';
-           }
-       });
-   });*/
-
-    /*function eventForm(startDate) {
-        document.getElementById('event-form').style.display = 'block';
-        document.getElementById('start').value = startDate;
-    }*/
-
-    /* // Obtén los elementos del DOM para la ventana emergente
-     document.addEventListener('DOMContentLoaded', function() {
-         var modal = document.getElementById("myModal");
-         var btn = document.getElementById("openModalBtn");
-         var span = document.getElementsByClassName("close-custom")[0];
-         var closeBtn = document.getElementById("submit-btn");
-         var cancelBtn = document.getElementById("cancel-btn");
-
-         // Cuando el usuario haga clic en el botón, abre la ventana emergente
-         btn.onclick = function() {
-             modal.style.display = "block";
-         }
-         closeBtn.onclick = function() {
-             modal.style.display = "none";
-         }
-
-         // Cerrar el modal al hacer clic en el botón de cancelar
-         cancelBtn.onclick = function() {
-             modal.style.display = "none";
-         }
-         // Cuando el usuario haga clic en <span> (x), cierra la ventana emergente
-         span.onclick = function() {
-             modal.style.display = "none";
-         }
-
-         // Cuando el usuario haga clic en cualquier lugar fuera de la ventana emergente, ciérrala
-         window.onclick = function(event) {
-             if (event.target == modal) {
-                 modal.style.display = "none";
-             }
-         }*/
+        console.log(divisiones);
+        console.log(carreras);
+        console.log(materias);
 
 
-    /*  $(document).ready(function() {
-          // Llama al servlet para obtener las carreras al cargar la página
-          $.ajax({
-              url: '/filtrosCal',  // URL del servlet
-              type: 'GET',
-              success: function(data) {
-                  // Aquí puedes procesar la respuesta si es necesario
-                  console.log('datos cargados correctamente');
-              },
-              error: function(xhr, status, error) {
-                  console.error('Error al cargar los datos:', error);
-              }
-          });
-      });*/
+        document.addEventListener('DOMContentLoaded', function() {
+            var selectDivision = document.getElementById('selectDivision');
+            var selectCarrera = document.getElementById('selectCarrera');
+            var selectMateria = document.getElementById('selectMateria');
 
-    /*
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('selectDivision').addEventListener('change', function () {
-            const divisionId = this.value;
-            fetchCarreras(divisionId);
-        });
-
-        document.getElementById('selectCarrera').addEventListener('change', function () {
-            const carreraId = this.value;
-            fetchMaterias(carreraId);
-        });
-    });
-    */
-
-    // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
-    // Convertir datos de JSP a JavaScript
-    var divisiones = [];
-    <c:forEach items="${divisiones}" var="division">
-    divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
-    </c:forEach>;
-
-    var carreras = [];
-    <c:forEach items="${carreras}" var="carrera">
-    carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
-    </c:forEach>;
-
-    var materias = [];
-    <c:forEach items="${materias}" var="materia">
-    materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
-    </c:forEach>;
-
-
-    console.log(divisiones);
-    console.log(carreras);
-    console.log(materias);
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var selectDivision = document.getElementById('selectDivision');
-        var selectCarrera = document.getElementById('selectCarrera');
-        var selectMateria = document.getElementById('selectMateria');
-
-        selectDivision.addEventListener('change', function() {
-            var divisionId = this.value;
-            updateCarreras(divisionId);
-        });
-
-        selectCarrera.addEventListener('change', function() {
-            var carreraId = this.value;
-            updateMaterias(carreraId);
-        });
-
-        function updateCarreras(divisionId) {
-            var filteredCarreras = carreras.filter(function(carrera) {
-                return carrera.divisionId == divisionId;
+            selectDivision.addEventListener('change', function() {
+                var divisionId = this.value;
+                updateCarreras(divisionId);
             });
 
-            selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
-            filteredCarreras.forEach(function(carrera) {
-                var option = document.createElement('option');
-                option.value = carrera.id;
-                option.text = carrera.nombre;
-                selectCarrera.appendChild(option);
+            selectCarrera.addEventListener('change', function() {
+                var carreraId = this.value;
+                updateMaterias(carreraId);
             });
 
-            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
-        }
+            function updateCarreras(divisionId) {
+                var filteredCarreras = carreras.filter(function(carrera) {
+                    return carrera.divisionId == divisionId;
+                });
 
-        function updateMaterias(carreraId) {
-            var filteredMaterias = materias.filter(function(materia) {
-                return materia.carreraId == carreraId;
-            });
+                selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
+                filteredCarreras.forEach(function(carrera) {
+                    var option = document.createElement('option');
+                    option.value = carrera.id;
+                    option.text = carrera.nombre;
+                    selectCarrera.appendChild(option);
+                });
 
-            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
-            filteredMaterias.forEach(function(materia) {
-                var option = document.createElement('option');
-                option.value = materia.id;
-                option.text = materia.nombre;
-                selectMateria.appendChild(option);
-            });
-        }
-    });
+                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
+            }
+
+            function updateMaterias(carreraId) {
+                var filteredMaterias = materias.filter(function(materia) {
+                    return materia.carreraId == carreraId;
+                });
+
+                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
+                filteredMaterias.forEach(function(materia) {
+                    var option = document.createElement('option');
+                    option.value = materia.id;
+                    option.text = materia.nombre;
+                    selectMateria.appendChild(option);
+                });
+            }
+        });
+
     // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
 
 </script>
-
 <div class="filtrosBusqueda">
     <div class="custom-select-container">
         <select class="custom-select" name="selectDivision" id="selectDivision">
@@ -476,7 +388,6 @@
 
 
 <!-- Modal HTML aquí -->
-<!-- Modal HTML -->
 <div class="modal fade" id="solicitarAsesoriaModal" tabindex="-1" role="dialog" aria-labelledby="solicitarAsesoriaLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -487,29 +398,38 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="horarioForm" action="../horario" method="post">
+                <form action="${pageContext.request.contextPath}/solicitarAsesoria" method="post">
                     <div class="form-group">
-                        <label for="tema">Tema</label>
-                        <input type="text" class="form-control" id="tema">
+                        <label for="tema">Materia</label>
+                        <input type="text" class="form-control" id="tema" name="tema" readonly>
                     </div>
                     <div class="form-group">
                         <label for="horaInicio">Hora de Inicio</label>
-                        <input type="text" class="form-control" id="horaInicio" name="horaInicio">
+                        <input type="datetime-local" class="form-control" id="horaInicio" name="horaInicio" readonly>
                     </div>
                     <div class="form-group">
                         <label for="horaFin">Hora de Fin</label>
-                        <input type="text" class="form-control" id="horaFin" name="horaFin">
+                        <input type="datetime-local" class="form-control" id="horaFin" name="horaFin" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="docente">Docente</label>
+                        <input type="text" class="form-control" id="docente" name="docente" readonly>
                     </div>
                     <div class="form-group">
                         <label for="dudas">Dudas específicas</label>
-                        <textarea class="form-control" id="dudas"></textarea>
+                        <textarea class="form-control" id="dudas" name="dudas" ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="submit-event">Solicitar</button>
+                    <input type="hidden" id="docenteId" name="docenteId">
+                    <input type="hidden" id="idUsuario" name="idUsuario">
+                    <input type="hidden" id="idMateria" name="idMateria">
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 <%
     } else {
         response.sendRedirect("../accesoDenegado.jsp");
