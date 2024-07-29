@@ -1,4 +1,6 @@
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
