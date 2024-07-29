@@ -109,7 +109,7 @@
 
     </style>
 
-    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+    <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
 </head>
 <body>
 <%-- Filtros de sesión para ADMIN--%>

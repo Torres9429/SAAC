@@ -109,6 +109,8 @@
             margin: 0 auto 20px;
         }
     </style>
+
+    <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
 </head>
 <body>
 <%-- Filtros de sesión para ADMIN--%>
@@ -119,6 +121,7 @@
 <div class="form-container">
     <div class="form-sidebar">
         <h1>Consultar Materia</h1>
+
     </div>
     <div class="form-content">
         <div class="box">
