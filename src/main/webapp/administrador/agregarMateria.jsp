@@ -95,6 +95,79 @@
         .btn-primary:hover {
             background-color: #2c3e50;
         }
+        .modal-custom {
+            display: none;
+            position: fixed;
+            z-index: 1055;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content-custom {
+            background-color: #fefefe;
+            margin: 10% auto;
+            border: 1px solid #888;
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header-custom {
+            background-color: #002E60;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .modal-body-custom {
+            padding: 20px;
+        }
+
+        .modal-footer-custom {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .form-group-custom {
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background-color: #002E60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            height: 30px;
+            align-items: center;
+            align-content: center;
+        }
+
+        .btn-custom:hover {
+            background-color: #004080;
+        }
+
+        .close-custom {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-custom:hover,
+        .close-custom:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
@@ -150,6 +223,29 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<%
+    // Obtener el mensaje de la sesión
+    String mensaje = (String) session.getAttribute("mensajeError");
+    // Eliminar el atributo de sesión después de obtener el mensaje
+    session.removeAttribute("mensajeError");
+%>
+
+<% if (mensaje != null && !mensaje.isEmpty()) { %>
+<div class="modal-custom" style="display: block;">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <span class="close-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2>Mensaje</h2>
+        </div>
+        <div class="modal-body-custom">
+            <p><%= mensaje %></p>
+        </div>
+        <div class="modal-footer-custom">
+            <button class="btn-custom" onclick="this.parentElement.parentElement.parentElement.style.display='none'">Cerrar</button>
+        </div>
+    </div>
+</div>
+<% } %>
 <%
     } else {
         response.sendRedirect("../accesoDenegado.jsp");

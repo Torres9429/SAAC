@@ -152,7 +152,7 @@
 </style>
 <div style="display: flex; align-content: center; height: 85%; width: 100%; padding: 10px;">
         <div class="divText">
-            <h1>Consultar Usuario</h1>
+            <h1>Agregar Usuario</h1>
         </div>
             <div class="form-container">
                 <form action="registrarUsuario" method="post">

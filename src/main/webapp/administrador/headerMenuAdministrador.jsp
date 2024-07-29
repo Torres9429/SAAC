@@ -1,6 +1,4 @@
-
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <html>
 <head>
@@ -23,8 +21,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getCarreras?page=agregar">Agregar</a>
-                    <a class="dropdown-item" href="#">Modificar</a>
-                    <a class="dropdown-item" href="#">Consultar</a>
+                    <a class="dropdown-item" href="">Modificar</a>
+                    <a class="dropdown-item" href="consultarUsuario.jsp">Consultar</a>
                     <a class="dropdown-item" href="aprobarUsuario.jsp">Aprobar/Rechazar</a>
                     <a class="dropdown-item" href="habilitarUsuario.jsp">Habilitar/Deshabilitar</a>
                 </div>
