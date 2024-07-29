@@ -3,12 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Existing head content -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
     <style>
+        /* Existing styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
@@ -39,7 +41,7 @@
             padding: 30px;
         }
         .box {
-            background-color: #40AE97;
+            background-color: #009475;
             padding: 40px;
             border-radius: 8px;
             width: 60%;
@@ -100,9 +102,13 @@
         .btn-container button:hover {
             background-color: #2c3e50;
         }
+        .icono {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
     </style>
-
-    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
 <%-- Filtros de sesión para ADMIN--%>
@@ -112,10 +118,11 @@
 %>
 <div class="form-container">
     <div class="form-sidebar">
-        <h1>Eliminar Materia</h1>
+        <h1>Consultar Materia</h1>
     </div>
     <div class="form-content">
         <div class="box">
+            <img src="../img/Icono.png" class="icono" alt="Icono">
             <form action="ConsultarMateriaServlet" method="post">
                 <div class="form-group">
                     <label for="materia">Matrícula:</label>
@@ -143,7 +150,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <%
     } else {
-    response.sendRedirect("../accesoDenegado.jsp");
+        response.sendRedirect("../accesoDenegado.jsp");
     }
 %>
 </body>
