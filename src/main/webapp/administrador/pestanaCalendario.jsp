@@ -62,7 +62,8 @@
             border-left: 5px solid #FF6347;
         }
     </style>
-    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+
+    <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
 </head>
 <body>
 <%-- Filtros de sesión para ADMIN--%>
