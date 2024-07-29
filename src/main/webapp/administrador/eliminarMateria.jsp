@@ -100,6 +100,13 @@
         .btn-container button:hover {
             background-color: #2c3e50;
         }
+        .icono {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
     </style>
 
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
@@ -116,6 +123,7 @@
     </div>
     <div class="form-content">
         <div class="box">
+            <img src="../img/Icono.png" class="icono" alt="Icono">
             <form action="EliminarMateriaServlet" method="post">
                 <div class="form-group">
                     <label for="materia">Matrícula:</label>
