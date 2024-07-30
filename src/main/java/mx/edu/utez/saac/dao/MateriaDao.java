@@ -15,6 +15,7 @@ public class MateriaDao {
         ArrayList<Materia> lista = new ArrayList<>();
         String query = "select * from materia;";
 
+
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
