@@ -1,20 +1,25 @@
 package mx.edu.utez.saac.model;
 
-import java.util.Collection;
-import java.util.Collections;
-
 public class Materia {
     private int id_materia;
-    private String materia;
+    private String nombre;
     private int id_carrera;
+    private String division;
+    private String area;
+    private String descripcion;
+    private int id_maestro;
 
     public Materia() {
     }
 
-    public Materia(int id_materia, String materia, int id_carrera) {
+    public Materia(int id_materia, String nombre, int id_carrera, String division, String area, String descripcion, int id_maestro) {
         this.id_materia = id_materia;
-        this.materia = materia;
+        this.nombre = nombre;
         this.id_carrera = id_carrera;
+        this.division = division;
+        this.area = area;
+        this.descripcion = descripcion;
+        this.id_maestro = id_maestro;
     }
 
     public int getId_materia() {
@@ -25,12 +30,12 @@ public class Materia {
         this.id_materia = id_materia;
     }
 
-    public String getMateria() {
-        return materia;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getId_carrera() {
@@ -41,42 +46,44 @@ public class Materia {
         this.id_carrera = id_carrera;
     }
 
-    public void setNombre(String materia) {
+    public String getDivision() {
+        return division;
     }
 
     public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getArea() {
+        return area;
     }
 
     public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getId_maestro() {
+        return id_maestro;
+    }
+
+    public void setId_maestro(int id_maestro) {
+        this.id_maestro = id_maestro;
     }
 
     public void setIdMaestro(int idMaestro) {
     }
 
-    public Collection<Object> getNombre() {
-        return java.util.List.of();
+    public void getIdMaestro() {
     }
 
-    public Collection<Object> getDivision() {
-
-        return java.util.List.of();
-    }
-
-    public Collection<Object> getArea() {
-
-        return java.util.List.of();
-    }
-
-
-    public Collection<Object> getDescripcion() {
-        return Collections.singleton(false);
-    }
-
-    public boolean getIdMaestro() {
-
-        return false;
+    public void setMateria(String materia) {
     }
 }
