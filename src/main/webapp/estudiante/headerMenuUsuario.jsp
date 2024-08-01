@@ -63,7 +63,7 @@
                     Perfil
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/perfil.jsp">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/perfil">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/restablecerContraUsuario.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>

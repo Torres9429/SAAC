@@ -11,6 +11,7 @@ public class Asesoria {
     private int id_lugar;
     private int id_horario;
     private int id_status_asesoria;
+    private String status;
     private String dudas;
     private Time hora_inicio;
     private Time hora_fin;
@@ -19,7 +20,7 @@ public class Asesoria {
     public Asesoria() {
     }
 
-    public Asesoria(int id_asesoria, int id_docente, int id_estudiante, int id_materia, int id_horario, int id_lugar, int id_status_asesoria, String dudas, Time hora_inicio, Time hora_fin, Date dia) {
+    public Asesoria(int id_asesoria, int id_docente, int id_estudiante, int id_materia, int id_horario, int id_lugar, int id_status_asesoria, String status, String dudas, Time hora_inicio, Time hora_fin, Date dia) {
         this.id_asesoria = id_asesoria;
         this.id_docente = id_docente;
         this.id_estudiante = id_estudiante;
@@ -27,6 +28,7 @@ public class Asesoria {
         this.id_horario = id_horario;
         this.id_lugar = id_lugar;
         this.id_status_asesoria = id_status_asesoria;
+        this.status = status;
         this.dudas = dudas;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
@@ -87,6 +89,14 @@ public class Asesoria {
 
     public void setId_status_asesoria(int id_status_asesoria) {
         this.id_status_asesoria = id_status_asesoria;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDudas() {

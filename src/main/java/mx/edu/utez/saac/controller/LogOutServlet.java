@@ -17,9 +17,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
         if (session != null) {
             session.invalidate(); // Invalida la sesión actual
-            session = request.getSession(); // Crea una nueva sesión para mostrar el mensaje de cerrar sesión
-            session.setAttribute("logoutMessage", "Sesión cerrada exitosamente."); // Mensaje de cerrar sesión
         }
+        // Configurar las cabeceras para eliminar caché
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setDateHeader("Expires", 0); // Proxies.
 
         response.sendRedirect("index.jsp"); // Redirige a la página de inicio de sesión
     }

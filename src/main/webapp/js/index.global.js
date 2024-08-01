@@ -14697,7 +14697,7 @@ var FullCalendar = (function (exports) {
     return exports;
 
 })({});
-
+/*
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -14742,5 +14742,5 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('dudas').value = '';
         }
     });
-});
+}); */
 

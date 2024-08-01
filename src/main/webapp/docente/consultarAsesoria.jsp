@@ -211,7 +211,8 @@
                                         data-hora-inicio="${horario.hora_inicio}"
                                         data-hora-fin="${horario.hora_fin}"
                                         data-materia="${horario.nombre_materia}"
-                                        data-docente="${horario.nombre_docente}">Consultar</button>
+                                        data-docente="${horario.nombre_docente}"
+                                        data-lugar="${horario.aula} ${horario.edificio}">Consultar</button>
                                         <!--AGREGAR PARA ESTADO ASESORIA-->
                             </td>
                         </tr>
@@ -234,6 +235,7 @@
             <div class="form-group-custom">Día: <span id="modalDia"></span></div>
             <div class="form-group-custom">Materia: <span id="modalMateria"></span></div>
             <div class="form-group-custom">Docente: <span id="modalDocente"></span></div>
+            <div class="form-group-custom">Lugar: <span id="modalLugar"></span></div>
             <!--<div class="form-group-custom">Estado: <span id="modalEstado"></span></div>-->
         </div>
         <div class="modal-footer-custom">
@@ -266,6 +268,7 @@
                 document.getElementById('modalMateria').textContent = this.getAttribute("data-materia");
                 document.getElementById('modalDocente').textContent = this.getAttribute("data-docente");
                 document.getElementById('modalDia').textContent = this.getAttribute("data-dia");
+                document.getElementById('modalLugar').textContent = this.getAttribute("data-lugar");
                 //document.getElementById('modalEstado').textContent = this.getAttribute("data-estado");
 
                 modal.style.display = "block";

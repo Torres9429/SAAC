@@ -62,6 +62,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             //locale: 'es',
             initialDate: fechaActual,
+            timeZone: 'UTC', //ZONA HORARIA
             initialView: 'timeGridWeek',
             headerToolbar: {
                 left: 'prev,next today',

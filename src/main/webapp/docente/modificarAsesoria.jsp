@@ -185,7 +185,7 @@
     <div class="divTable">
         <table>
             <tr>
-                <th colspan="4" style="padding: 0; border-bottom: none; font-size: larger; font-weight: bolder">
+                <th colspan="5" style="padding: 0; border-bottom: none; font-size: larger; font-weight: bolder">
                     <div class="header-div">Horarios</div>
                 </th>
             </tr>
@@ -193,7 +193,9 @@
                 <th>Fecha</th>
                 <th>Horario</th>
                 <th>Materia</th>
+                <th>Lugar</th>
                 <th>Operación</th>
+
             </tr>
             <c:choose>
                 <c:when test="${empty horarios}">
@@ -205,13 +207,15 @@
                             <td>${horario.dia}</td>
                             <td>${horario.hora_inicio} - ${horario.hora_fin}</td>
                             <td>${horario.nombre_materia}</td>
+                            <td>${horario.aula} ${horario.edificio}</td>
                             <td>
                                 <button class="openModalBtn"
                                         data-id-horario="${horario.id_horario}"
                                         data-dia="${horario.dia}"
                                         data-hora-inicio="${horario.hora_inicio}"
                                         data-hora-fin="${horario.hora_fin}"
-                                        data-materia="${horario.materia}">Editar</button>
+                                        data-materia="${horario.materia}"
+                                        data-lugar="${horario.aula} ${horario.edificio}">Editar</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -259,6 +263,15 @@
                         </c:forEach>
                     </select>
                 </div>
+                <div class="form-group-custom">
+                    <label for="aula">Aula:</label>
+                    <select class="custom-select" name="aula" id="aula">
+                        <option value="" selected disabled>Materia</option>
+                        <c:forEach items="${aulas}" var="aula">
+                            <option value="${aula.id_aula}">${aula.aula} ${aula.edificio}</option>
+                        </c:forEach>
+                    </select>
+                </div>
             </form>
         </div>
         <div class="modal-footer-custom">
@@ -290,12 +303,14 @@
                 var horaInicio = this.getAttribute("data-hora-inicio");
                 var horaFin = this.getAttribute("data-hora-fin");
                 var materia = this.getAttribute("data-materia");
+                var lugar = this.getAttribute("data-lugar");
 
                 document.getElementById('id_horario').value = idHorario;
                 document.getElementById('dia').value = dia;
                 document.getElementById('hora-inicio').value = horaInicio;
                 document.getElementById('hora-fin').value = horaFin;
                 document.getElementById('materia').value = materia;
+                document.getElementById("aula").value = lugar;
 
                 modal.style.display = "block";
             }

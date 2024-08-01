@@ -32,6 +32,7 @@ public class HorarioServlet extends HttpServlet {
         horario.setDia(Date.valueOf(req.getParameter("dia")));
         horario.setMateria(Integer.parseInt(req.getParameter("materia")));
         horario.setId_usuario(Integer.parseInt(req.getParameter("id_usuario")));
+        horario.setId_aula(Integer.parseInt(req.getParameter("aula")));
 
         HorarioDao dao = new HorarioDao();
         if (dao.guardarHorario(horario)){

@@ -12,21 +12,27 @@ public class Horario {
     private String nombre_materia;
     private int id_usuario;
     private String nombre_docente;
-    private int id_lugar;
-    private String lugar;
+    private int id_aula;
+    private String aula;
+    private int id_edificio;
+    private String edificio;
 
     public Horario() {
     }
 
-    public Horario(int id_horario, Time hora_inicio, Time hora_fin, Date dia, int id_usuario, int materia, String nombre_materia, String nombre_docente) {
+    public Horario(int id_horario, Time hora_inicio, Time hora_fin, Date dia, int materia, String nombre_materia, int id_usuario, String nombre_docente, int id_aula, String aula, int id_edificio, String edificio) {
         this.id_horario = id_horario;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
         this.dia = dia;
-        this.id_usuario = id_usuario;
         this.materia = materia;
         this.nombre_materia = nombre_materia;
+        this.id_usuario = id_usuario;
         this.nombre_docente = nombre_docente;
+        this.id_aula = id_aula;
+        this.aula = aula;
+        this.id_edificio = id_edificio;
+        this.edificio = edificio;
     }
 
     public int getId_horario() {
@@ -91,5 +97,37 @@ public class Horario {
 
     public void setNombre_docente(String nombre_docente) {
         this.nombre_docente = nombre_docente;
+    }
+
+    public int getId_aula() {
+        return id_aula;
+    }
+
+    public void setId_aula(int id_aula) {
+        this.id_aula = id_aula;
+    }
+
+    public String getAula() {
+        return aula;
+    }
+
+    public void setAula(String aula) {
+        this.aula = aula;
+    }
+
+    public int getId_edificio() {
+        return id_edificio;
+    }
+
+    public void setId_edificio(int id_edificio) {
+        this.id_edificio = id_edificio;
+    }
+
+    public String getEdificio() {
+        return edificio;
+    }
+
+    public void setEdificio(String edificio) {
+        this.edificio = edificio;
     }
 }

@@ -30,16 +30,28 @@ public class PerfilServlet extends HttpServlet {
             System.out.println("ID del usuario desde la sesión: " + userId);
 
             Usuario userDetails = usuarioDao.getUsuarioById(userId);
-            System.out.println("Detalles del usuario recuperados: " + userDetails);
+            System.out.println("Detalles del usuario recuperados: " + usuario.getId_tipo_usuario());
 
-            if (userDetails != null) {
+            if (usuario != null) {
                 req.setAttribute("userDetails", userDetails);
-                req.getRequestDispatcher("docente/perfilDocente.jsp").forward(req, resp);
-            } else {
-                resp.sendRedirect("index.jsp");
+
+                // Redirigir a la vista correcta según el tipo de usuario
+                switch (usuario.getId_tipo_usuario()) {
+                    case 1: // Administrador
+                        req.getRequestDispatcher("administrador/modificarUsuario.jsp").forward(req, resp);
+                        break;
+                    case 2: // Docente
+                        req.getRequestDispatcher("docente/perfilDocente.jsp").forward(req, resp);
+                        break;
+                    case 3: // Estudiante
+                        req.getRequestDispatcher("estudiante/perfil.jsp").forward(req, resp);
+                        break;
+                    default:
+                        resp.sendRedirect("index.jsp");
+                        System.out.println("error al redirigir al servlet");
+                        break;
+                }
             }
-        } else {
-            resp.sendRedirect("index.jsp");
         }
     }
 
@@ -49,7 +61,7 @@ public class PerfilServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("user");
         String mensaje;
         if (usuario != null) {
-            int userId = usuario.getId();
+            int userId = Integer.parseInt(req.getParameter("idUsuario"));
             String nombre = req.getParameter("nombre");
             String apellidoPaterno = req.getParameter("apellido_paterno");
             String apellidoMaterno = req.getParameter("apellido_materno");
@@ -66,22 +78,34 @@ public class PerfilServlet extends HttpServlet {
 
             if (updated) {
                 // Actualización exitosa, redirige al perfil actualizado
+                mensaje = "¡Los cambios ingresados han sido guardados exitosamente!";
+                session.setAttribute("mensaje", mensaje);
                 resp.sendRedirect(req.getContextPath() + "/perfil");
                 System.out.println("Actualización exitosa");
-                mensaje = "¡Los cambios ingresados han sido guardados exitosamente!";
             } else {
                 // Error en la actualización, redirige al perfil con un mensaje de error
                 req.setAttribute("error", "No se pudo actualizar la información.");
-                req.getRequestDispatcher("/docente/perfilDocente.jsp").forward(req, resp);
+                switch (usuario.getId_tipo_usuario()) {
+                    case 1: // Administrador
+                        req.getRequestDispatcher("administrador/modificarUsuario.jsp").forward(req, resp);
+                        break;
+                    case 2: // Docente
+                        req.getRequestDispatcher("docente/perfilDocente.jsp").forward(req, resp);
+                        break;
+                    case 3: // Estudiante
+                        req.getRequestDispatcher("estudiante/perfil.jsp").forward(req, resp);
+                        break;
+                    default:
+                        resp.sendRedirect("index.jsp");
+                        break;
+                }
                 System.out.println("Error en la actualización");
                 mensaje = "Ocurrió un error al guardar los cambios, por favor, inténtelo más tarde";
+                session.setAttribute("mensaje", mensaje);
             }
-            session.setAttribute("mensajeHabilitacion", mensaje);
         } else {
             resp.sendRedirect("index.jsp");
+            System.out.println("error al redirigir al con el post");
         }
-
     }
 }
-
-

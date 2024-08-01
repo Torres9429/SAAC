@@ -29,10 +29,10 @@ public class AsesoriaDao {
 
         return lista;
     }
-    public boolean agendar(Asesoria a){
+    public boolean solicitar(Asesoria a){
         boolean flag = false;
         String queryCheck = "select * from asesoria where horario = ?;";
-        String queryInsert = "insert into asesoria(docente,estudiante,materia,horario,lugar,id_status_asesoria,dudas,hora_inicio,hora_fin,dia) values(?,?,?,?,?,?,?,?,?,?);";
+        String queryInsert = "insert into asesoria(docente,estudiante,materia,horario,id_aula,id_status_asesoria,dudas,hora_inicio,hora_fin,dia) values(?,?,?,?,?,?,?,?,?,?);";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement psCheck = con.prepareStatement(queryCheck);
@@ -45,7 +45,7 @@ public class AsesoriaDao {
                 psInsert.setInt(3, a.getId_materia());
                 psInsert.setInt(4, a.getId_horario());
                 psInsert.setInt(5,a.getId_lugar());
-                psInsert.setInt(6, a.getId_status_asesoria());
+                psInsert.setInt(6, 8);
                 psInsert.setString(7, a.getDudas());
                 psInsert.setTime(8, a.getHora_inicio());
                 psInsert.setTime(9, a.getHora_fin());
@@ -56,7 +56,7 @@ public class AsesoriaDao {
 
                 psInsert.close();
             } else {
-                System.out.println("La asesoria fue agendada");
+                System.out.println("La asesoria fue ya fue agendada");
             }
             rsCheck.close();
             psCheck.close();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class HorarioDao {
     public boolean guardarHorario(Horario horario){
         boolean flag = false;
-        String query = "insert into horario(hora_inicio,hora_fin,dia,id_materia,id_usuario) values(?,?,?,?,?);";
+        String query = "insert into horario(hora_inicio,hora_fin,dia,id_materia,id_usuario,id_aula) values(?,?,?,?,?,?);";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -20,6 +20,7 @@ public class HorarioDao {
             ps.setDate(3, horario.getDia());
             ps.setInt(4, horario.getMateria());
             ps.setInt(5, horario.getId_usuario());
+            ps.setInt(6, horario.getId_aula());
             if (ps.executeUpdate() > 0) {
                 System.out.println("query correcto");
                 flag = true;
@@ -46,6 +47,8 @@ public class HorarioDao {
                 horario.setDia(rs.getDate("dia"));
                 horario.setMateria(rs.getInt("id_materia"));
                 horario.setNombre_materia(rs.getString("materia"));
+                horario.setAula(rs.getString("aula"));
+                horario.setEdificio(rs.getString("edificio"));
                 horario.setNombre_docente(rs.getString("nombre_completo"));
                 list.add(horario);
             }
@@ -71,6 +74,10 @@ public class HorarioDao {
                 horario.setId_usuario(rs.getInt("id_usuario"));
                 horario.setNombre_materia(rs.getString("materia"));
                 horario.setNombre_docente(rs.getString("nombre_completo"));
+                horario.setId_aula(rs.getInt("id_aula"));
+                horario.setAula(rs.getString("aula"));
+                horario.setId_edificio(rs.getInt("id_edificio"));
+                horario.setEdificio(rs.getString("edificio"));
                 list.add(horario);
             }
         } catch (SQLException e) {
@@ -103,7 +110,7 @@ public class HorarioDao {
     }*/
     public boolean updateHorario(Horario horario){
         boolean flag = false;
-        String query = "update horario set hora_inicio = ?, hora_fin = ?, dia = ?, id_materia = ? where id_horario = ?;";
+        String query = "update horario set hora_inicio = ?, hora_fin = ?, dia = ?, id_materia = ?, id_aula = ? where id_horario = ?;";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -111,7 +118,8 @@ public class HorarioDao {
             ps.setTime(2, horario.getHora_fin());
             ps.setDate(3, horario.getDia());
             ps.setInt(4, horario.getMateria());
-            ps.setInt(5, horario.getId_horario());
+            ps.setInt(5,horario.getId_aula());
+            ps.setInt(6, horario.getId_horario());
             if (ps.executeUpdate()>0){
                 flag = true;
             }

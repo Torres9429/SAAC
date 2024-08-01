@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import mx.edu.utez.saac.dao.AulaDao;
 import mx.edu.utez.saac.dao.HorarioDao;
 import mx.edu.utez.saac.dao.MateriaDao;
+import mx.edu.utez.saac.model.Aula;
 import mx.edu.utez.saac.model.Horario;
 import mx.edu.utez.saac.model.Materia;
 import mx.edu.utez.saac.model.Usuario;
@@ -29,6 +31,10 @@ public class GetHorarios extends HttpServlet {
         MateriaDao materiaDao = new MateriaDao();
         ArrayList<Materia> materias = materiaDao.getAll();
         req.setAttribute("materias", materias);
+
+        AulaDao aulaDao = new AulaDao();
+        ArrayList<Aula> aulas = aulaDao.getAula();
+        req.setAttribute("aulas", aulas);
 
         if (user != null) {
             int idUsuario = user.getId();
@@ -85,6 +91,7 @@ public class GetHorarios extends HttpServlet {
         horario.setMateria(Integer.parseInt(req.getParameter("materia")));
         horario.setId_usuario(Integer.parseInt(req.getParameter("id_usuario")));
         horario.setId_horario(Integer.parseInt(req.getParameter("id_horario")));
+        horario.setId_aula(Integer.parseInt(req.getParameter("aula")));
 
         HorarioDao dao = new HorarioDao();
         String mensaje;

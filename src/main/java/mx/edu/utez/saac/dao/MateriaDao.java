@@ -56,4 +56,10 @@ public class MateriaDao {
     public boolean insert(Materia materia) {
         return false;
     }
+
+    public boolean getMateriaByUsuario(int id) {
+        boolean flag = false;
+        String query = "select * from materia where ";
+        return flag;
+    }
 }

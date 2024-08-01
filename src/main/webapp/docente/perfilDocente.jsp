@@ -207,6 +207,7 @@
                 <label for="edad">Edad:</label><br>
                 <input type="number" disabled name="edad" id="edad" value="<%= userDetails != null ? userDetails.getEdad() : "" %>">
             </div>
+            <input type="hidden" name="idUsuario" id="idUsuario" value="<%=userDetails.getId()%>">
             <!-- Agregar input para fecha si es necesario -->
             <!-- <div class="campos-form">
                     <label for="fechaNac">Fecha de nacimiento:</label><br>
@@ -221,9 +222,9 @@
 </div>
 <%
     // Obtener el mensaje de la sesión
-    String mensaje = (String) session.getAttribute("mensajeHabilitacion");
+    String mensaje = (String) session.getAttribute("mensaje");
     // Eliminar el atributo de sesión después de obtener el mensaje
-    session.removeAttribute("mensajeHabilitacion");
+    session.removeAttribute("mensaje");
 %>
 
 <% if (mensaje != null && !mensaje.isEmpty()) { %>
