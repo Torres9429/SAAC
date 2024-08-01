@@ -33,10 +33,10 @@
                     Materia
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Agregar</a>
-                    <a class="dropdown-item" href="#">Modificar</a>
-                    <a class="dropdown-item" href="#">Consultar</a>
-                    <a class="dropdown-item" href="#">Eliminar</a>
+                    <a class="dropdown-item" href="agregarMateria.jsp">Agregar</a>
+                    <a class="dropdown-item" href="modificarMateria.jsp">Modificar</a>
+                    <a class="dropdown-item" href="consultarMateria.jsp">Consultar</a>
+                    <a class="dropdown-item" href="eliminarMateria.jsp">Eliminar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

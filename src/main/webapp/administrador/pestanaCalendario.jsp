@@ -1,4 +1,6 @@
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +62,8 @@
             border-left: 5px solid #FF6347;
         }
     </style>
-    <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
+
+    <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
 </head>
 <body>
 <%-- Filtros de sesión para ADMIN--%>

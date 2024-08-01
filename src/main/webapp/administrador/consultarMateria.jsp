@@ -1,16 +1,19 @@
+<%@ page import="mx.edu.utez.saac.dao.MateriaDao" %>
+<%@ page import="mx.edu.utez.saac.model.Materia" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
-    <!-- Existing head content -->
+    <title>Consultar Materia</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
+    <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
     <style>
-        /* Existing styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
@@ -108,6 +111,35 @@
             display: block;
             margin: 0 auto 20px;
         }
+        .divTable {
+            width: 80%;
+            margin: 15px;
+            height: 100%;
+        }
+        .divText {
+            border-right: 4px solid #BFB4B4;
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #009475;
+            height: 100%;
+            margin: 15px;
+        }
+        th {
+            border-color: white;
+            color: #002E60;
+        }
+        input {
+            background-color: #3A4C60;
+            border-radius: 5px;
+            color: white;
+            width: 90px;
+            height: 30px;
+            border: hidden;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -116,38 +148,58 @@
     Usuario user = (Usuario) session.getAttribute("user");
     if (user != null && user.getId_tipo_usuario() == 1) {
 %>
-<div class="form-container">
-    <div class="form-sidebar">
+<div style="display: flex; align-content: center; height: 80%">
+    <div class="divText">
         <h1>Consultar Materia</h1>
     </div>
-    <div class="form-content">
-        <div class="box">
-            <img src="../img/Icono.png" class="icono" alt="Icono">
-            <form action="ConsultarMateriaServlet" method="post">
-                <div class="form-group">
-                    <label for="materia">Matrícula:</label>
-                    <input type="text" class="form-control" id="materia" name="materia" required>
-                    <button type="submit" class="btn btn-primary">Consultar</button>
-                </div>
-            </form>
-            <div class="data-box">
-                <p><strong>División:</strong> <span id="division">DATID</span></p>
-                <p><strong>Área:</strong> <span id="area">Tecnologías de la Información</span></p>
-                <p><strong>Descripción:</strong> <span id="descripcion">Materia especializa en la división DATID</span></p>
-                <p><strong>Maestros:</strong> <span id="maestros">Lázaro Ríos Gutiérrez</span></p>
-            </div>
-            <div class="btn-container">
-                <button onclick="window.location.href='EliminarMateriaServlet'">Eliminar materia</button>
-                <button onclick="window.location.href='logout.jsp'">Salir</button>
-            </div>
-        </div>
+    <div class="divTable">
+        <table id="example" style="background-color: #80C9BA;" class="table table-striped table-hover">
+            <thead>
+            <tr style="background-color: #80C9BA;">
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Division</th>
+                <th>Area</th>
+                <th>Descripcion</th>
+                <th>Id Carrera</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                MateriaDao dao = new MateriaDao();
+                ArrayList<Materia> lista = dao.getAll();
+                for (Materia m : lista) {
+            %>
+            <tr style="background-color: #80C9BA;">
+                <td><%=m.getId_materia()%></td>
+                <td><%= m.getNombre() %></td>
+                <td><%= m.getDivision() %></td>
+                <td><%= m.getArea() %></td>
+                <td><%= m.getDescripcion() %></td>
+                <td><%= m.getId_carrera() %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/datatables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
+<script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('example');
+        new DataTable(table, {
+            language: {
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
+            },
+            pageLength: 7
+        });
+    });
+</script>
 <%
     } else {
         response.sendRedirect("../accesoDenegado.jsp");

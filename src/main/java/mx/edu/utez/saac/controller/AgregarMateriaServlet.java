@@ -21,6 +21,7 @@ public class AgregarMateriaServlet extends HttpServlet {
         materia.setArea(req.getParameter("area"));
         materia.setDescripcion(req.getParameter("descripcion"));
         materia.setIdMaestro(Integer.parseInt(req.getParameter("id_maestro")));
+        materia.setId_carrera(Integer.parseInt(req.getParameter("id_carrera")));
 
         // Verificación básica
         materia.getIdMaestro();
