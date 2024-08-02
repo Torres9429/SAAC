@@ -2,6 +2,9 @@
 <%@ page import="mx.edu.utez.saac.model.Materia" %>
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page import="mx.edu.utez.saac.model.Horario" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saac.dao.AulaDao" %>
+<%@ page import="mx.edu.utez.saac.model.Aula" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -215,7 +218,7 @@
                                         data-hora-inicio="${horario.hora_inicio}"
                                         data-hora-fin="${horario.hora_fin}"
                                         data-materia="${horario.materia}"
-                                        data-lugar="${horario.aula} ${horario.edificio}">Editar</button>
+                                        data-lugar="${horario.aula} - ${horario.edificio}">Editar</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -266,10 +269,14 @@
                 <div class="form-group-custom">
                     <label for="aula">Aula:</label>
                     <select class="custom-select" name="aula" id="aula">
-                        <option value="" selected disabled>Materia</option>
-                        <c:forEach items="${aulas}" var="aula">
-                            <option value="${aula.id_aula}">${aula.aula} ${aula.edificio}</option>
-                        </c:forEach>
+                        <option value="" selected disabled>Aula</option>
+                        <%
+                            AulaDao dao = new AulaDao();
+                            ArrayList<Aula> lista = dao.getAula();
+                            for(Aula A : lista){//Por cada usuario de la lista
+                        %>
+                            <option value="<%= A.getId_aula()%>"><%=A.getAula() +" "+ A.getEdificio()%></option>
+                       <%}%>
                     </select>
                 </div>
             </form>

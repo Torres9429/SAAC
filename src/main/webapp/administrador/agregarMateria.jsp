@@ -1,4 +1,7 @@
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saac.dao.CarreraDao" %>
+<%@ page import="mx.edu.utez.saac.model.Carrera" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -183,20 +186,25 @@
     </div>
     <div class="form-content">
         <div class="box">
-            <form action="AgregarMateriaServlet" method="post">
+            <form action="agregarMateria" method="post">
                 <div class="form-group">
                     <label for="materia">Materia:</label>
                     <input type="text" class="form-control" id="materia" name="materia" required>
                 </div>
                 <div class="form-group">
-                    <label for="division">Division:</label>
-                    <select class="form-control" id="division" name="division" required>
-                        <option value="Division 1">Division 1</option>
-                        <option value="Division 2">Division 2</option>
-                        <option value="Division 3">Division 3</option>
+                    <label for="division">Carrera:</label>
+                    <select class="form-control" id="division" name="carrera" required>
+                        <option value="" selected disabled>Carrera</option>
+                        <%
+                            CarreraDao dao = new CarreraDao();
+                            ArrayList<Carrera> lista = dao.getAll();
+                            for(Carrera c : lista){//Por cada usuario de la lista
+                        %>
+                        <option value="<%= c.getId_carrera()%>"><%=c.getCarrera()%></option>
+                        <%}%>
                     </select>
                 </div>
-                <div class="form-group">
+                <!--div class="form-group">
                     <label for="area">Area:</label>
                     <input type="text" class="form-control" id="area" name="area" required>
                 </div>
@@ -211,7 +219,7 @@
                         <option value="Maestro 2">Maestro 2</option>
                         <option value="Maestro 3">Maestro 3</option>
                     </select>
-                </div>
+                </div-->
                 <div class="btn-container">
                     <button type="submit" class="btn btn-primary">Agregar Materia</button>
                 </div>
@@ -219,10 +227,7 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 <%
     // Obtener el mensaje de la sesión
     String mensaje = (String) session.getAttribute("mensajeError");

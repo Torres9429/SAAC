@@ -309,7 +309,7 @@
                 <div class="form-group-custom">
                     <label for="aula">Aula:</label>
                     <select class="custom-select" name="aula" id="aula">
-                        <option value="" selected disabled>Materia</option>
+                        <option value="" selected disabled>Aula</option>
                         <c:forEach items="${aulas}" var="aula">
                             <option value="${aula.id_aula}">${aula.aula} ${aula.edificio}</option>
                         </c:forEach>

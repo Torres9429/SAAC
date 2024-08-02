@@ -206,7 +206,7 @@
             </td>
             <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
             <td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td>
-            <td><a href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=habilitar">Habilitar Usuario</a></td>
+            <td><a href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=habilitar">Habilitar</a></td>
             <td><a href="../deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
         </tr>
         <% } %>

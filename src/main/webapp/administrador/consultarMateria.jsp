@@ -172,7 +172,7 @@
             %>
             <tr style="background-color: #80C9BA;">
                 <td><%=m.getId_materia()%></td>
-                <td><%= m.getNombre() %></td>
+                <td><%= m.getMateria() %></td>
                 <td><%= m.getDivision() %></td>
                 <td><%= m.getArea() %></td>
                 <td><%= m.getDescripcion() %></td>

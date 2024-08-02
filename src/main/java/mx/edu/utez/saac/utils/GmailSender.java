@@ -38,7 +38,7 @@ import static jakarta.mail.Message.RecipientType.TO;
 public class GmailSender {
 
     private static final String TOKENS_DIRECTORY_PATH = "src/main/resources/tokens";
-    private static final String FROM = "lagunes.derick@gmail.com";
+    private static final String FROM = "saac.oficial.utez@gmail.com";
     private final Gmail service;
 
     public GmailSender() throws Exception {

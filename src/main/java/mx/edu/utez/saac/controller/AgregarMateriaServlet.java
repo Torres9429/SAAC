@@ -16,7 +16,7 @@ public class AgregarMateriaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Materia materia = new Materia();
-        materia.setNombre(req.getParameter("materia"));
+        materia.setMateria(req.getParameter("materia"));
         materia.setDivision(req.getParameter("division"));
         materia.setArea(req.getParameter("area"));
         materia.setDescripcion(req.getParameter("descripcion"));
@@ -25,7 +25,7 @@ public class AgregarMateriaServlet extends HttpServlet {
 
         // Verificación básica
         materia.getIdMaestro();
-        if ((materia.getNombre() == null) || materia.getNombre().isEmpty() || (materia.getDivision() == null) || materia.getDivision().isEmpty() || (materia.getArea() == null) || materia.getArea().isEmpty() || (materia.getDescripcion() == null) || materia.getDescripcion().isEmpty()) {
+        if ((materia.getMateria() == null) || materia.getMateria().isEmpty() || (materia.getDivision() == null) || materia.getDivision().isEmpty() || (materia.getArea() == null) || materia.getArea().isEmpty() || (materia.getDescripcion() == null) || materia.getDescripcion().isEmpty()) {
 
             HttpSession session = req.getSession();
             session.setAttribute("mensajeError", "La materia no se ha guardado correctamente. Por favor intente más tarde o verifique los datos.");

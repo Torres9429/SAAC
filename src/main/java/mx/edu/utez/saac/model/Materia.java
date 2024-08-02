@@ -2,7 +2,7 @@ package mx.edu.utez.saac.model;
 
 public class Materia {
     private int id_materia;
-    private String nombre;
+    private String materia;
     private int id_carrera;
     private String division;
     private String area;
@@ -12,9 +12,9 @@ public class Materia {
     public Materia() {
     }
 
-    public Materia(int id_materia, String nombre, int id_carrera, String division, String area, String descripcion, int id_maestro) {
+    public Materia(int id_materia, String materia, int id_carrera, String division, String area, String descripcion, int id_maestro) {
         this.id_materia = id_materia;
-        this.nombre = nombre;
+        this.materia = materia;
         this.id_carrera = id_carrera;
         this.division = division;
         this.area = area;
@@ -30,12 +30,12 @@ public class Materia {
         this.id_materia = id_materia;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getMateria() {
+        return materia;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setMateria(String materia) {
+        this.materia = materia;
     }
 
     public int getId_carrera() {
@@ -84,6 +84,6 @@ public class Materia {
     public void getIdMaestro() {
     }
 
-    public void setMateria(String materia) {
-    }
+//    public void setMateria(String materia) {
+//    }
 }

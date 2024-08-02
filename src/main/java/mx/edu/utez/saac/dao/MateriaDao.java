@@ -23,7 +23,8 @@ public class MateriaDao {
             while (rs.next()){
                 Materia materia = new Materia();
                 materia.setId_materia(rs.getInt("id_materia"));
-                materia.setNombre(rs.getString("materia"));
+                materia.setMateria(rs.getString("materia"));
+                //materia.setNombre(rs.getString("materia"));
                 materia.setId_carrera(rs.getInt("id_carrera"));
                 lista.add(materia);
             }

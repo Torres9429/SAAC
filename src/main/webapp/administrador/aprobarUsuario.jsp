@@ -15,7 +15,7 @@
     <title>Aprobar/Rechazar usuario</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
-    <link rel="stylesheet"type="text/css"  href="../css/bootstrap.css">
+    <link rel="stylesheet"type="text/css"  href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
     <jsp:include page="headerMenuAdministrador.jsp" />
 </head>

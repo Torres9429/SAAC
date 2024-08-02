@@ -231,6 +231,7 @@
                     title: '${horario.nombre_materia}',
                     start: '${horario.dia}T${horario.hora_inicio}',
                     end: '${horario.hora_fin}',
+                    class:'class-',
                     extendedProps: {
                         horarioId: '${horario.id_horario}',
                         horaInicio: '${horario.hora_inicio}',
@@ -264,7 +265,7 @@
         });
 
         function loadEvents() {
-            fetch('getMaterias')
+            fetch('getData')
                 .then(response => response.json())
                 .then(data => {
                     calendar.removeAllEvents();
@@ -292,7 +293,7 @@
 
         calendar.render();
         // Evento change para el select de materias
-        document.getElementById('selectMateria').addEventListener('change', function() {
+        /*document.getElementById('selectMateria').addEventListener('change', function() {
             var selectedMateriaId = this.value;
             filterEventsByMateria(selectedMateriaId);
         });
@@ -309,8 +310,8 @@
                     event.setProp('display', 'none'); // Oculta el evento
                 }
             });
-        }
-        //loadEvents();
+        }*/
+        loadEvents();
         // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
         // Convertir datos de JSP a JavaScript
         var divisiones = [];
@@ -328,11 +329,9 @@
         materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
         </c:forEach>;
 
-
         console.log(divisiones);
         console.log(carreras);
         console.log(materias);
-
 
         document.addEventListener('DOMContentLoaded', function() {
             var selectDivision = document.getElementById('selectDivision');
@@ -342,7 +341,6 @@
             selectDivision.addEventListener('change', function() {
                 var divisionId = this.value;
                 updateCarreras(divisionId);
-                loadEvents(divisionId); //agregar la funcion en este contexto
             });
 
             selectCarrera.addEventListener('change', function() {
@@ -395,7 +393,7 @@
 
 </script>
 <div class="filtrosBusqueda">
-    <!--div class="custom-select-container">
+    <div class="custom-select-container">
         <select class="custom-select" name="selectDivision" id="selectDivision">
             <option value="">División académica</option>
             <c:forEach items="${divisiones}" var="division">
@@ -407,13 +405,10 @@
         <select class="custom-select" name="selectCarrera" id="selectCarrera">
             <option value="" selected disabled>Carrera</option>
         </select>
-    </div> -->
+    </div>
     <div class="custom-select-container">
         <select class="custom-select" name="selectMateria" id="selectMateria">
             <option value="" selected disabled>Materia</option>
-            <c:forEach items="${materias}" var="materia">
-                <option value="${materia.id_materia}">${materia.materia}</option>
-            </c:forEach>
         </select>
     </div>
 </div>
@@ -421,9 +416,9 @@
     <p class="status " style="background-color: #EBAF14">Pendiente</p>
     <p class="status " style="background-color: #096DD9">En curso</p>
     <p class="status " style="background-color: #870808">Cancelada</p>
-    <p class="status " style="background-color: #EB1414">Rechazada</p>
+    <!--p class="status " style="background-color: #EB1414">Rechazada</p>
     <p class="status " style="background-color: #009475">Aceptada</p>
-    <p class="status " style="background-color: #8C3AAA">Modificada</p>
+    <p-- class="status " style="background-color: #8C3AAA">Modificada</p-->
     <p class="status " style="background-color: #043B78">Finalizada</p>
 </div>
 <div id='calendar'></div>

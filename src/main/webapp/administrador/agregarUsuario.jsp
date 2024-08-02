@@ -13,8 +13,9 @@
     <title>Agregar usuario</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
-    <link rel="stylesheet"type="text/css"  href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
+    <!--script-- src="https://code.jquery.com/jquery-3.6.0.min.js"></script-->
+
     <jsp:include page="headerMenuAdministrador.jsp" />
 </head>
 <body>
@@ -155,7 +156,7 @@
             <h1>Agregar Usuario</h1>
         </div>
             <div class="form-container">
-                <form action="registrarUsuario" method="post">
+                <form action="registrarUsuario" method="post" onsubmit="return validarCorreo()">
                     <input type="hidden" name="source" value="agregarU">
                     <div class="form-row">
                         <div class="form-group col-md-3">
@@ -200,6 +201,7 @@
                     <div class="form-group">
                         <label for="correoRegistro">Correo</label>
                         <input type="email" class="form-control" id="correoRegistro" name="correoRegistro" placeholder="Correo institucional">
+                        <div id="mensajeError" style="color: red; font-weight: bold;"></div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -212,7 +214,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-custom">Agregar Usuario</button>
+                    <button type="submit" class="btn btn-custom" id="btnSubmitRegistro">Agregar Usuario</button>
                 </form>
         </div>
 
@@ -241,12 +243,7 @@
 </div>
 <% } %>
 
-            </div>
-        </div>
-    </div>
-</div>
 
-</div>
 <script>
     $(document).ready(function() {
         // Llama al servlet para obtener las carreras al cargar la página

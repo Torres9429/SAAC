@@ -30,7 +30,9 @@
     <br>
     <hr class="separator">
     <br>
-    <!--<h2 style="color: #002E60; margin-top: 10px;">Maximiliano Carsi Castrejon</h2>-->
+    <h2 style="color: #002E60FF; margin-top: 10px;">
+        <%=user.getNombre()%>
+    </h2>
 </div>
 
 <div class="social-icons">
