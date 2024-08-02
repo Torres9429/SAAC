@@ -4,22 +4,17 @@ public class Materia {
     private int id_materia;
     private String materia;
     private int id_carrera;
-    private String division;
-    private String area;
-    private String descripcion;
-    private int id_maestro;
+    private String carrera;
+
 
     public Materia() {
     }
 
-    public Materia(int id_materia, String materia, int id_carrera, String division, String area, String descripcion, int id_maestro) {
+    public Materia(int id_materia, String materia, int id_carrera, String carrera) {
         this.id_materia = id_materia;
         this.materia = materia;
         this.id_carrera = id_carrera;
-        this.division = division;
-        this.area = area;
-        this.descripcion = descripcion;
-        this.id_maestro = id_maestro;
+        this.carrera = carrera;
     }
 
     public int getId_materia() {
@@ -46,44 +41,11 @@ public class Materia {
         this.id_carrera = id_carrera;
     }
 
-    public String getDivision() {
-        return division;
+    public String getCarrera() {
+        return carrera;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getId_maestro() {
-        return id_maestro;
-    }
-
-    public void setId_maestro(int id_maestro) {
-        this.id_maestro = id_maestro;
-    }
-
-    public void setIdMaestro(int idMaestro) {
-    }
-
-    public void getIdMaestro() {
-    }
-
-//    public void setMateria(String materia) {
-//    }
 }

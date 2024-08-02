@@ -157,10 +157,7 @@
             <thead>
             <tr style="background-color: #80C9BA;">
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Division</th>
-                <th>Area</th>
-                <th>Descripcion</th>
+                <th>Nombre de la materia</th>
                 <th>Id Carrera</th>
             </tr>
             </thead>
@@ -173,9 +170,6 @@
             <tr style="background-color: #80C9BA;">
                 <td><%=m.getId_materia()%></td>
                 <td><%= m.getMateria() %></td>
-                <td><%= m.getDivision() %></td>
-                <td><%= m.getArea() %></td>
-                <td><%= m.getDescripcion() %></td>
                 <td><%= m.getId_carrera() %></td>
             </tr>
             <% } %>

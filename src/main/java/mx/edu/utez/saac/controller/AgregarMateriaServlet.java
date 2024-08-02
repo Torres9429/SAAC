@@ -17,13 +17,10 @@ public class AgregarMateriaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Materia materia = new Materia();
         materia.setMateria(req.getParameter("materia"));
-        materia.setDivision(req.getParameter("division"));
-        materia.setArea(req.getParameter("area"));
-        materia.setDescripcion(req.getParameter("descripcion"));
-        materia.setIdMaestro(Integer.parseInt(req.getParameter("id_maestro")));
+        materia.setCarrera(req.getParameter("carrera"));
         materia.setId_carrera(Integer.parseInt(req.getParameter("id_carrera")));
 
-        // Verificación básica
+        /* Verificación básica
         materia.getIdMaestro();
         if ((materia.getMateria() == null) || materia.getMateria().isEmpty() || (materia.getDivision() == null) || materia.getDivision().isEmpty() || (materia.getArea() == null) || materia.getArea().isEmpty() || (materia.getDescripcion() == null) || materia.getDescripcion().isEmpty()) {
 
@@ -43,6 +40,6 @@ public class AgregarMateriaServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("mensajeError", "Puede que la materia ya esté registrada.");
             resp.sendRedirect("agregarMateria.jsp");
-        }
+        }*/
     }
 }
