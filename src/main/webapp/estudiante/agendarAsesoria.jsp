@@ -2,6 +2,10 @@
 <%@ page import="mx.edu.utez.saac.model.Horario" %>
 <%@ page import="mx.edu.utez.saac.model.Materia" %>
 <%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.saac.model.Carrera" %>
+<%@ page import="mx.edu.utez.saac.dao.CarreraDao" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saac.dao.MateriaDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -51,6 +55,7 @@
         .custom-select-container {
             position: relative;
             width: 300px; /* Ajusta el ancho según sea necesario */
+            max-width: 300px;
 
         }
 
@@ -61,7 +66,7 @@
             width: 290px;
             height: 45px;
             margin: 15px;
-            padding: 10px 40px 10px 15px; /* Espaciado interno */
+            padding: 10px 50px 10px 15px; /* Espaciado interno */
             font-size: 16px;
             color: #6c7a89; /* Color del texto */
             background-color: #f2f2f2; /* Color de fondo */
@@ -78,7 +83,7 @@
             background-color: #009475;
             color: #002E60; /* Color del icono */
             height: 45px; /* Alinea el fondo al alto del select */
-            width: 40px;
+            width: 50px;
             display: flex; /* Utiliza flexbox para centrar el icono */
             justify-content: center; /* Centra el icono horizontalmente */
             align-items: center; /* Centra el icono verticalmente */
@@ -239,8 +244,11 @@
                         docenteId: '${horario.id_usuario}',
                         nombreDocente: '${horario.nombre_docente}',
                         materiaId: '${horario.materia}',
+                        carreraId: '${horario.carrera}',
+                        divisionId: '${horario.division}',
                         aulaId: '${horario.id_aula}',
-                        dia: '${horario.dia}'
+                        dia: '${horario.dia}',
+                        <%--class: 'status-${horario.status}'--%>
                     }
                 },
                 </c:forEach>],
@@ -281,6 +289,8 @@
                                 docenteId: '${horario.id_usuario}',
                                 nombreDocente: '${horario.nombre_docente}',
                                 materiaId: '${horario.materia}',
+                                carreraId: '${horario.carrera}',
+                                divisionId: '${horario.division}',
                                 aulaId: '${horario.id_aula}',
                                 dia: '${horario.dia}'
                             }
@@ -293,7 +303,7 @@
 
         calendar.render();
         // Evento change para el select de materias
-        /*document.getElementById('selectMateria').addEventListener('change', function() {
+        document.getElementById('selectMateria').addEventListener('change', function() {
             var selectedMateriaId = this.value;
             filterEventsByMateria(selectedMateriaId);
         });
@@ -310,118 +320,172 @@
                     event.setProp('display', 'none'); // Oculta el evento
                 }
             });
-        }*/
-        loadEvents();
-        // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
-        // Convertir datos de JSP a JavaScript
-        var divisiones = [];
-        <c:forEach items="${divisiones}" var="division">
-        divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
-        </c:forEach>;
-
-        var carreras = [];
-        <c:forEach items="${carreras}" var="carrera">
-        carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
-        </c:forEach>;
-
-        var materias = [];
-        <c:forEach items="${materias}" var="materia">
-        materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
-        </c:forEach>;
-
-        console.log(divisiones);
-        console.log(carreras);
-        console.log(materias);
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var selectDivision = document.getElementById('selectDivision');
-            var selectCarrera = document.getElementById('selectCarrera');
-            var selectMateria = document.getElementById('selectMateria');
-
-            selectDivision.addEventListener('change', function() {
-                var divisionId = this.value;
-                updateCarreras(divisionId);
-            });
-
-            selectCarrera.addEventListener('change', function() {
-                var carreraId = this.value;
-                updateMaterias(carreraId);
-            });
-
-            function updateCarreras(divisionId) {
-                var filteredCarreras = carreras.filter(function(carrera) {
-                    return carrera.divisionId == divisionId;
-                });
-
-                selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
-                filteredCarreras.forEach(function(carrera) {
-                    var option = document.createElement('option');
-                    option.value = carrera.id;
-                    option.text = carrera.nombre;
-                    selectCarrera.appendChild(option);
-                });
-
-                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
-            }
-
-            function updateMaterias(carreraId) {
-                var filteredMaterias = materias.filter(function(materia) {
-                    return materia.carreraId == carreraId;
-                });
-
-                selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
-                filteredMaterias.forEach(function(materia) {
-                    var option = document.createElement('option');
-                    option.value = materia.id;
-                    option.text = materia.nombre;
-                    selectMateria.appendChild(option);
-                });
-            }
+        }
+        // Evento change para el select de Carreras
+        document.getElementById('selectCarrera').addEventListener('change', function() {
+            var selectedCarreraId = this.value;
+            filterEventsByCarrera(selectedCarreraId);
         });
 
-        // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
+        function filterEventsByCarrera(carreraId) {
+            // Obtiene todos los eventos
+            var allEvents = calendar.getEvents();
 
-        /*Ejemplo Derick
-        //Limpiar el load cada que se haga un filtro para que no se sobrepongan
-        document.getElementById("selectDivision").addEventListener("change", (valor) => {
-            console.log(valor);
-            loadEvents(division=valor);
-        })*/
+            // Filtra los eventos por carreraId
+            allEvents.forEach(function(event) {
+                if (event.extendedProps.carreraId == carreraId) {
+                    event.setProp('display', 'auto'); // Muestra el evento
+                } else {
+                    event.setProp('display', 'none'); // Oculta el evento
+                }
+            });
+        }
+        // Evento change para el select de Division
+        document.getElementById('selectDivision').addEventListener('change', function() {
+            var selectedDivisionId = this.value;
+            filterEventsByDivision(selectedDivisionId);
+        });
+
+        function filterEventsByDivision(divisionId) {
+            // Obtiene todos los eventos
+            var allEvents = calendar.getEvents();
+
+            // Filtra los eventos por divisionId
+            allEvents.forEach(function(event) {
+                if (event.extendedProps.divisionId == divisionId) {
+                    event.setProp('display', 'auto'); // Muestra el evento
+                } else {
+                    event.setProp('display', 'none'); // Oculta el evento
+                }
+            });
+        }
+
+        //loadEvents();
+
+
+
     });
+    // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
+        // Convertir datos de JSP a JavaScript
+    var divisiones = [];
+    <c:forEach items="${divisiones}" var="division">
+    divisiones.push({id: "${division.id_division}", nombre: "${division.division_academica}"});
+    </c:forEach>;
+
+    var carreras = [];
+    <c:forEach items="${carreras}" var="carrera">
+    carreras.push({id: "${carrera.id_carrera}", nombre: "${carrera.carrera}", divisionId: "${carrera.id_division}"});
+    </c:forEach>;
+
+    var materias = [];
+    <c:forEach items="${materias}" var="materia">
+    materias.push({id: "${materia.id_materia}", nombre: "${materia.materia}", carreraId: "${materia.id_carrera}"});
+    </c:forEach>;
+
+    console.log(divisiones);
+    console.log(carreras);
+    console.log(materias);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectDivision = document.getElementById('selectDivision');
+        var selectCarrera = document.getElementById('selectCarrera');
+        var selectMateria = document.getElementById('selectMateria');
+
+        selectDivision.addEventListener('change', function() {
+            var divisionId = this.value;
+            console.log("División seleccionada: " + divisionId);
+            updateCarreras(divisionId);
+        });
+
+        selectCarrera.addEventListener('change', function() {
+            var carreraId = this.value;
+            console.log("Carrera seleccionada: " + carreraId);
+            updateMaterias(carreraId);
+        });
+
+
+        function updateCarreras(divisionId) {
+            var filteredCarreras = carreras.filter(function(carrera) {
+                return carrera.divisionId == divisionId;
+            });
+
+            selectCarrera.innerHTML = '<option value="" selected disabled>Carrera</option>';
+            filteredCarreras.forEach(function(carrera) {
+                var option = document.createElement('option');
+                option.value = carrera.id;
+                option.text = carrera.nombre;
+                selectCarrera.appendChild(option);
+            });
+
+            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>'; // Clear Materia options
+        }
+
+        function updateMaterias(carreraId) {
+            var filteredMaterias = materias.filter(function(materia) {
+                return materia.carreraId == carreraId;
+            });
+
+            selectMateria.innerHTML = '<option value="" selected disabled>Materia</option>';
+            filteredMaterias.forEach(function(materia) {
+                var option = document.createElement('option');
+                option.value = materia.id;
+                option.text = materia.nombre;
+                selectMateria.appendChild(option);
+            });
+        }
+    });
+    // ↑↑↑ Manejo de dropdowns-------------------------------------------------------------------------------------
 
 
 
 </script>
-<div class="filtrosBusqueda">
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectDivision" id="selectDivision">
-            <option value="">División académica</option>
-            <c:forEach items="${divisiones}" var="division">
-                <option value="${division.id_division}">${division.division_academica}</option>
-            </c:forEach>
-        </select>
+
+
+<div class="container">
+    <div class="row filtrosBusqueda">
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectDivision" id="selectDivision">
+                    <option value="">División académica</option>
+                    <c:forEach items="${divisiones}" var="division">
+                        <option value="${division.id_division}">${division.division_academica}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectCarrera" id="selectCarrera">
+                    <option value="" selected disabled>Carrera</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectMateria" id="selectMateria">
+                    <option value="" selected disabled>Materia</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectCarrera" id="selectCarrera">
-            <option value="" selected disabled>Carrera</option>
-        </select>
+    <div class="row">
+        <div class="col-12">
+            <div class="statusAsesorias">
+                <p class="status" style="background-color: #EBAF14">Pendiente</p>
+                <p class="status" style="background-color: #096DD9">En curso</p>
+                <p class="status" style="background-color: #870808">Cancelada</p>
+                <p class="status" style="background-color: #043B78">Finalizada</p>
+            </div>
+        </div>
     </div>
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectMateria" id="selectMateria">
-            <option value="" selected disabled>Materia</option>
-        </select>
+    <div class="row">
+        <div class="col-12">
+            <div id='calendar'></div>
+        </div>
     </div>
 </div>
-<div class="statusAsesorias">
-    <p class="status " style="background-color: #EBAF14">Pendiente</p>
-    <p class="status " style="background-color: #096DD9">En curso</p>
-    <p class="status " style="background-color: #870808">Cancelada</p>
-    <!--p class="status " style="background-color: #EB1414">Rechazada</p>
-    <p class="status " style="background-color: #009475">Aceptada</p>
-    <p-- class="status " style="background-color: #8C3AAA">Modificada</p-->
-    <p class="status " style="background-color: #043B78">Finalizada</p>
-</div>
-<div id='calendar'></div>
+
+
 
 
 <!-- Modal HTML aquí -->

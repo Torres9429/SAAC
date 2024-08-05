@@ -356,36 +356,49 @@
     }
 
 </style>
-<div class="filtrosBusqueda">
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectDivision" id="selectDivision">
-            <option value="">División académica</option>
-            <c:forEach items="${divisiones}" var="division">
-                <option value="${division.id_division}">${division.division_academica}</option>
-            </c:forEach>
-        </select>
+<div class="container">
+    <div class="row filtrosBusqueda">
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectDivision" id="selectDivision">
+                    <option value="">División académica</option>
+                    <c:forEach items="${divisiones}" var="division">
+                        <option value="${division.id_division}">${division.division_academica}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectCarrera" id="selectCarrera">
+                    <option value="" selected disabled>Carrera</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="custom-select-container">
+                <select class="custom-select" name="selectMateria" id="selectMateria">
+                    <option value="" selected disabled>Materia</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectCarrera" id="selectCarrera">
-            <option value="" selected disabled>Carrera</option>
-        </select>
+    <div class="row">
+        <div class="col-12">
+            <div class="statusAsesorias">
+                <p class="status" style="background-color: #EBAF14">Pendiente</p>
+                <p class="status" style="background-color: #096DD9">En curso</p>
+                <p class="status" style="background-color: #870808">Cancelada</p>
+                <p class="status" style="background-color: #043B78">Finalizada</p>
+            </div>
+        </div>
     </div>
-    <div class="custom-select-container">
-        <select class="custom-select" name="selectMateria" id="selectMateria">
-            <option value="" selected disabled>Materia</option>
-        </select>
+    <div class="row">
+        <div class="col-12">
+            <div id='calendar'></div>
+        </div>
     </div>
 </div>
-<div class="statusAsesorias">
-    <p class="status " style="background-color: #EBAF14">Pendiente</p>
-    <p class="status " style="background-color: #096DD9">En curso</p>
-    <p class="status " style="background-color: #870808">Cancelada</p>
-    <p class="status " style="background-color: #EB1414">Rechazada</p>
-    <p class="status " style="background-color: #009475">Aceptada</p>
-    <p class="status " style="background-color: #8C3AAA">Modificada</p>
-    <p class="status " style="background-color: #043B78">Finalizada</p>
-</div>
-<div id='calendar'></div>
 
 
 <!-- Modal HTML aquí -->

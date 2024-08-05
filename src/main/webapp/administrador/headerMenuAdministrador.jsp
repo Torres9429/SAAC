@@ -33,10 +33,10 @@
                     Materia
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="agregarMateria.jsp">Agregar</a>
-                    <a class="dropdown-item" href="modificarMateria.jsp">Modificar</a>
-                    <a class="dropdown-item" href="consultarMateria.jsp">Consultar</a>
-                    <a class="dropdown-item" href="eliminarMateria.jsp">Eliminar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/administrador/agregarMateria.jsp">Agregar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/administrador/modificarMateria.jsp">Modificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/administrador/consultarMateria.jsp">Consultar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/administrador/eliminarMateria.jsp">Eliminar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -64,7 +64,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Ver</a>
-                    <a class="dropdown-item" href="../solicitudRecuperacion.jsp">Restablecer contraseña</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/solicitudRecuperacion.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
                     <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a> <!--enlace a servlet-->
                     <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->

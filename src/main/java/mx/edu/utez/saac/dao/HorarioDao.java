@@ -74,6 +74,8 @@ public class HorarioDao {
                 horario.setId_usuario(rs.getInt("id_usuario"));
                 horario.setNombre_materia(rs.getString("materia"));
                 horario.setNombre_docente(rs.getString("nombre_completo"));
+                horario.setCarrera(rs.getInt("id_carrera"));
+                horario.setDivision(rs.getInt("id_division"));
                 horario.setId_aula(rs.getInt("id_aula"));
                 horario.setAula(rs.getString("aula"));
                 horario.setId_edificio(rs.getInt("id_edificio"));

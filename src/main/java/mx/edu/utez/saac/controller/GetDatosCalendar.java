@@ -53,6 +53,8 @@ public class GetDatosCalendar extends HttpServlet {
             req.getRequestDispatcher("estudiante/agendarAsesoria.jsp").forward(req, resp);
         } else if ("agregarDocente".equals(jspDestino)) {
             req.getRequestDispatcher("docente/agregarAsesoria.jsp").forward(req, resp);
+        }else if ("agregarMateria".equals(jspDestino)) {
+            req.getRequestDispatcher("administrador/agregarMateria.jsp").forward(req, resp);
         }
     }
 }

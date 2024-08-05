@@ -16,11 +16,13 @@ public class Horario {
     private String aula;
     private int id_edificio;
     private String edificio;
+    private int division;
+    private int carrera;
 
     public Horario() {
     }
 
-    public Horario(int id_horario, Time hora_inicio, Time hora_fin, Date dia, int materia, String nombre_materia, int id_usuario, String nombre_docente, int id_aula, String aula, int id_edificio, String edificio) {
+    public Horario(int id_horario, Time hora_inicio, Time hora_fin, Date dia, int materia, String nombre_materia, int id_usuario, String nombre_docente, int id_aula, String aula, int id_edificio, String edificio, int division, int carrera) {
         this.id_horario = id_horario;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
@@ -33,6 +35,8 @@ public class Horario {
         this.aula = aula;
         this.id_edificio = id_edificio;
         this.edificio = edificio;
+        this.division = division;
+        this.carrera = carrera;
     }
 
     public int getId_horario() {
@@ -129,5 +133,21 @@ public class Horario {
 
     public void setEdificio(String edificio) {
         this.edificio = edificio;
+    }
+
+    public int getDivision() {
+        return division;
+    }
+
+    public void setDivision(int division) {
+        this.division = division;
+    }
+
+    public int getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(int carrera) {
+        this.carrera = carrera;
     }
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import mx.edu.utez.saac.dao.HorarioDao;
 import mx.edu.utez.saac.dao.MateriaDao;
 import mx.edu.utez.saac.model.Materia;
 
@@ -15,10 +16,22 @@ import java.io.IOException;
 public class AgregarMateriaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String mensaje;
         Materia materia = new Materia();
         materia.setMateria(req.getParameter("materia"));
-        materia.setCarrera(req.getParameter("carrera"));
         materia.setId_carrera(Integer.parseInt(req.getParameter("id_carrera")));
+
+        MateriaDao dao = new MateriaDao();
+        if (dao.insert(materia)){
+            mensaje = "Materia agregada con éxito";
+            System.out.println("exito");
+        }else {
+            mensaje = "Ha ocurrido un error, por favor, inténtelo más tarde";
+            System.out.println("error");
+        }
+        HttpSession session = req.getSession();
+        session.setAttribute("mensaje", mensaje);
+
 
         /* Verificación básica
         materia.getIdMaestro();

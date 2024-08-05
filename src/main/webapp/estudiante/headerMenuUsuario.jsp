@@ -65,7 +65,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/perfil">Ver</a>
                     <!--<a class="dropdown-item" href="#">Modificar</a-->
-                    <a class="dropdown-item" href="../solicitudRecuperacion.jsp">Restablecer contraseña</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/solicitudRecuperacion.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
                     <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a> <!--enlace a servlet-->
                     <!--<a class="dropdown-item" href="/logout" id="logout-btn">Cerrar Sesión</a>-->

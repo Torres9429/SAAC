@@ -30,8 +30,7 @@ public class GetMateriasServlet extends HttpServlet {
         req.setAttribute("aulas", aulas);
         System.out.println("aulas"+aulas.size());
 
-        MateriaDao mdao = new MateriaDao();
-        mdao.getMateriaByUsuario(id);
+
 
         DivisionDao divisionDao = new DivisionDao();
         ArrayList<Division> divisiones = divisionDao.getAll();

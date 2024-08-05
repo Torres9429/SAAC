@@ -29,6 +29,23 @@ public class AsesoriaDao {
 
         return lista;
     }
+    public ArrayList<Asesoria> getAsesoriasByUsuario(){
+        ArrayList<Asesoria> lista = new ArrayList<>();
+        String query = "select * from asesoria where hora_inicio < now() and ;";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Asesoria asesoria = new Asesoria();
+                asesoria.setId_asesoria(rs.getInt("id_asesoria"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
     public boolean solicitar(Asesoria a){
         boolean flag = false;
         String queryCheck = "select * from asesoria where horario = ?;";
