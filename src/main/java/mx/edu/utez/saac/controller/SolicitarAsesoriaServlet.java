@@ -23,7 +23,7 @@ public class SolicitarAsesoriaServlet extends HttpServlet {
         asesoria.setId_estudiante(Integer.parseInt(req.getParameter("idUsuario")));
         asesoria.setId_materia(Integer.parseInt(req.getParameter("idMateria")));
         asesoria.setId_horario(Integer.parseInt(req.getParameter("horarioId")));
-        asesoria.setId_lugar(Integer.parseInt(req.getParameter("aulaId")));
+        asesoria.setId_aula(Integer.parseInt(req.getParameter("aulaId")));
         asesoria.setDudas(req.getParameter("dudas"));
         asesoria.setHora_inicio(Time.valueOf(req.getParameter("horaInicio")));
         asesoria.setHora_fin(Time.valueOf(req.getParameter("horaFin")));

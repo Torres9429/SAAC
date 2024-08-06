@@ -45,7 +45,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMaterias?jsp=agendarEstudiante">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesorias?jsp=calEstudiante">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

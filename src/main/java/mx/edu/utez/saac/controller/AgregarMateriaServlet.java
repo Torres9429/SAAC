@@ -19,7 +19,7 @@ public class AgregarMateriaServlet extends HttpServlet {
         String mensaje;
         Materia materia = new Materia();
         materia.setMateria(req.getParameter("materia"));
-        materia.setId_carrera(Integer.parseInt(req.getParameter("id_carrera")));
+        materia.setId_carrera(Integer.parseInt(req.getParameter("selectCarrera")));
 
         MateriaDao dao = new MateriaDao();
         if (dao.insert(materia)){
@@ -31,6 +31,7 @@ public class AgregarMateriaServlet extends HttpServlet {
         }
         HttpSession session = req.getSession();
         session.setAttribute("mensaje", mensaje);
+        resp.sendRedirect("administrador/agregarMateria.jsp");
 
 
         /* Verificación básica

@@ -42,7 +42,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMateriasDoc">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesorias?jsp=calDocente">Ver</a>
                     <a class="dropdown-item" href="#">Modificar</a>
                 </div>
             </li>

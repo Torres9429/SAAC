@@ -342,7 +342,7 @@
                     <option value="" selected disabled>Carrera</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-custom" id="btnSubmitRegistro" style="margin-top: 40px;">Agregar Asesoria</button>
+            <button type="submit" class="btn btn-custom" style="margin-top: 40px;">Agregar Materia</button>
         </form>
     </div>
 

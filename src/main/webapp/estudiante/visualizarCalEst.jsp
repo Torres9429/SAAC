@@ -23,7 +23,7 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <jsp:include page="headerMenuDocente.jsp" />
+    <jsp:include page="headerMenuUsuario.jsp" />
 
     <style>
 
@@ -213,7 +213,7 @@
 <body>
 <%
     Usuario user = (Usuario) session.getAttribute("user");
-    if (user != null && user.getId_tipo_usuario() == 2) {
+    if (user != null && user.getId_tipo_usuario() == 3) {
         int userId = user.getId();
         List<Asesoria> asesorias = (List<Asesoria>) request.getAttribute("asesorias");
         List<Materia> materias = (List<Materia>) request.getAttribute("materias");
