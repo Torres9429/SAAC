@@ -45,7 +45,7 @@
                     Calendario
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ver</a>
+                    <a class="dropdown-item" href="pestanaCalendario.jsp">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
