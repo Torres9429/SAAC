@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DatabaseConnectionManager {
-    private static final String JDBC_URL = "jdbc:mysql://54.227.114.152:3306/integradoradb";
+    private static final String JDBC_URL = "jdbc:mysql://44.201.188.130:3306/integradoradb";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Password123?";
     private static final HikariConfig config = new HikariConfig();
