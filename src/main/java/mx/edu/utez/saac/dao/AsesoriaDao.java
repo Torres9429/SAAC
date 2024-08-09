@@ -150,13 +150,56 @@ public class AsesoriaDao {
         return flag;
     }
 
-    public boolean iniciarAsesoria(){
+    public boolean iniciarAsesoria(int id){
         boolean flag = false;
         String query = "UPDATE asesoria set id_status_asesoria = 1 WHERE id_asesoria = ?;";
         try {
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                flag = true;
+            }
+            ps.close();
+            con.close();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean cancelarAsesoria(int id){
+        boolean flag = false;
+        String query = "UPDATE asesoria set id_status_asesoria = 3 WHERE id_asesoria = ?;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                flag = true;
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean finalizarAsesoria(int id){
+        boolean flag = false;
+        String query = "UPDATE asesoria set id_status_asesoria = 4 WHERE id_asesoria = ?;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                flag = true;
+            }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

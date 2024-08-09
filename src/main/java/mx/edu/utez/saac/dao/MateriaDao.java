@@ -13,7 +13,7 @@ import java.util.List;
 public class MateriaDao {
     public ArrayList<Materia> getAll() {
         ArrayList<Materia> lista = new ArrayList<>();
-        String query = "select * from materia;";
+        String query = "{CALL getMaterias()}";
 
 
         try {
@@ -25,6 +25,7 @@ public class MateriaDao {
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setMateria(rs.getString("materia"));
                 materia.setId_carrera(rs.getInt("id_carrera"));
+                materia.setCarrera(rs.getString("carrera"));
                 lista.add(materia);
             }
         } catch (SQLException e) {

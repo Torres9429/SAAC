@@ -303,7 +303,7 @@
             }
         });
 
-        calendar.render();
+        //calendar.render();
 
         function loadEvents() {
             fetch('getAsesorias?userId=' + userId)
@@ -346,24 +346,73 @@
 
         }
 
-        calendar.render();
-        loadEvents();
+
+
+
+        function mostrarMensajeModal(mensaje) {
+            $('#mensajeModal .modal-body').text(mensaje);
+            $('#mensajeModal').modal('show');
+        }
+        // Botón de "Iniciar Asesoría"
         document.getElementById('iniciarAsesoria').addEventListener('click', function() {
             var horarioId = $('#horarioId').val();
+            $('#action').val('iniciar');
             $.ajax({
-                url: '${pageContext.request.contextPath}/iniciarAsesoria',
+                url: $('#formAsesoria').attr('action'),
                 type: 'POST',
-                data: { id: horarioId },
+                data: $('#formAsesoria').serialize() + '&id=' + horarioId,
                 success: function(response) {
                     alert('Asesoría iniciada');
+                    $('#mensajeModal').modal('hide');
+                    calendar.refetchEvents();
+                },
+                error: function(xhr, status, error) {
+                    mostrarMensajeModal('Error al iniciar la asesoría: ' + error);
+                }
+            });
+        });
+
+// Botón de "Finalizar Asesoría"
+        document.getElementById('finalizarAsesoria').addEventListener('click', function() {
+            var horarioId = $('#horarioId').val();
+            $('#action').val('finalizar');
+            $.ajax({
+                url: $('#formAsesoria').attr('action'),
+                type: 'POST',
+                data: $('#formAsesoria').serialize() + '&id=' + horarioId,
+                success: function(response) {
+                    alert('Asesoría finalizada');
                     $('#solicitarAsesoriaModal').modal('hide');
                     calendar.refetchEvents();
                 },
                 error: function(xhr, status, error) {
-                    alert('Error al iniciar la asesoría');
+                    mostrarMensajeModal('Error al finalizar la asesoría: ' + error);
                 }
             });
         });
+
+// Botón de "Cancelar Asesoría"
+        document.getElementById('cancelarAsesoria').addEventListener('click', function() {
+            var horarioId = $('#horarioId').val();
+            $('#action').val('cancelar');
+            $.ajax({
+                url: $('#formAsesoria').attr('action'),
+                type: 'POST',
+                data: $('#formAsesoria').serialize() + '&id=' + horarioId,
+                success: function(response) {
+                    alert('Asesoría cancelada');
+                    $('#solicitarAsesoriaModal').modal('hide');
+                    calendar.refetchEvents();
+                },
+                error: function(xhr, status, error) {
+                    mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
+                }
+            });
+        });
+        calendar.render();
+        loadEvents();
+
+
         // Evento change para el select de materias
         document.getElementById('selectMateria').addEventListener('change', function() {
             var selectedMateriaId = this.value;
@@ -424,8 +473,8 @@
 
 
 
-
     });
+
     // ↓↓↓ Manejo de dropdowns-------------------------------------------------------------------------------------
     // Convertir datos de JSP a JavaScript
     var divisiones = [];
@@ -560,7 +609,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/cancelarAsesoria" method="post">
+                <form action="cancelarAsesoria" method="post" id="formAsesoria">
                     <div class="form-group">
                         <label for="tema">Materia</label>
                         <input type="text" class="form-control" id="tema" name="tema" readonly>
@@ -577,19 +626,26 @@
                         <label for="docente">Docente</label>
                         <input type="text" class="form-control" id="docente" name="docente" readonly>
                     </div>
-                    <div class="form-group">
+                    <%--div class="form-group">
                         <label for="dudas">Dudas específicas</label>
                         <textarea class="form-control" id="dudas" name="dudas" ></textarea>
-                    </div>
+                    </div--%>
                     <input type="hidden" id="docenteId" name="docenteId">
                     <input type="hidden" id="idUsuario" name="idUsuario">
                     <input type="hidden" id="idMateria" name="idMateria">
                     <input type="hidden" id="aulaId" name="aulaId">
                     <input type="hidden" id="horarioId" name="horarioId">
                     <input type="hidden" id="dia" name="dia">
-                    <button type="submit" class="btn btn-primary">Cancelar</button>
+                    <input type="hidden" id="action" name="action">
+                    <%--button type="submit" id="cancelarAsesoria"  class="btn btn-primary">Cancelar</button>
                     <button type="button" id="iniciarAsesoria" class="btn btn-primary">Iniciar</button>
-                    <button type="submit" class="btn btn-primary">Finalizar</button>
+                    <button type="submit" id="finalizarAsesoria"  class="btn btn-primary">Finalizar</button--%>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="iniciarAsesoria">Iniciar</button>
+                        <button type="button" class="btn btn-success" id="finalizarAsesoria">Finalizar</button>
+                        <button type="button" class="btn btn-danger" id="cancelarAsesoria">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </form>
             </div>
         </div>

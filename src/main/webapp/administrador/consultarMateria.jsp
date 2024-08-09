@@ -170,7 +170,7 @@
             <tr style="background-color: #80C9BA;">
                 <td><%=m.getId_materia()%></td>
                 <td><%= m.getMateria() %></td>
-                <td><%= m.getId_carrera() %></td>
+                <td><%=m.getCarrera() %></td>
             </tr>
             <% } %>
             </tbody>
