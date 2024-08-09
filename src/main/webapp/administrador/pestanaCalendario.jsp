@@ -72,13 +72,13 @@
     if (user != null && user.getId_tipo_usuario() == 1) {
 %>
 <div class="container">
-    <div class="nav-tabs">
+    <%--div class="nav-tabs">
         <a href="#">Usuario</a>
         <a href="#">Materia</a>
         <a href="#" class="active">Calendario</a>
         <a href="#">Calificaciones</a>
         <a href="#">Perfil</a>
-    </div>
+    </div--%>
     <table class="calendar-table">
         <thead>
         <tr>

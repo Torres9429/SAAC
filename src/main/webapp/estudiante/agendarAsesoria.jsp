@@ -236,7 +236,6 @@
                     title: '${horario.nombre_materia}',
                     start: '${horario.dia}T${horario.hora_inicio}',
                     end: '${horario.hora_fin}',
-                    class:'class-',
                     extendedProps: {
                         horarioId: '${horario.id_horario}',
                         horaInicio: '${horario.hora_inicio}',

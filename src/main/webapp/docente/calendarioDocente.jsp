@@ -348,6 +348,22 @@
 
         calendar.render();
         loadEvents();
+        document.getElementById('iniciarAsesoria').addEventListener('click', function() {
+            var horarioId = $('#horarioId').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/iniciarAsesoria',
+                type: 'POST',
+                data: { id: horarioId },
+                success: function(response) {
+                    alert('Asesoría iniciada');
+                    $('#solicitarAsesoriaModal').modal('hide');
+                    calendar.refetchEvents();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error al iniciar la asesoría');
+                }
+            });
+        });
         // Evento change para el select de materias
         document.getElementById('selectMateria').addEventListener('change', function() {
             var selectedMateriaId = this.value;
@@ -572,6 +588,8 @@
                     <input type="hidden" id="horarioId" name="horarioId">
                     <input type="hidden" id="dia" name="dia">
                     <button type="submit" class="btn btn-primary">Cancelar</button>
+                    <button type="button" id="iniciarAsesoria" class="btn btn-primary">Iniciar</button>
+                    <button type="submit" class="btn btn-primary">Finalizar</button>
                 </form>
             </div>
         </div>

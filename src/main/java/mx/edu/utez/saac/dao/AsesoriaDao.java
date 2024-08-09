@@ -66,7 +66,7 @@ public class AsesoriaDao {
     public boolean solicitar(Asesoria a){
         boolean flag = false;
         String queryCheck = "select * from asesoria where horario = ?;";
-        String queryInsert = "insert into asesoria(docente,estudiante,materia,horario,id_aula,id_status_asesoria,dudas,hora_inicio,hora_fin,dia) values(?,?,?,?,?,?,?,?,?,?);";
+        String queryInsert = "insert into asesoria(docente,estudiante,id_materia,horario,id_aula,id_status_asesoria,dudas,hora_inicio,hora_fin,dia) values(?,?,?,?,?,?,?,?,?,?);";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement psCheck = con.prepareStatement(queryCheck);
@@ -147,6 +147,19 @@ public class AsesoriaDao {
             e.printStackTrace();
         }
 
+        return flag;
+    }
+
+    public boolean iniciarAsesoria(){
+        boolean flag = false;
+        String query = "UPDATE asesoria set id_status_asesoria = 1 WHERE id_asesoria = ?;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return flag;
     }
 }
