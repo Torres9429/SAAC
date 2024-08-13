@@ -1,4 +1,7 @@
 <%@ page import="mx.edu.utez.saac.model.Usuario" %>
+<%@ page import="mx.edu.utez.saac.dao.AsesoriaDao" %>
+<%@ page import="mx.edu.utez.saac.model.Asesoria" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -6,9 +9,11 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Calendario</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="icon" href="../img/Icono_Saac.ico" type="image/x-icon">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/bootstrap.css'>
+    <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
+    <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/css/bootstrap.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,21 +51,6 @@
             background-color: #40AE97;
             color: white;
         }
-        .calendar-table .session {
-            padding: 5px;
-            background-color: #f2f2f2;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .calendar-table .session.good {
-            border-left: 5px solid #009475;
-        }
-        .calendar-table .session.average {
-            border-left: 5px solid #FFD700;
-        }
-        .calendar-table .session.poor {
-            border-left: 5px solid #FF6347;
-        }
     </style>
 
     <jsp:include page="/administrador/headerMenuAdministrador.jsp" />
@@ -72,47 +62,92 @@
     if (user != null && user.getId_tipo_usuario() == 1) {
 %>
 <div class="container">
-    <%--div class="nav-tabs">
-        <a href="#">Usuario</a>
-        <a href="#">Materia</a>
-        <a href="#" class="active">Calendario</a>
-        <a href="#">Calificaciones</a>
-        <a href="#">Perfil</a>
-    </div--%>
-    <table class="calendar-table">
+    <div class="table-responsive">
+
+    <table id="example" style="background-color: #80C9BA;" class="table table-striped table-hover">
         <thead>
         <tr>
-            <th>Asesorías finalizadas</th>
-            <th>Asesorías en curso</th>
-            <th>Asesorías pendientes</th>
+            <th style="border: white 2px solid">Asesorías finalizadas</th>
+            <th style="border: white 2px solid">Asesorías en curso</th>
+            <th style="border: white 2px solid">Asesorías pendientes</th>
         </tr>
         </thead>
         <tbody>
+        <%
+            // Obtener las asesorías de cada estado
+            AsesoriaDao daoFinalizadas = new AsesoriaDao();
+            ArrayList<Asesoria> finalizadas = daoFinalizadas.getFinalizadas();
+
+            AsesoriaDao daoEnCurso = new AsesoriaDao();
+            ArrayList<Asesoria> enCurso = daoEnCurso.getEnCurso();
+
+            AsesoriaDao daoPendientes = new AsesoriaDao();
+            ArrayList<Asesoria> pendientes = daoPendientes.getPendientes();
+
+            // Calcular el número máximo de filas que necesitaremos
+            int maxRows = Math.max(finalizadas.size(), Math.max(enCurso.size(), pendientes.size()));
+
+            for (int i = 0; i < maxRows; i++) {
+        %>
         <tr>
-            <td>
-                <div class="session good">20/04/2024 13:00 - 14:00<br>Aplicaciones web<br>Ing. Sebastián Sota<br>5/5 Muy buena</div>
-                <div class="session good">19/04/2024 15:00 - 16:00<br>Cálculo Diferencial<br>Ing. Luis Daniel Ramírez<br>4/5 Buena</div>
-                <div class="session good">19/04/2024 10:00 - 11:00<br>Probabilidad y estadística<br>Ing. Miguel Ángel Flores<br>4/5 Buena</div>
-                <div class="session good">18/04/2024 12:00 - 13:00<br>Base de datos<br>Ing. Jazmín Rogel<br>5/5 Muy buena</div>
+            <td style="border: white 2px solid">
+                <%
+                    if (i < finalizadas.size()) {
+                        Asesoria a = finalizadas.get(i);
+                %>
+                <div><%= a.getDia() %> <%= a.getHora_inicio() %> - <%= a.getHora_fin() %><br>
+                    <%= a.getMateria() %><br>
+                    <%= a.getNombre_docente() %>
+                </div>
+                <% } %>
             </td>
-            <td>
-                <div class="session good">21/04/2024 11:00 - 12:00<br>Termodinámica<br>Dra. Karen Barrera<br>5/5 Muy buena</div>
-                <div class="session good">21/04/2024 11:00 - 12:00<br>Base de datos<br>Ing. Evelin Villalva<br>5/5 Muy buena</div>
+            <td style="border: white 2px solid">
+                <%
+                    if (i < enCurso.size()) {
+                        Asesoria a = enCurso.get(i);
+                %>
+                <div><%= a.getDia() %> <%= a.getHora_inicio() %> - <%= a.getHora_fin() %><br>
+                    <%= a.getMateria() %><br>
+                    <%= a.getNombre_docente() %>
+                </div>
+                <% } %>
             </td>
-            <td>
-                <div class="session">22/04/2024 15:00 - 16:00<br>Cálculo Diferencial<br>Ing. Luis Daniel Ramírez</div>
-                <div class="session">22/04/2024 14:00 - 15:00<br>Química analítica<br>Dra. Marilú Chávez</div>
-                <div class="session">22/04/2024 14:00 - 15:00<br>Aplicaciones web<br>Ing. Sebastián Sota</div>
+            <td style="border: white 2px solid">
+                <%
+                    if (i < pendientes.size()) {
+                        Asesoria a = pendientes.get(i);
+                %>
+                <div><%= a.getDia() %> <%= a.getHora_inicio() %> - <%= a.getHora_fin() %><br>
+                    <%= a.getMateria() %><br>
+                    <%= a.getNombre_docente() %>
+                </div>
+                <% } %>
             </td>
         </tr>
+        <% } %>
         </tbody>
     </table>
-    <a href="#" class="btn btn-link">Ver más...</a>
+        </div>
 </div>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/datatables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
+<script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('example');
+        new DataTable(table, {
+            language: {
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
+            },
+            pageLength: 7
+        });
+    });
+</script>
 <%
     } else {
-    response.sendRedirect("../accesoDenegado.jsp");
+        response.sendRedirect("../accesoDenegado.jsp");
     }
 %>
 </body>

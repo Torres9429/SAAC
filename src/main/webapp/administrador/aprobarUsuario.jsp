@@ -169,12 +169,28 @@
         cursor: pointer;
     }
 
+    .button {
+        background-color: #3A4C60;
+        border: none;
+        color: white;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        width: 100px;
+        cursor: pointer;
+        border-radius: 4px;
+        /*height: 30px;*/
+    }
+    .button:hover {
+        background-color: #4B6B76;
+        color: white;
+    }
 </style>
 
 
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText">
-        <h1>Habilitar/ Deshabilitar usuario</h1>
+        <h1>Aprobar/ Rechazar usuario</h1>
     </div>
     <div class="divTable">
         <table id="example" style="background-color: #80C9BA;" class="table table-striped table-hover" >
@@ -205,9 +221,9 @@
                     <%=u.getCorreo()%>
                 </td>
                 <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
-                <td><a href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=aprobar">Aprobar</a>
+                <td><a class="button" href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=aprobar">Aprobar</a>
                 </td>
-                <td><a href="${pageContext.request.contextPath}/rechazar?id=<%=u.getId()%>">Rechazar</a></td>
+                <td><a class="button" href="${pageContext.request.contextPath}/rechazar?id=<%=u.getId()%>">Rechazar</a></td>
             </tr>
             <% } %>
             </tbody>
@@ -254,8 +270,6 @@
         });
 
     });
-
-
 </script>
 <%
     } else {

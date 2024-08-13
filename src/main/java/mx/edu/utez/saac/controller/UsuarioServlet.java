@@ -40,7 +40,7 @@ public class UsuarioServlet extends HttpServlet {
             // es porque no existe en la bd
             System.out.println("El usuario " + correo + " no existe en la base de datos");
             session = req.getSession();
-            session.setAttribute("mensaje", "El usuario no existe en la DB");
+            session.setAttribute("mensaje", "El usuario no está registrado");
             resp.sendRedirect("index.jsp");
 
         } else {

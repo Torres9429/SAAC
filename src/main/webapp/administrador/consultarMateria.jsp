@@ -190,7 +190,7 @@
             language: {
                 url: '${pageContext.request.contextPath}/js/es-MX.json'
             },
-            pageLength: 7
+            pageLength: 10
         });
     });
 </script>

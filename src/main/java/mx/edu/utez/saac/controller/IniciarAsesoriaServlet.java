@@ -14,18 +14,32 @@ import java.io.IOException;
 public class IniciarAsesoriaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        AsesoriaDao dao = new AsesoriaDao();
+        String idStr = req.getParameter("id");
+        System.out.println(idStr);
         String mensaje;
-        if(dao.iniciarAsesoria(id)){
-            mensaje = "Asesoría iniciada con éxito.";
-        }else{
-            mensaje = "Error al iniciar la asesoría, por favor inténtelo de nuevo.";
+
+        if (idStr != null && !idStr.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(idStr);
+                System.out.println("id asesoria"+id);
+
+                AsesoriaDao dao = new AsesoriaDao();
+                if (dao.iniciarAsesoria(id)) {
+                    mensaje = "Asesoría iniciada con éxito.";
+                } else {
+                    mensaje = "Error al iniciar la asesoría, por favor inténtelo de nuevo.";
+                }
+            } catch (NumberFormatException e) {
+                mensaje = "El ID proporcionado no es un número válido.";
+                e.printStackTrace();
+            }
+        } else {
+            mensaje = "El parámetro ID no se ha proporcionado o está vacío.";
         }
+
         HttpSession session = req.getSession();
         session.setAttribute("mensaje", mensaje);
 
-        req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
-
+        req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
     }
 }

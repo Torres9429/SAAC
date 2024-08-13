@@ -247,19 +247,19 @@
                 </div>
                 <div class="form-group-custom">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control">
+                    <input type="text" id="nombre" name="nombre"  maxlength="45" class="form-control">
                 </div>
                 <div class="form-group-custom" >
                     <label for="apellido_paterno">Apellido paterno:</label>
-                    <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control">
+                    <input type="text" id="apellido_paterno" name="apellido_paterno" maxlength="45" class="form-control">
                 </div>
                 <div class="form-group-custom" >
                     <label for="apellido_materno">Apellido paterno:</label>
-                    <input type="text" id="apellido_materno" name="apellido_materno" class="form-control">
+                    <input type="text" id="apellido_materno" name="apellido_materno" maxlength="45" class="form-control">
                 </div>
                 <div class="form-group-custom">
                     <label for="edad">Edad:</label>
-                    <input type="number" id="edad" name="edad" class="form-control" >
+                    <input type="number" id="edad" name="edad" maxlength="3" class="form-control" >
                 </div>
 
             </form>
@@ -354,7 +354,14 @@
             }
         }
     });
+    document.getElementById('edad').addEventListener('input', function () {
+        const maxLength = 3; // Máximo de 3 dígitos
+        let value = this.value;
 
+        if (value.length > maxLength) {
+            this.value = value.slice(0, maxLength); // Truncar a 3 dígitos
+        }
+    });
 
 </script>
 <%

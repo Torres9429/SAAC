@@ -168,7 +168,22 @@
         text-decoration: none;
         cursor: pointer;
     }
-
+    .button {
+        background-color: #3A4C60;
+        border: none;
+        color: white;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        width: 100px;
+        cursor: pointer;
+        border-radius: 4px;
+        /*height: 30px;*/
+    }
+    .button:hover {
+        background-color: #4B6B76;
+        color: white;
+    }
 </style>
 
 
@@ -184,9 +199,8 @@
             <th>Matrícula</th>
             <th>Datos</th>
             <th>Estado</th>
-            <th>Modificar</th>
-            <th></th>
-            <th></th>
+            <th>Habilitar</th>
+            <th>Deshabilitar</th>
         </tr>
         </thead>
         <tbody>
@@ -206,8 +220,8 @@
             </td>
             <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
             <%--td><a href="sign_in?id=<%=u.getId()%>">Actualizar</a></td--%>
-            <td><a href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=habilitar">Habilitar</a></td>
-            <td><a href="${pageContext.request.contextPath}/deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
+            <td><a class="button" href="${pageContext.request.contextPath}/habilitar?id=<%=u.getId()%>&page=habilitar">Habilitar</a></td>
+            <td><a class="button" href="${pageContext.request.contextPath}/deshabilitar?id=<%=u.getId()%>">Deshabilitar</a></td>
         </tr>
         <% } %>
         </tbody>

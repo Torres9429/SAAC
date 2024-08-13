@@ -226,6 +226,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var userId = <%= userId %>;
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialDate: new Date(),
@@ -299,11 +300,15 @@
                 $('#dia').val(info.event.extendedProps.dia);
                 $('#horaInicio').val(info.event.extendedProps.horaInicio);
                 $('#horaFin').val(info.event.extendedProps.horaFin);
+                $('#iniciar').val(info.event.extendedProps.horarioId);
+                $('#cancelar').val(info.event.extendedProps.horarioId);
+                $('#finalizar').val(info.event.extendedProps.horarioId);
                 $('#solicitarAsesoriaModal').modal('show');
+
             }
         });
 
-        //calendar.render();
+        calendar.render();
 
         function loadEvents() {
             fetch('getAsesorias?userId=' + userId)
@@ -353,7 +358,24 @@
             $('#mensajeModal .modal-body').text(mensaje);
             $('#mensajeModal').modal('show');
         }
-        // Botón de "Iniciar Asesoría"
+        $('#iniciarAsesoria').on('click', function() {
+            $('#action').val('iniciar');
+            $('#formAsesoria').submit();
+        });
+
+// Botón de "Finalizar Asesoría"
+        $('#finalizarAsesoria').on('click', function() {
+            $('#action').val('finalizar');
+            $('#formAsesoria').submit();
+        });
+
+// Botón de "Cancelar Asesoría"
+        $('#cancelarAsesoria').on('click', function() {
+            $('#action').val('cancelar');
+            $('#formAsesoria').submit();
+        });
+
+        /*/ Botón de "Iniciar Asesoría"
         document.getElementById('iniciarAsesoria').addEventListener('click', function() {
             var horarioId = $('#horarioId').val();
             $('#action').val('iniciar');
@@ -363,8 +385,10 @@
                 data: $('#formAsesoria').serialize() + '&id=' + horarioId,
                 success: function(response) {
                     alert('Asesoría iniciada');
-                    $('#mensajeModal').modal('hide');
-                    calendar.refetchEvents();
+                    $('#solicitarAsesoriaModal').modal('hide');
+                    //calendar.refetchEvents();
+                    loadEvents();
+                    calendar.render();
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al iniciar la asesoría: ' + error);
@@ -383,7 +407,7 @@
                 success: function(response) {
                     alert('Asesoría finalizada');
                     $('#solicitarAsesoriaModal').modal('hide');
-                    calendar.refetchEvents();
+                    loadEvents();
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al finalizar la asesoría: ' + error);
@@ -402,13 +426,37 @@
                 success: function(response) {
                     alert('Asesoría cancelada');
                     $('#solicitarAsesoriaModal').modal('hide');
-                    calendar.refetchEvents();
+                    //calendar.refetchEvents();
+                    loadEvents();
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
                 }
             });
-        });
+        }); */
+
+        function submitForm(action) {
+            var form = document.getElementById('formAsesoria');
+            var actionField = document.getElementById('action');
+            actionField.value = action;
+
+            // Enviar formulario al servlet correspondiente
+            form.action = getServletUrl(action);
+            form.submit();
+        }
+
+        function getServletUrl(action) {
+            switch(action) {
+                case 'iniciar':
+                    return 'iniciarAsesoria'; // Servlet para iniciar
+                case 'finalizar':
+                    return 'finalizarAsesoria'; // Servlet para finalizar
+                case 'cancelar':
+                    return 'cancelarAsesoria'; // Servlet para cancelar
+                default:
+                    return '';
+            }
+        }
         calendar.render();
         loadEvents();
 
@@ -626,10 +674,6 @@
                         <label for="docente">Docente</label>
                         <input type="text" class="form-control" id="docente" name="docente" readonly>
                     </div>
-                    <%--div class="form-group">
-                        <label for="dudas">Dudas específicas</label>
-                        <textarea class="form-control" id="dudas" name="dudas" ></textarea>
-                    </div--%>
                     <input type="hidden" id="docenteId" name="docenteId">
                     <input type="hidden" id="idUsuario" name="idUsuario">
                     <input type="hidden" id="idMateria" name="idMateria">
@@ -637,6 +681,7 @@
                     <input type="hidden" id="horarioId" name="horarioId">
                     <input type="hidden" id="dia" name="dia">
                     <input type="hidden" id="action" name="action">
+
                     <%--button type="submit" id="cancelarAsesoria"  class="btn btn-primary">Cancelar</button>
                     <button type="button" id="iniciarAsesoria" class="btn btn-primary">Iniciar</button>
                     <button type="submit" id="finalizarAsesoria"  class="btn btn-primary">Finalizar</button--%>
@@ -646,6 +691,18 @@
                         <button type="button" class="btn btn-danger" id="cancelarAsesoria">Cancelar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
+                </form>
+                <form action="${pageContext.request.contextPath}/iniciarAsesoria" method="post">
+                    <input type="hidden" id="iniciar" name="iniciar">
+                    <button type="submit" class="btn btn-primary">Iniciar</button>
+                </form>
+                <form action="${pageContext.request.contextPath}/cancelarAsesoria" method="post">
+                    <input type="hidden" name="cancelar" id="cancelar">
+                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                </form>
+                <form action="${pageContext.request.contextPath}/finalizarAsesoria" method="post">
+                    <input type="hidden" name="finalizar" id="finalizar">
+                    <button type="submit" class="btn btn-secondary">Finalizar</button>
                 </form>
             </div>
         </div>

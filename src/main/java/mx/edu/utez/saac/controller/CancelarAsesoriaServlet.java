@@ -12,6 +12,23 @@ import java.io.IOException;
 
 @WebServlet(name = "CancelarAsesoriaServlet", value = "/cancelarAsesoria")
 public class CancelarAsesoriaServlet extends HttpServlet {
+    /*@Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        AsesoriaDao dao = new AsesoriaDao();
+        String mensaje;
+        if(dao.cancelarAsesoria(id)){
+            mensaje = "Asesoría cancelada con éxito.";
+        }else{
+            mensaje = "Error al cancelar la asesoría, por favor inténtelo de nuevo.";
+        }
+        HttpSession session = req.getSession();
+        session.setAttribute("mensaje", mensaje);
+
+        req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
+
+    }*/
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -69,5 +86,6 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                 req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
                 break;
         }
+
     }
 }

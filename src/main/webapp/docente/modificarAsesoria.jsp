@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="mx.edu.utez.saac.dao.AulaDao" %>
 <%@ page import="mx.edu.utez.saac.model.Aula" %>
+<%@ page import="mx.edu.utez.saac.dao.HorarioDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -14,6 +15,7 @@
     <title>Modificar Asesoría</title>
     <link rel="icon" href="${pageContext.request.contextPath}/img/Icono_Saac.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/datatables.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <jsp:include page="/docente/headerMenuDocente.jsp" />
@@ -86,7 +88,7 @@
             padding: 12px;
             box-sizing: border-box;
             position: relative;
-            z-index: 2;
+            z-index: 5000;
         }
         .modal-custom {
             display: none;
@@ -185,26 +187,55 @@
     <div class="divText">
         <h1>Modificar Asesoría</h1>
     </div>
+
     <div class="divTable">
-        <table>
+        <div>
+        <table  style="background-color: #80C9BA; margin-top: 0; margin-bottom: 0;" class="table table-striped table-hover">
             <tr>
-                <th colspan="5" style="padding: 0; border-bottom: none; font-size: larger; font-weight: bolder">
+                <th style="padding: 0; border-bottom: none; font-size: larger; font-weight: bolder; margin: 0">
                     <div class="header-div">Horarios</div>
                 </th>
             </tr>
-            <tr>
-                <th>Fecha</th>
-                <th>Horario</th>
-                <th>Materia</th>
-                <th>Lugar</th>
-                <th>Operación</th>
+        </table>
+        </div>
+        <table id="example" style="background-color: #80C9BA; margin-top: 0;" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Horario</th>
+                    <th>Materia</th>
+                    <th>Lugar</th>
+                    <th>Operación</th>
 
-            </tr>
+                </tr>
+            </thead>
+
+            <%--
+                HorarioDao dao = new HorarioDao();
+                ArrayList<Horario> lista = dao.getAll();
+                for(Horario h : lista){ %>
+            <tr>
+                <td><%=h.getDia()%></td>
+                <td><%=h.getHora_inicio()%> - <%=h.getHora_fin()%> </td>
+                <td><%=h.getNombre_materia()%> </td>
+                <td><%=h.getAula()%>  <%=h.getEdificio()%> </td>
+                <td>
+                    <button class="openModalBtn"
+                            data-id-horario="<%=h.getId_horario()%>"
+                            data-dia="<%=h.getDia()%> "
+                            data-hora-inicio="<%=h.getHora_inicio()%> "
+                            data-hora-fin="<%=h.getHora_fin()%> "
+                            data-materia="<%=h.getMateria()%> "
+                            data-lugar="<%=h.getAula()%>  - <%=h.getEdificio()%> ">Editar</button>
+                </td>
+            </tr> <% } --%>
+            <tbody>
             <c:choose>
                 <c:when test="${empty horarios}">
                     <p>No hay horarios disponibles.</p>
                 </c:when>
                 <c:otherwise>
+
                     <c:forEach items="${horarios}" var="horario">
                         <tr>
                             <td>${horario.dia}</td>
@@ -224,6 +255,8 @@
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
+            </tbody>
+
         </table>
     </div>
 </div>
@@ -271,9 +304,9 @@
                     <select class="custom-select" name="aula" id="aula">
                         <option value="" selected disabled>Aula</option>
                         <%
-                            AulaDao dao = new AulaDao();
-                            ArrayList<Aula> lista = dao.getAula();
-                            for(Aula A : lista){//Por cada usuario de la lista
+                            AulaDao daoA = new AulaDao();
+                            ArrayList<Aula> listaA = daoA.getAula();
+                            for(Aula A : listaA){//Por cada usuario de la lista
                         %>
                             <option value="<%= A.getId_aula()%>"><%=A.getAula() +" "+ A.getEdificio()%></option>
                        <%}%>
@@ -290,11 +323,27 @@
 
 <%
     } else {
-        response.sendRedirect("../accesoDenegado.jsp");
+        response.sendRedirect("${pageContext.request.contextPath}/accesoDenegado.jsp");
     }
 %>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/datatables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
+<script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('example');
+        new DataTable(table, {
+            language: {
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
+            },
+            pageLength: 5,
+            responsive: true
+        });
+
+    });
+
     // Abre el modal de edición cuando se hace clic en cualquier botón "Editar"
     document.addEventListener('DOMContentLoaded', function () {
         var modal = document.getElementById("myModal");

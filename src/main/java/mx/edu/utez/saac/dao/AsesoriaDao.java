@@ -205,4 +205,107 @@ public class AsesoriaDao {
         }
         return flag;
     }
+    public ArrayList<Asesoria> getPendientes(){
+        ArrayList<Asesoria> lista = new ArrayList<>();
+        String query = "{CALL GetAsesoriasPendientes()}";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Asesoria asesoria = new Asesoria();
+                asesoria.setId_asesoria(rs.getInt("id_asesoria"));
+                asesoria.setId_docente(rs.getInt("docente"));
+                asesoria.setId_estudiante(rs.getInt("estudiante"));
+                asesoria.setId_materia(rs.getInt("id_materia"));
+                asesoria.setMateria(rs.getString("materia"));
+                asesoria.setId_carrera(rs.getInt("id_carrera"));
+                asesoria.setId_division(rs.getInt("id_division"));
+                asesoria.setId_horario(rs.getInt("horario"));
+                asesoria.setId_aula(rs.getInt("id_aula"));
+                asesoria.setAula(rs.getString("aula"));
+                asesoria.setId_edificio(rs.getInt("id_edificio"));
+                asesoria.setEdificio(rs.getString("edificio"));
+                asesoria.setId_status_asesoria(rs.getInt("id_status_asesoria"));
+                asesoria.setStatus(rs.getString("status"));
+                asesoria.setHora_inicio(rs.getTime("hora_inicio"));
+                asesoria.setHora_fin(rs.getTime("hora_fin"));
+                asesoria.setDia(rs.getDate("dia"));
+                asesoria.setNombre_docente(rs.getString("nombre_docente"));
+                lista.add(asesoria);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public ArrayList<Asesoria> getEnCurso(){
+        ArrayList<Asesoria> lista = new ArrayList<>();
+        String query = "{CALL GetAsesoriasEnCurso()}";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Asesoria asesoria = new Asesoria();
+                asesoria.setId_asesoria(rs.getInt("id_asesoria"));
+                asesoria.setId_docente(rs.getInt("docente"));
+                asesoria.setId_estudiante(rs.getInt("estudiante"));
+                asesoria.setId_materia(rs.getInt("id_materia"));
+                asesoria.setMateria(rs.getString("materia"));
+                asesoria.setId_carrera(rs.getInt("id_carrera"));
+                asesoria.setId_division(rs.getInt("id_division"));
+                asesoria.setId_horario(rs.getInt("horario"));
+                asesoria.setId_aula(rs.getInt("id_aula"));
+                asesoria.setAula(rs.getString("aula"));
+                asesoria.setId_edificio(rs.getInt("id_edificio"));
+                asesoria.setEdificio(rs.getString("edificio"));
+                asesoria.setId_status_asesoria(rs.getInt("id_status_asesoria"));
+                asesoria.setStatus(rs.getString("status"));
+                asesoria.setHora_inicio(rs.getTime("hora_inicio"));
+                asesoria.setHora_fin(rs.getTime("hora_fin"));
+                asesoria.setDia(rs.getDate("dia"));
+                asesoria.setNombre_docente(rs.getString("nombre_docente"));
+                lista.add(asesoria);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    public ArrayList<Asesoria> getFinalizadas(){
+        ArrayList<Asesoria> lista = new ArrayList<>();
+        String query = "{CALL GetAsesoriasFinalizadas()}";
+        try{
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Asesoria asesoria = new Asesoria();
+                asesoria.setId_asesoria(rs.getInt("id_asesoria"));
+                asesoria.setId_docente(rs.getInt("docente"));
+                asesoria.setId_estudiante(rs.getInt("estudiante"));
+                asesoria.setId_materia(rs.getInt("id_materia"));
+                asesoria.setMateria(rs.getString("materia"));
+                asesoria.setId_carrera(rs.getInt("id_carrera"));
+                asesoria.setId_division(rs.getInt("id_division"));
+                asesoria.setId_horario(rs.getInt("horario"));
+                asesoria.setId_aula(rs.getInt("id_aula"));
+                asesoria.setAula(rs.getString("aula"));
+                asesoria.setId_edificio(rs.getInt("id_edificio"));
+                asesoria.setEdificio(rs.getString("edificio"));
+                asesoria.setId_status_asesoria(rs.getInt("id_status_asesoria"));
+                asesoria.setStatus(rs.getString("status"));
+                asesoria.setHora_inicio(rs.getTime("hora_inicio"));
+                asesoria.setHora_fin(rs.getTime("hora_fin"));
+                asesoria.setDia(rs.getDate("dia"));
+                asesoria.setNombre_docente(rs.getString("nombre_docente"));
+                lista.add(asesoria);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }

@@ -50,9 +50,11 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (dao.insert(u)) {
             //respuesta hacia un jsp
             if ("agregarU".equals(source)) {
+                HttpSession session = req.getSession();
+                session.setAttribute("mensajeError","Usuario registrado exitosamente");
                 req.getRequestDispatcher("administrador/agregarUsuario.jsp").forward(req, resp);
             } else if ("registrarU".equals(source)) {
-                req.getRequestDispatcher("registrarUsuario.jsp").forward(req, resp);
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
         } else {
             //la info no se insertó y regresa al formulario

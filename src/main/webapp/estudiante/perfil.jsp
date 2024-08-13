@@ -193,19 +193,19 @@
         <form action="perfil" method="post" id="perfilForm">
             <div class="campos-form">
                 <label for="nombre">Nombre:</label><br>
-                <input type="text" disabled name="nombre" id="nombre" value="<%= userDetails != null ? userDetails.getNombre() : "" %>">
+                <input type="text" disabled name="nombre" id="nombre" maxlength="45" value="<%= userDetails != null ? userDetails.getNombre() : "" %>">
             </div>
             <div class="campos-form">
                 <label for="ap1">Apellido paterno:</label><br>
-                <input type="text" disabled name="apellido_paterno" id="ap1" value="<%= userDetails != null ? userDetails.getApellido_paterno() : "" %>">
+                <input type="text" disabled name="apellido_paterno" id="ap1" maxlength="45" value="<%= userDetails != null ? userDetails.getApellido_paterno() : "" %>">
             </div>
             <div class="campos-form">
                 <label for="ap2">Apellido materno:</label><br>
-                <input type="text" disabled name="apellido_materno" id="ap2" value="<%= userDetails != null ? userDetails.getApellido_materno() : "" %>">
+                <input type="text" disabled name="apellido_materno" id="ap2" maxlength="45" value="<%= userDetails != null ? userDetails.getApellido_materno() : "" %>">
             </div>
             <div class="campos-form">
                 <label for="edad">Edad:</label><br>
-                <input type="number" disabled name="edad" id="edad" value="<%= userDetails != null ? userDetails.getEdad() : "" %>">
+                <input type="number" disabled name="edad" id="edad" maxlength="3" value="<%= userDetails != null ? userDetails.getEdad() : "" %>">
             </div>
             <input type="hidden" name="idUsuario" id="idUsuario" value="<%=userDetails.getId()%>">
             <!-- Agregar input para fecha si es necesario -->
@@ -306,6 +306,14 @@
     document.getElementById('perfilForm').addEventListener('submit', function(event) {
         event.preventDefault();  // Prevenir el envío del formulario
         mostrarModalConfirmacion();  // Mostrar el modal de confirmación
+    });
+    document.getElementById('edad').addEventListener('input', function () {
+        const maxLength = 3; // Máximo de 3 dígitos
+        let value = this.value;
+
+        if (value.length > maxLength) {
+            this.value = value.slice(0, maxLength); // Truncar a 3 dígitos
+        }
     });
 </script>
 </body>

@@ -22,19 +22,19 @@
             <form action="registrarUsuario" method="post" id="registro-form" onsubmit="return validarCorreo()">
                 <input type="hidden" name="source" value="registrarU">
                 <div class="form-group">
-                    <input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" placeholder="Nombre(s)" required>
+                    <input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" placeholder="Nombre(s)" maxlength="45" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="paternoRegistro" name="paternoRegistro" class="form-control" placeholder="Apellido Paterno" required>
+                    <input type="text" id="paternoRegistro" name="paternoRegistro" class="form-control" placeholder="Apellido Paterno" maxlength="45" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="maternoRegistro" name="maternoRegistro" class="form-control" placeholder="Apellido Materno" required>
+                    <input type="text" id="maternoRegistro" name="maternoRegistro" class="form-control" placeholder="Apellido Materno" maxlength="45" required>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="edadRegistro" name="edadRegistro" class="form-control" placeholder="Edad" required>
+                    <input type="number" id="edadRegistro" name="edadRegistro" class="form-control" placeholder="Edad" maxlength="3" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="matriculaRegistro" name="matriculaRegistro" class="form-control" placeholder="Matrícula" required>
+                    <input type="text" id="matriculaRegistro" name="matriculaRegistro" class="form-control" maxlength="12" placeholder="Matrícula" required>
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="carreraRegistro" name="carreraRegistro" required>
@@ -57,7 +57,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="correoRegistro" name="correoRegistro" class="form-control" placeholder="Correo institucional" required>
+                    <input type="email" id="correoRegistro" name="correoRegistro" class="form-control" placeholder="Correo institucional"  required>
                 </div>
                 <div class="form-group">
                     <input type="password" id="contraseña1Registro" name="contraseña1Registro" class="form-control" placeholder="Contraseña" required>
@@ -114,6 +114,14 @@
         mensajeError.textContent = ''; // Limpiar cualquier mensaje de error previo
         return true;
     }
+    document.getElementById('edadRegistro').addEventListener('input', function () {
+        const maxLength = 3; // Máximo de 3 dígitos
+        let value = this.value;
+
+        if (value.length > maxLength) {
+            this.value = value.slice(0, maxLength); // Truncar a 3 dígitos
+        }
+    });
 
 </script>
 </body>

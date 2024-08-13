@@ -161,24 +161,24 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="nombreRegistro">Nombre</label>
-                            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Nombre(s)">
+                            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Nombre(s)" maxlength="45">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="paternoRegistro">Apellido Paterno</label>
-                            <input type="text" class="form-control" id="paternoRegistro" name="paternoRegistro" placeholder="Apellido Paterno">
+                            <input type="text" class="form-control" id="paternoRegistro" name="paternoRegistro" placeholder="Apellido Paterno" maxlength="45">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="maternoRegistro">Apellido Materno</label>
-                            <input type="text" class="form-control" id="maternoRegistro" name="maternoRegistro" placeholder="Apellido Materno">
+                            <input type="text" class="form-control" id="maternoRegistro" name="maternoRegistro" placeholder="Apellido Materno" maxlength="45">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="edadRegistro">Edad</label>
-                            <input type="number" class="form-control" id="edadRegistro" name="edadRegistro" placeholder="Edad">
+                            <input type="number" class="form-control" id="edadRegistro" name="edadRegistro" placeholder="Edad" maxlength="3">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="matriculaRegistro">Matrícula</label>
-                        <input type="text" class="form-control" id="matriculaRegistro" name="matriculaRegistro" placeholder="Matrícula">
+                        <input type="text" class="form-control" id="matriculaRegistro" name="matriculaRegistro"  maxlength="12" placeholder="Matrícula">
                     </div>
                     <div class="form-group">
                         <label for="carreraRegistro">Carrera</label>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="form-group">
                         <label for="correoRegistro">Correo</label>
-                        <input type="email" class="form-control" id="correoRegistro" name="correoRegistro" placeholder="Correo institucional">
+                        <input type="email" class="form-control" id="correoRegistro" name="correoRegistro" placeholder="Correo institucional" maxlength="45">
                         <div id="mensajeError" style="color: red; font-weight: bold;"></div>
                     </div>
                     <div class="form-row">
@@ -272,6 +272,14 @@
         mensajeError.textContent = ''; // Limpiar cualquier mensaje de error previo
         return true;
     }
+    document.getElementById('edadRegistro').addEventListener('input', function () {
+        const maxLength = 3; // Máximo de 3 dígitos
+        let value = this.value;
+
+        if (value.length > maxLength) {
+            this.value = value.slice(0, maxLength); // Truncar a 3 dígitos
+        }
+    });
     <%
         } else {
         response.sendRedirect("../accesoDenegado.jsp");
