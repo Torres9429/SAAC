@@ -38,7 +38,8 @@ public class CancelarAsesoriaServlet extends HttpServlet {
 
         switch (action) {
             case "cancelar":
-                int id = Integer.parseInt(req.getParameter("id"));
+                int id = Integer.parseInt(req.getParameter("horarioId"));
+                System.out.println(id);
                 if(dao.cancelarAsesoria(id)){
                     mensaje = "Asesoría cancelada con éxito.";
                     System.out.println("cancelada con exito");
@@ -47,13 +48,12 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                     System.out.println("error al cancelar");
                 }
                 session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
+                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
                 break;
 
             case "iniciar":
-                // Lógica para iniciar asesoría
-                // Ejemplo:
-                int idIniciar = Integer.parseInt(req.getParameter("id"));
+                int idIniciar = Integer.parseInt(req.getParameter("horarioId"));
+                System.out.println(idIniciar);
                 if(dao.iniciarAsesoria(idIniciar)){
                     mensaje = "Asesoría iniciada con éxito.";
                     System.out.println("iniciada con exito");
@@ -62,13 +62,12 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                     System.out.println("error al iniciar");
                 }
                 session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
+                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
                 break;
 
             case "finalizar":
-                // Lógica para finalizar asesoría
-                // Ejemplo:
-                int idFinalizar = Integer.parseInt(req.getParameter("id"));
+                int idFinalizar = Integer.parseInt(req.getParameter("horarioId"));
+                System.out.println(idFinalizar);
                 if(dao.finalizarAsesoria(idFinalizar)){
                     mensaje = "Asesoría finalizada con éxito.";
                     System.out.println("finalizada con exito");
@@ -77,13 +76,13 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                     System.out.println("error al finzalizar");
                 }
                 session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
+                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
                 break;
 
             default:
                 mensaje = "Acción no reconocida.";
                 session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("docente/calendarioDocente.jsp").forward(req, resp);
+                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
                 break;
         }
 

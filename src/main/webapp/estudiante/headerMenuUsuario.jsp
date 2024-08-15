@@ -54,7 +54,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/${pageContext.request.contextPath}/agendarAsesoria.jsp">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesoriasSinEvaluar?jsp=estudiante">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

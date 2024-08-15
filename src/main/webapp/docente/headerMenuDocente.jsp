@@ -52,7 +52,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getMateriasDoc">Calificar</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesoriasSinEvaluar?jsp=docente">Calificar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

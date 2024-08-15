@@ -467,7 +467,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <%--div class="row">
         <div class="col-12">
             <div class="statusAsesorias">
                 <p class="status" style="background-color: #EBAF14">Pendiente</p>
@@ -476,7 +476,7 @@
                 <p class="status" style="background-color: #043B78">Finalizada</p>
             </div>
         </div>
-    </div>
+    </div--%>
     <div class="row">
         <div class="col-12">
             <div id='calendar'></div>

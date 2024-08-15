@@ -206,6 +206,16 @@
             border-color: #022e5d;
             color: #ffffff;
         }
+        #calificarAsesoria {
+            display: block !important;
+
+        }
+        .mostrar{
+            display: block;
+        }
+        .ocultar{
+            display: none !important;
+        }
 
     </style>
 
@@ -223,6 +233,7 @@
         // Eliminar el atributo de sesión después de obtener el mensaje
         session.removeAttribute("mensaje");
 %>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var userId = <%= userId %>;
@@ -268,7 +279,8 @@
                         carreraId: '${asesoria.id_carrera}',
                         divisionId: '${asesoria.id_division}',
                         aulaId: '${asesoria.id_aula}',
-                        dia: '${asesoria.dia}'
+                        dia: '${asesoria.dia}',
+                        statusId: '${asesoria.id_status_asesoria}'
                     }
                 },
                 </c:forEach>],
@@ -288,8 +300,7 @@
                     event.setProp('classNames', ['class-en-curso']);
                 }
             },
-            eventClick: function(info) {
-                // Código para manejar el clic en un evento
+            <%--eventClick: function(info) {
                 $('#tema').val(info.event.title);
                 $('#docenteId').val(info.event.extendedProps.docenteId);
                 $('#docente').val(info.event.extendedProps.nombreDocente);
@@ -305,8 +316,71 @@
                 $('#finalizar').val(info.event.extendedProps.horarioId);
                 $('#solicitarAsesoriaModal').modal('show');
 
-            }
+                var statusId = info.event.extendedProps.statusId;
+                console.log("ID STATUS:", statusId);
+
+                let iniciarAsesoria = document.getElementById("iniciarAsesoria")
+                let cancelarAsesoria = document.getElementById("cancelarAsesoria")
+                let finalizarAsesoria = document.getElementById("finalizarAsesoria")
+                let reagendarAsesoria = document.getElementById("reagendarAsesoria")
+
+
+                function motrarbtn (statusId){
+                    document.getElementById("iniciarAsesoria").style.display ='none'
+                    document.getElementById("cancelarAsesoria").style.display ='none'
+                    document.getElementById("finalizarAsesoria").style.display ='none'
+                    document.getElementById("reagendarAsesoria").style.display ='none'
+
+                    if(statusId === 2){
+                        document.getElementById('iniciarAsesoria').style.display = 'block';
+                        document.getElementById('cancelarAsesoria').style.display = 'block';
+                    }else if(statusId === 1){
+                        document.getElementById('finalizarAsesoria').style.display = 'inline-block';
+                    }
+
+                }
+                motrarbtn(statusId);--%>
+                eventClick: function(info) {
+                    // Código para manejar el clic en un evento
+                    $('#tema').val(info.event.title);
+                    $('#docenteId').val(info.event.extendedProps.docenteId);
+                    $('#docente').val(info.event.extendedProps.nombreDocente);
+                    $('#idUsuario').val(userId);
+                    $('#idMateria').val(info.event.extendedProps.materiaId);
+                    $('#aulaId').val(info.event.extendedProps.aulaId);
+                    $('#horarioId').val(info.event.extendedProps.horarioId);
+                    $('#dia').val(info.event.extendedProps.dia);
+                    $('#horaInicio').val(info.event.extendedProps.horaInicio);
+                    $('#horaFin').val(info.event.extendedProps.horaFin);
+
+                    // Obtener el estado de la asesoría
+                    var statusId = Number(info.event.extendedProps.statusId);
+                    console.log(statusId)
+                    // Mostrar u ocultar botones según el estado
+                    if (statusId === 2) { // Pendiente
+                        console.log("Pendiente"+statusId)
+                        $('#iniciarAsesoria').css('display', 'block');
+                        $('#cancelarAsesoria').css('display', 'block');
+                        $('#finalizarAsesoria').addClass('ocultar')
+                        $('#reagendarAsesoria').css('display', 'block');
+                    } else if (statusId === 1) { // En curso
+                        $('#iniciarAsesoria').hide();
+                        $('#cancelarAsesoria').hide();
+                        $('#finalizarAsesoria').show();
+                        $('#reagendarAsesoria').hide();
+                    } else { // Cancelada o Finalizada
+                        $('#iniciarAsesoria').hide();
+                        $('#cancelarAsesoria').hide();
+                        $('#finalizarAsesoria').hide();
+                        $('#reagendarAsesoria').hide();
+                    }
+
+                    $('#solicitarAsesoriaModal').modal('show');
+                }
+
+
         });
+
 
         calendar.render();
 
@@ -331,7 +405,7 @@
                                 carreraId: event.id_carrera,
                                 divisionId: event.id_division,
                                 aulaId: event.id_aula,
-                                dia: event.dia
+                                dia: event.dia,
                             }
                         });
                     });
@@ -361,6 +435,7 @@
         $('#iniciarAsesoria').on('click', function() {
             $('#action').val('iniciar');
             $('#formAsesoria').submit();
+            mostrarMensajeModal();
         });
 
 // Botón de "Finalizar Asesoría"
@@ -598,7 +673,6 @@
 
 </script>
 
-
 <div class="container">
     <div class="row filtrosBusqueda">
         <div class="col-12 col-md-4">
@@ -689,10 +763,11 @@
                         <button type="button" class="btn btn-primary" id="iniciarAsesoria">Iniciar</button>
                         <button type="button" class="btn btn-success" id="finalizarAsesoria">Finalizar</button>
                         <button type="button" class="btn btn-danger" id="cancelarAsesoria">Cancelar</button>
+                        <button type="button" class="btn btn-custom" id="reagendarAsesoria">Reagendar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
-                <form action="${pageContext.request.contextPath}/iniciarAsesoria" method="post">
+                <%--form action="${pageContext.request.contextPath}/iniciarAsesoria" method="post">
                     <input type="hidden" id="iniciar" name="iniciar">
                     <button type="submit" class="btn btn-primary">Iniciar</button>
                 </form>
@@ -703,7 +778,7 @@
                 <form action="${pageContext.request.contextPath}/finalizarAsesoria" method="post">
                     <input type="hidden" name="finalizar" id="finalizar">
                     <button type="submit" class="btn btn-secondary">Finalizar</button>
-                </form>
+                </form--%>
             </div>
         </div>
     </div>
@@ -727,7 +802,9 @@
 <%
     } else {
         response.sendRedirect("../accesoDenegado.jsp");
+        //response.sendRedirect(request.getContextPath() +"/accesoDenegado.jsp");
     }
 %>
+
 </body>
 </html>
