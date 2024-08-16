@@ -158,7 +158,7 @@
             <tr style="background-color: #80C9BA;">
                 <th>Id</th>
                 <th>Nombre de la materia</th>
-                <th>Id Carrera</th>
+                <th>Carrera</th>
             </tr>
             </thead>
             <tbody>

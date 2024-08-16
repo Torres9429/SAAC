@@ -326,18 +326,6 @@
                 <input type="text" class="form-control" id="materia" name="materia" required>
             </div>
             <div class="form-group">
-                <select class="form-control" name="selectDivision" id="selectDivision">
-                    <option value="">División académica</option>
-                    <%
-                        DivisionDao dao = new DivisionDao();
-                        ArrayList<Division> lista = dao.getAll();
-                        for(Division d : lista) {
-                    %>
-                    <option value="<%= d.getId_division()%>"><%=d.getDivision_academica()%></option>
-                    <%}%>
-                </select>
-            </div>
-            <div class="form-group">
                 <select class="form-control" name="selectCarrera" id="selectCarrera">
                     <option value="" selected disabled>Carrera</option>
                 </select>
