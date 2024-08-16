@@ -38,7 +38,7 @@ public class CancelarAsesoriaServlet extends HttpServlet {
 
         switch (action) {
             case "cancelar":
-                int id = Integer.parseInt(req.getParameter("horarioId"));
+                int id = Integer.parseInt(req.getParameter("id"));
                 System.out.println(id);
                 if(dao.cancelarAsesoria(id)){
                     mensaje = "Asesoría cancelada con éxito.";
@@ -52,10 +52,11 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                 break;
 
             case "iniciar":
-                int idIniciar = Integer.parseInt(req.getParameter("horarioId"));
+                int idIniciar = Integer.parseInt(req.getParameter("id"));
                 System.out.println(idIniciar);
                 if(dao.iniciarAsesoria(idIniciar)){
                     mensaje = "Asesoría iniciada con éxito.";
+                    resp.sendRedirect(req.getContextPath() + "/calendarioDocente.jsp");
                     System.out.println("iniciada con exito");
                 }else{
                     mensaje = "Error al iniciar la asesoría, por favor inténtelo de nuevo.";
@@ -66,7 +67,7 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                 break;
 
             case "finalizar":
-                int idFinalizar = Integer.parseInt(req.getParameter("horarioId"));
+                int idFinalizar = Integer.parseInt(req.getParameter("id"));
                 System.out.println(idFinalizar);
                 if(dao.finalizarAsesoria(idFinalizar)){
                     mensaje = "Asesoría finalizada con éxito.";
@@ -79,6 +80,12 @@ public class CancelarAsesoriaServlet extends HttpServlet {
                 req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
                 break;
 
+            case "reagendar":
+                int idMateria = Integer.parseInt(req.getParameter("id"));
+                System.out.println("Materia: "+ idMateria);
+            resp.sendRedirect("/reagendar");
+
+                break;
             default:
                 mensaje = "Acción no reconocida.";
                 session.setAttribute("mensaje", mensaje);

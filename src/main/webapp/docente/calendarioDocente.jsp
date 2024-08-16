@@ -228,10 +228,7 @@
         List<Asesoria> asesorias = (List<Asesoria>) request.getAttribute("asesorias");
         List<Materia> materias = (List<Materia>) request.getAttribute("materias");
         List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
-        // Obtener el mensaje de la sesión
-        String mensaje = (String) session.getAttribute("mensaje");
-        // Eliminar el atributo de sesión después de obtener el mensaje
-        session.removeAttribute("mensaje");
+
 %>
 
 <script>
@@ -355,6 +352,7 @@
 
                     // Obtener el estado de la asesoría
                     var statusId = Number(info.event.extendedProps.statusId);
+                    var idMateria = Number(info.event.extendedProps.materiaId)
                     console.log(statusId)
                     // Mostrar u ocultar botones según el estado
                     if (statusId === 2) { // Pendiente
@@ -377,7 +375,6 @@
 
                     $('#solicitarAsesoriaModal').modal('show');
                 }
-
 
         });
 
@@ -428,14 +425,13 @@
 
 
 
-        function mostrarMensajeModal(mensaje) {
+        /*function mostrarMensajeModal(mensaje) {
             $('#mensajeModal .modal-body').text(mensaje);
             $('#mensajeModal').modal('show');
-        }
-        $('#iniciarAsesoria').on('click', function() {
+        }*/
+        /*$('#iniciarAsesoria').on('click', function() {
             $('#action').val('iniciar');
             $('#formAsesoria').submit();
-            mostrarMensajeModal();
         });
 
 // Botón de "Finalizar Asesoría"
@@ -448,9 +444,9 @@
         $('#cancelarAsesoria').on('click', function() {
             $('#action').val('cancelar');
             $('#formAsesoria').submit();
-        });
+        });*/
 
-        /*/ Botón de "Iniciar Asesoría"
+        // Botón de "Iniciar Asesoría"
         document.getElementById('iniciarAsesoria').addEventListener('click', function() {
             var horarioId = $('#horarioId').val();
             $('#action').val('iniciar');
@@ -459,11 +455,12 @@
                 type: 'POST',
                 data: $('#formAsesoria').serialize() + '&id=' + horarioId,
                 success: function(response) {
+                    window.location.reload();
                     alert('Asesoría iniciada');
                     $('#solicitarAsesoriaModal').modal('hide');
                     //calendar.refetchEvents();
-                    loadEvents();
-                    calendar.render();
+
+
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al iniciar la asesoría: ' + error);
@@ -482,12 +479,15 @@
                 success: function(response) {
                     alert('Asesoría finalizada');
                     $('#solicitarAsesoriaModal').modal('hide');
-                    loadEvents();
+                    //loadEvents();
+                    window.location.reload();
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al finalizar la asesoría: ' + error);
                 }
+
             });
+            window.location.reload();
         });
 
 // Botón de "Cancelar Asesoría"
@@ -502,13 +502,37 @@
                     alert('Asesoría cancelada');
                     $('#solicitarAsesoriaModal').modal('hide');
                     //calendar.refetchEvents();
-                    loadEvents();
+                    //loadEvents();
+                    window.location.reload();
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
                 }
             });
-        }); */
+            window.location.reload();
+        });
+
+        //Reagendar
+        <%--document.getElementById('reagendarAsesoria').addEventListener('click', function() {
+            var materiaId = $('#idMateria').val();
+            $('#action').val('reagendar');
+            $.ajax({
+                url: $('#formAsesoria').attr('action'),
+                type: 'POST',
+                data: $('#formAsesoria').serialize() + '&id=' + materiaId,
+                success: function(response) {
+                    alert('Asesoría cancelada');
+                    $('#solicitarAsesoriaModal').modal('hide');
+                    //calendar.refetchEvents();
+                    //loadEvents();
+
+                },
+                error: function(xhr, status, error) {
+                    mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
+                }
+            });
+        });--%>
+
 
         function submitForm(action) {
             var form = document.getElementById('formAsesoria');
@@ -618,6 +642,8 @@
     console.log(divisiones);
     console.log(carreras);
     console.log(materias);
+
+
 
     document.addEventListener('DOMContentLoaded', function() {
         var selectDivision = document.getElementById('selectDivision');
@@ -751,6 +777,7 @@
                     <input type="hidden" id="docenteId" name="docenteId">
                     <input type="hidden" id="idUsuario" name="idUsuario">
                     <input type="hidden" id="idMateria" name="idMateria">
+                    <script>console.log(document.getElementById("idMateria").value)</script>
                     <input type="hidden" id="aulaId" name="aulaId">
                     <input type="hidden" id="horarioId" name="horarioId">
                     <input type="hidden" id="dia" name="dia">
@@ -759,13 +786,32 @@
                     <%--button type="submit" id="cancelarAsesoria"  class="btn btn-primary">Cancelar</button>
                     <button type="button" id="iniciarAsesoria" class="btn btn-primary">Iniciar</button>
                     <button type="submit" id="finalizarAsesoria"  class="btn btn-primary">Finalizar</button--%>
+                    <script>
+                        var rutaa = "/SAAC_war/reagendar"
+                        var parametr = "idmateria"
+                        var materiaId = $('#idMateria').val();
+                        var id = document.getElementById("idMateria").value;
+                        console.log(document.getElementById("idMateria"))
+                        console.log(rutaa + "|" + parametr + "|" + id);
+                        function redirigirConParametro(ruta, parametro, valor) {
+                            // Construye la URL con el parámetro y su valor
+                            var url = ruta + "?" + encodeURIComponent(parametro) + "=" + valor;
+
+                            // Redirige a la nueva URL
+                            window.location.href = url;
+                        }
+
+
+                    </script>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="iniciarAsesoria">Iniciar</button>
                         <button type="button" class="btn btn-success" id="finalizarAsesoria">Finalizar</button>
                         <button type="button" class="btn btn-danger" id="cancelarAsesoria">Cancelar</button>
-                        <button type="button" class="btn btn-custom" id="reagendarAsesoria">Reagendar</button>
+                        <button type="button" class="btn btn-custom"  onclick="redirigirConParametro(rutaa,parametr,id);"  >Reagendar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
+
+
                 </form>
                 <%--form action="${pageContext.request.contextPath}/iniciarAsesoria" method="post">
                     <input type="hidden" id="iniciar" name="iniciar">
@@ -783,7 +829,11 @@
         </div>
     </div>
 </div>
-
+<%
+    String mensaje = (String) session.getAttribute("mensaje");
+    // Eliminar el atributo de sesión después de obtener el mensaje
+    session.removeAttribute("mensaje");
+%>
 <!-- Modal de mensaje -->
 <div id="mensajeModal" class="modal-custom" style="display: <%= mensaje != null ? "block" : "none" %>;">
     <div class="modal-content-custom">
@@ -800,6 +850,7 @@
     </div>
 </div>
 <%
+
     } else {
         response.sendRedirect("../accesoDenegado.jsp");
         //response.sendRedirect(request.getContextPath() +"/accesoDenegado.jsp");

@@ -88,6 +88,34 @@ public class HorarioDao {
         return list;
     }
 
+    public ArrayList<Horario> getHorariosByMateria(int idUsuario) {
+        ArrayList<Horario> list = new ArrayList<>();
+        String query = "{CALL obtener_horarios_posteriores(?)}"; // Llamada al procedimiento almacenado
+
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            CallableStatement cs = con.prepareCall(query);
+            cs.setInt(1, idUsuario);
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                Horario horario = new Horario();
+                horario.setId_horario(rs.getInt("id_horario"));
+                horario.setHora_inicio(rs.getTime("hora_inicio"));
+                horario.setHora_fin(rs.getTime("hora_fin"));
+                horario.setDia(rs.getDate("dia"));
+                horario.setMateria(rs.getInt("id_materia"));
+                horario.setNombre_materia(rs.getString("materia"));
+                horario.setAula(rs.getString("aula"));
+                horario.setEdificio(rs.getString("edificio"));
+                horario.setNombre_docente(rs.getString("nombre_completo"));
+                list.add(horario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     /*public ArrayList<Horario> getHorarios(int idUsuario){
         ArrayList<Horario> list = new ArrayList<>();
         String query = "{CALL GetHorariosPorUsuario(?)}";
