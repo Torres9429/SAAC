@@ -448,24 +448,6 @@
             window.location.reload();
         });
 
-        <%--//Reagendar
-        document.getElementById('reagendarAsesoria').addEventListener('click', function() {
-            var materiaId = $('#idMateria').val();
-            $('#action').val('reagendar');
-            $.ajax({
-                url: $('#formAsesoria').attr('action'),
-                type: 'POST',
-                data: $('#formAsesoria').serialize() + '&id=' + materiaId,
-                success: function(response) {
-                    alert('Asesoría cancelada');
-                    $('#solicitarAsesoriaModal').modal('hide');
-                },
-                error: function(xhr, status, error) {
-                    mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
-                }
-            });
-        });--%>
-
         $(document).ready(function () {
             // Reagendar
             $('#reagendarAsesoria').click(function (event) {

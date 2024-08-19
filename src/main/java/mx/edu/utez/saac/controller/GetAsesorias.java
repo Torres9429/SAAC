@@ -22,7 +22,7 @@ public class GetAsesorias extends HttpServlet {
         AulaDao aulaDao = new AulaDao();
         ArrayList<Aula> aulas = aulaDao.getAula();
         req.setAttribute("aulas", aulas);
-        System.out.println("aulas"+aulas.size());
+        System.out.println("aulas "+aulas.size());
 
         DivisionDao divisionDao = new DivisionDao();
         ArrayList<Division> divisiones = divisionDao.getAll();
@@ -31,6 +31,11 @@ public class GetAsesorias extends HttpServlet {
         CarreraDao carreraDao = new CarreraDao();
         ArrayList<Carrera> carreras = carreraDao.getAll();
         req.setAttribute("carreras", carreras);
+
+        MateriaDao materiaDao = new MateriaDao();
+        ArrayList<Materia> materias = materiaDao.getAll();
+        req.setAttribute("materias", materias);
+        System.out.println("materias "+materias.size());
 
         if (user != null) {
             int idUsuario = user.getId();

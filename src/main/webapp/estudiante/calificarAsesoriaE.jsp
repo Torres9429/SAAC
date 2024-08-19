@@ -286,7 +286,7 @@
 
 <%
     } else {
-        response.sendRedirect("../accesoDenegado.jsp");
+        response.sendRedirect(request.getContextPath() + "/accesoDenegado.jsp");
     }
 %>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>

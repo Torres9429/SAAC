@@ -24,11 +24,12 @@ public class GetMateriasServlet extends HttpServlet {
         MateriaDao materiaDao = new MateriaDao();
         ArrayList<Materia> materias = materiaDao.getAll();
         req.setAttribute("materias", materias);
+        System.out.println("materias"+materias.size());
 
         AulaDao aulaDao = new AulaDao();
         ArrayList<Aula> aulas = aulaDao.getAula();
         req.setAttribute("aulas", aulas);
-        System.out.println("aulas"+aulas.size());
+        System.out.println("aulas "+aulas.size());
 
 
 

@@ -2,6 +2,7 @@
 <%@ page import="mx.edu.utez.saac.model.Evaluacion" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="mx.edu.utez.saac.model.CalificacionDTO" %>
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -74,6 +75,10 @@
     <jsp:include page="/estudiante/headerMenuUsuario.jsp" />
 </head>
 <body>
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    if (user != null && user.getId_tipo_usuario() == 1) {
+%>
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -159,5 +164,11 @@
         });
 
     });
+</script>
+<%
+    } else {
+        response.sendRedirect(request.getContextPath() + "/accesoDenegado.jsp");
+    }
+%>
 </body>
 </html>

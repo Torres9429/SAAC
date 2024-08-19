@@ -37,7 +37,7 @@
 
 <%
     } else {
-        response.sendRedirect("../accesoDenegado.jsp");
+        response.sendRedirect(request.getContextPath() + "/accesoDenegado.jsp");
     }
 %>
 </body>
