@@ -87,7 +87,7 @@
 <body>
 <%
     Usuario user = (Usuario) session.getAttribute("user");
-    if (user != null && user.getId_tipo_usuario() == 1) {
+    if (user != null && user.getId_tipo_usuario() == 2) {
 %>
 <div style="display: flex; align-content: center; height: 80%">
     <div class="divText">

@@ -272,7 +272,7 @@
                     </select>
                 </div>
                 <div class="form-group-custom">
-                    <label for="comentarios">¿Cómo mejorarías esta asesoría?</label>
+                    <label for="comentarios">¿Cómo evaluarías el desempeño del docente durante la asesoría?</label>
                     <textarea class="form-control" id="comentarios" name="comentarios" required maxlength="150"></textarea>
                 </div>
             </form>
