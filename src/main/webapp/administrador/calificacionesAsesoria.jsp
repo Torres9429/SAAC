@@ -1,3 +1,7 @@
+<%@ page import="mx.edu.utez.saac.dao.EvaluacionDao" %>
+<%@ page import="mx.edu.utez.saac.model.Evaluacion" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="mx.edu.utez.saac.model.CalificacionDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -94,18 +98,41 @@
         </div>
         <div class="form-content">
             <div class="card">
-                <div class="card-header">
-                    Bienvenido, administrador, a la página de visualización de calificaciones de asesoría académica. Aquí puedes consultar las calificaciones otorgadas a nuestras asesorías académicas ingresando el ID correspondiente de la asesoría. Por favor, introduce el ID de la asesoría en el campo proporcionado a continuación y haz clic en "Buscar" para obtener los detalles de las calificaciones.
-                </div>
-                <div class="card-body">
-                    <form action="BuscarCalificacionesAsesoriaServlet" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="idAsesoria" name="idAsesoria" placeholder="ID asesoría" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='menu.jsp'">Volver al menú</button>
-                    </form>
-                </div>
+                <table id="example" style="background-color: #80C9BA;" class="table table-striped table-hover">
+                    <thead>
+                    <tr style="background-color: #80C9BA;">
+                        <th>Id Asesoría</th>
+                        <th>Materia</th>
+                        <th>Horario</th>
+                        <th>Docente</th>
+                        <th>Calificación Docente</th>
+                        <th>Comentarios Docente</th>
+                        <th>Estudiante</th>
+                        <th>Calificación Estudiante</th>
+                        <th>Comentarios Estudiante</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        EvaluacionDao dao = new EvaluacionDao();
+                        ArrayList<CalificacionDTO> lista = dao.getCalificaciones();
+                        for (CalificacionDTO cal : lista) {
+                    %>
+                    <tr style="background-color: #80C9BA;">
+                        <td><%= cal.getIdAsesoria() %></td>
+                        <td><%= cal.getMateria() %></td>
+                        <td><%= cal.getHorario() %> <%= cal.getHoraInicio() %> - <%= cal.getHoraFin() %></td>
+                        <td><%= cal.getNombreDocente() %></td>
+                        <td><%= cal.getCalificacionDocente() %></td>
+                        <td><%= cal.getComentariosDocente() %></td>
+                        <td><%= cal.getNombreEstudiante() %></td>
+                        <td><%= cal.getCalificacionEstudiante() %></td>
+                        <td><%= cal.getComentariosEstudiante() %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
@@ -114,5 +141,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/datatables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap5.js"></script>
+<script src="${pageContext.request.contextPath}/js/es-MX.json"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('example');
+        new DataTable(table, {
+            language: {
+                url: '${pageContext.request.contextPath}/js/es-MX.json'
+            },
+            pageLength: 5,
+            responsive: true
+        });
+
+    });
 </body>
 </html>

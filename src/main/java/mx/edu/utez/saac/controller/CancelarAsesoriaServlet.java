@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.saac.dao.AsesoriaDao;
+import mx.edu.utez.saac.dao.UsuarioDao;
+import mx.edu.utez.saac.model.Usuario;
 
 import java.io.IOException;
 
@@ -34,64 +36,78 @@ public class CancelarAsesoriaServlet extends HttpServlet {
         String action = req.getParameter("action");
         AsesoriaDao dao = new AsesoriaDao();
         String mensaje;
+
         HttpSession session = req.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("user");
 
-        switch (action) {
-            case "cancelar":
-                int id = Integer.parseInt(req.getParameter("id"));
-                System.out.println(id);
-                if(dao.cancelarAsesoria(id)){
-                    mensaje = "Asesoría cancelada con éxito.";
-                    System.out.println("cancelada con exito");
-                }else{
-                    mensaje = "Error al cancelar la asesoría, por favor inténtelo de nuevo.";
-                    System.out.println("error al cancelar");
-                }
-                session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
-                break;
+        if (usuario != null) {
+            int userId = usuario.getId(); // Obtiene el ID del usuario
+            int tipoUsuario = usuario.getId_tipo_usuario(); // Obtiene el tipo de usuario directamente
 
-            case "iniciar":
-                int idIniciar = Integer.parseInt(req.getParameter("id"));
-                System.out.println(idIniciar);
-                if(dao.iniciarAsesoria(idIniciar)){
-                    mensaje = "Asesoría iniciada con éxito.";
-                    resp.sendRedirect(req.getContextPath() + "/calendarioDocente.jsp");
-                    System.out.println("iniciada con exito");
-                }else{
-                    mensaje = "Error al iniciar la asesoría, por favor inténtelo de nuevo.";
-                    System.out.println("error al iniciar");
-                }
-                session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
-                break;
+            System.out.println("ID del usuario desde la sesión: " + userId);
+            System.out.println("Tipo de usuario: " + tipoUsuario);
 
-            case "finalizar":
-                int idFinalizar = Integer.parseInt(req.getParameter("id"));
-                System.out.println(idFinalizar);
-                if(dao.finalizarAsesoria(idFinalizar)){
-                    mensaje = "Asesoría finalizada con éxito.";
-                    System.out.println("finalizada con exito");
-                }else{
-                    mensaje = "Error al finalizar la asesoría, por favor inténtelo de nuevo.";
-                    System.out.println("error al finzalizar");
-                }
-                session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
-                break;
+            // Definir la URL de redirección según el tipo de usuario
+            String redirectUrl = "getAsesorias?jsp=" + (tipoUsuario == 2 ? "calDocente" : "calEstudiante");
+            System.out.println(redirectUrl);
+            switch (action) {
+                case "cancelar":
+                    int id = Integer.parseInt(req.getParameter("id"));
+                    System.out.println("ID de la asesoría a cancelar: " + id);
+                    if (dao.cancelarAsesoria(id)) {
+                        mensaje = "Asesoría cancelada con éxito.";
+                        System.out.println("Asesoría cancelada con éxito");
+                    } else {
+                        mensaje = "Error al cancelar la asesoría, por favor inténtelo de nuevo.";
+                        System.out.println("Error al cancelar la asesoría");
+                    }
+                    session.setAttribute("mensaje", mensaje);
+                    req.getRequestDispatcher(redirectUrl).forward(req, resp);
+                    break;
 
-            case "reagendar":
-                int idMateria = Integer.parseInt(req.getParameter("id"));
-                System.out.println("Materia: "+ idMateria);
-            resp.sendRedirect("/reagendar");
+                case "iniciar":
+                    int idIniciar = Integer.parseInt(req.getParameter("id"));
+                    System.out.println("ID de la asesoría a iniciar: " + idIniciar);
+                    if (dao.iniciarAsesoria(idIniciar)) {
+                        mensaje = "Asesoría iniciada con éxito.";
+                        System.out.println("Asesoría iniciada con éxito");
+                    } else {
+                        mensaje = "Error al iniciar la asesoría, por favor inténtelo de nuevo.";
+                        System.out.println("Error al iniciar la asesoría");
+                    }
+                    session.setAttribute("mensaje", mensaje);
+                    req.getRequestDispatcher(redirectUrl).forward(req, resp);
+                    break;
 
-                break;
-            default:
-                mensaje = "Acción no reconocida.";
-                session.setAttribute("mensaje", mensaje);
-                req.getRequestDispatcher("getAsesorias?jsp=calDocente").forward(req, resp);
-                break;
+                case "finalizar":
+                    int idFinalizar = Integer.parseInt(req.getParameter("id"));
+                    System.out.println("ID de la asesoría a finalizar: " + idFinalizar);
+                    if (dao.finalizarAsesoria(idFinalizar)) {
+                        mensaje = "Asesoría finalizada con éxito.";
+                        System.out.println("Asesoría finalizada con éxito");
+                    } else {
+                        mensaje = "Error al finalizar la asesoría, por favor inténtelo de nuevo.";
+                        System.out.println("Error al finalizar la asesoría");
+                    }
+                    session.setAttribute("mensaje", mensaje);
+                    req.getRequestDispatcher(redirectUrl).forward(req, resp);
+                    break;
+
+                case "reagendar":
+                    int idMateria = Integer.parseInt(req.getParameter("id"));
+                    System.out.println("Materia ID: " + idMateria);
+                    resp.sendRedirect(req.getContextPath() + "/reagendar");
+                    break;
+
+                default:
+                    mensaje = "Acción no reconocida.";
+                    session.setAttribute("mensaje", mensaje);
+                    req.getRequestDispatcher(redirectUrl).forward(req, resp);
+                    break;
+            }
+        } else {
+            System.out.println("El usuario no está en la sesión.");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp"); // Redirige al login si no hay usuario en la sesión
         }
-
     }
 }

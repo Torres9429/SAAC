@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.saac.model.*" %>
+<%@ page import="mx.edu.utez.saac.dao.HorarioDao" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -297,47 +299,7 @@
                     event.setProp('classNames', ['class-en-curso']);
                 }
             },
-            <%--eventClick: function(info) {
-                $('#tema').val(info.event.title);
-                $('#docenteId').val(info.event.extendedProps.docenteId);
-                $('#docente').val(info.event.extendedProps.nombreDocente);
-                $('#idUsuario').val(userId);
-                $('#idMateria').val(info.event.extendedProps.materiaId);
-                $('#aulaId').val(info.event.extendedProps.aulaId);
-                $('#horarioId').val(info.event.extendedProps.horarioId);
-                $('#dia').val(info.event.extendedProps.dia);
-                $('#horaInicio').val(info.event.extendedProps.horaInicio);
-                $('#horaFin').val(info.event.extendedProps.horaFin);
-                $('#iniciar').val(info.event.extendedProps.horarioId);
-                $('#cancelar').val(info.event.extendedProps.horarioId);
-                $('#finalizar').val(info.event.extendedProps.horarioId);
-                $('#solicitarAsesoriaModal').modal('show');
-
-                var statusId = info.event.extendedProps.statusId;
-                console.log("ID STATUS:", statusId);
-
-                let iniciarAsesoria = document.getElementById("iniciarAsesoria")
-                let cancelarAsesoria = document.getElementById("cancelarAsesoria")
-                let finalizarAsesoria = document.getElementById("finalizarAsesoria")
-                let reagendarAsesoria = document.getElementById("reagendarAsesoria")
-
-
-                function motrarbtn (statusId){
-                    document.getElementById("iniciarAsesoria").style.display ='none'
-                    document.getElementById("cancelarAsesoria").style.display ='none'
-                    document.getElementById("finalizarAsesoria").style.display ='none'
-                    document.getElementById("reagendarAsesoria").style.display ='none'
-
-                    if(statusId === 2){
-                        document.getElementById('iniciarAsesoria').style.display = 'block';
-                        document.getElementById('cancelarAsesoria').style.display = 'block';
-                    }else if(statusId === 1){
-                        document.getElementById('finalizarAsesoria').style.display = 'inline-block';
-                    }
-
-                }
-                motrarbtn(statusId);--%>
-                eventClick: function(info) {
+            eventClick: function(info) {
                     // Código para manejar el clic en un evento
                     $('#tema').val(info.event.title);
                     $('#docenteId').val(info.event.extendedProps.docenteId);
@@ -422,30 +384,6 @@
 
         }
 
-
-
-
-        /*function mostrarMensajeModal(mensaje) {
-            $('#mensajeModal .modal-body').text(mensaje);
-            $('#mensajeModal').modal('show');
-        }*/
-        /*$('#iniciarAsesoria').on('click', function() {
-            $('#action').val('iniciar');
-            $('#formAsesoria').submit();
-        });
-
-// Botón de "Finalizar Asesoría"
-        $('#finalizarAsesoria').on('click', function() {
-            $('#action').val('finalizar');
-            $('#formAsesoria').submit();
-        });
-
-// Botón de "Cancelar Asesoría"
-        $('#cancelarAsesoria').on('click', function() {
-            $('#action').val('cancelar');
-            $('#formAsesoria').submit();
-        });*/
-
         // Botón de "Iniciar Asesoría"
         document.getElementById('iniciarAsesoria').addEventListener('click', function() {
             var horarioId = $('#horarioId').val();
@@ -455,17 +393,17 @@
                 type: 'POST',
                 data: $('#formAsesoria').serialize() + '&id=' + horarioId,
                 success: function(response) {
-                    window.location.reload();
                     alert('Asesoría iniciada');
                     $('#solicitarAsesoriaModal').modal('hide');
                     //calendar.refetchEvents();
-
+                    window.location.reload();
 
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al iniciar la asesoría: ' + error);
                 }
             });
+            window.location.reload();
         });
 
 // Botón de "Finalizar Asesoría"
@@ -490,7 +428,7 @@
             window.location.reload();
         });
 
-// Botón de "Cancelar Asesoría"
+        // Botón de "Cancelar Asesoría"
         document.getElementById('cancelarAsesoria').addEventListener('click', function() {
             var horarioId = $('#horarioId').val();
             $('#action').val('cancelar');
@@ -501,8 +439,6 @@
                 success: function(response) {
                     alert('Asesoría cancelada');
                     $('#solicitarAsesoriaModal').modal('hide');
-                    //calendar.refetchEvents();
-                    //loadEvents();
                     window.location.reload();
                 },
                 error: function(xhr, status, error) {
@@ -512,8 +448,8 @@
             window.location.reload();
         });
 
-        //Reagendar
-        <%--document.getElementById('reagendarAsesoria').addEventListener('click', function() {
+        <%--//Reagendar
+        document.getElementById('reagendarAsesoria').addEventListener('click', function() {
             var materiaId = $('#idMateria').val();
             $('#action').val('reagendar');
             $.ajax({
@@ -523,15 +459,144 @@
                 success: function(response) {
                     alert('Asesoría cancelada');
                     $('#solicitarAsesoriaModal').modal('hide');
-                    //calendar.refetchEvents();
-                    //loadEvents();
-
                 },
                 error: function(xhr, status, error) {
                     mostrarMensajeModal('Error al cancelar la asesoría: ' + error);
                 }
             });
         });--%>
+
+        $(document).ready(function () {
+            // Reagendar
+            $('#reagendarAsesoria').click(function (event) {
+                event.preventDefault();
+
+                var idMateriaValue = $('#idMateria').val();
+                var idAsesoriaValue = $('#horarioId').val();
+
+                $('#idMateriaModal').val(idMateriaValue);
+                $('#idAsesoriaValue').val(idAsesoriaValue);
+                $('#idMateriaText').text(idMateriaValue);
+
+                $('#reagendarModal').modal('show');
+                $('#solicitarAsesoriaModal').modal('hide');
+
+                loadHorarios(idMateriaValue);
+            });
+
+            // Manejar cambio en el select para actualizar los valores ocultos
+            $('#horarioDisp').change(function () {
+                var selectedOption = $(this).find('option:selected');
+
+                if (selectedOption.length) {
+                    var dia = selectedOption.data('dia');
+                    var horaInicio = limpiarHora(selectedOption.data('hora-inicio'));
+                    var horaFin = limpiarHora(selectedOption.data('hora-fin'));
+
+                    $('#diaR').val(dia);
+                    $('#horaInicioR').val(horaInicio);
+                    $('#horaFinR').val(horaFin);
+                }
+            });
+
+            function loadHorarios(idMateria) {
+                if (!idMateria) {
+                    console.error('ID de materia no proporcionado.');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'reagendar',
+                    type: 'GET',
+                    data: { idMateria: idMateria },
+                    success: function (response) {
+                        try {
+                            var horarios = response;
+                            var select = $('#horarioDisp');
+                            select.empty().append('<option value="" selected disabled>Seleccione...</option>');
+
+                            $.each(horarios, function (i, horario) {
+                                var option = $('<option></option>')
+                                    .val(horario.id_horario)
+                                    .text(horario.dia + " " + limpiarHora(horario.hora_inicio) + " - " + limpiarHora(horario.hora_fin))
+                                    .data('dia', horario.dia)
+                                    .data('hora-inicio', horario.hora_inicio)
+                                    .data('hora-fin', horario.hora_fin);
+
+                                select.append(option);
+                            });
+                        } catch (e) {
+                            console.error('Error al procesar la respuesta:', e);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error al cargar los horarios:', error);
+                        console.log('Detalles del error:', xhr.responseText);
+                    }
+                });
+            }
+
+            // Función para limpiar el valor de la hora
+            function limpiarHora(horaStr) {
+                // Quitar espacios y convertir a formato estándar de 24 horas
+                var horaLimpia = horaStr.replace(/(\s*a\.&nbsp;m\.|\s*p\.&nbsp;m\.)/g, '').trim();
+
+                // Convertir a formato de 24 horas si es necesario
+                return convertTo24Hour(horaLimpia);
+            }
+
+            // Función para convertir a formato de 24 horas
+            function convertTo24Hour(timeStr) {
+                var [time, period] = timeStr.split(' ');
+                if (!period) return timeStr; // Si no hay periodo, devolver la hora original
+                var [hours, minutes] = time.split(':');
+                hours = parseInt(hours, 10);
+                if (period.includes('p.&nbsp;m.') && hours !== 12) {
+                    hours += 12;
+                }
+                if (period.includes('a.&nbsp;m.') && hours === 12) {
+                    hours = 0;
+                }
+                return hours.toString().padStart(2, '0') + ':' + minutes;
+            }
+
+            $('#guardarReagendar').click(function () {
+                var idAsesoria = $('#idAsesoriaValue').val();
+                var horarioId = $('#horarioDisp').val();
+                var dia = $('#diaR').val();
+                var horaInicio = $('#horaInicioR').val();
+                var horaFin = $('#horaFinR').val();
+
+                console.log('Enviando datos:', {
+                    idAsesoria: idAsesoria,
+                    horarioDisp: horarioId,
+                    diaR: dia,
+                    horaInicioR: horaInicio,
+                    horaFinR: horaFin
+                });
+
+                $.ajax({
+                    url: '/SAAC_war/reagendar',
+                    type: 'POST',
+                    data: {
+                        idAsesoria: idAsesoria,
+                        horarioDisp: horarioId,
+                        diaR: dia,
+                        horaInicioR: horaInicio,
+                        horaFinR: horaFin
+                    },
+                    success: function (response) {
+                        console.log('Respuesta del servidor:', response);
+                        $('#reagendarModal').modal('hide');
+                        window.location.reload(); // O actualizar solo la parte relevante
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error al reagendar la asesoría:', error);
+                        alert('Error al reagendar la asesoría: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
 
 
         function submitForm(action) {
@@ -777,54 +842,19 @@
                     <input type="hidden" id="docenteId" name="docenteId">
                     <input type="hidden" id="idUsuario" name="idUsuario">
                     <input type="hidden" id="idMateria" name="idMateria">
-                    <script>console.log(document.getElementById("idMateria").value)</script>
                     <input type="hidden" id="aulaId" name="aulaId">
                     <input type="hidden" id="horarioId" name="horarioId">
                     <input type="hidden" id="dia" name="dia">
                     <input type="hidden" id="action" name="action">
-
-                    <%--button type="submit" id="cancelarAsesoria"  class="btn btn-primary">Cancelar</button>
-                    <button type="button" id="iniciarAsesoria" class="btn btn-primary">Iniciar</button>
-                    <button type="submit" id="finalizarAsesoria"  class="btn btn-primary">Finalizar</button--%>
-                    <script>
-                        var rutaa = "/SAAC_war/reagendar"
-                        var parametr = "idmateria"
-                        var materiaId = $('#idMateria').val();
-                        var id = document.getElementById("idMateria").value;
-                        console.log(document.getElementById("idMateria"))
-                        console.log(rutaa + "|" + parametr + "|" + id);
-                        function redirigirConParametro(ruta, parametro, valor) {
-                            // Construye la URL con el parámetro y su valor
-                            var url = ruta + "?" + encodeURIComponent(parametro) + "=" + valor;
-
-                            // Redirige a la nueva URL
-                            window.location.href = url;
-                        }
-
-
-                    </script>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="iniciarAsesoria">Iniciar</button>
                         <button type="button" class="btn btn-success" id="finalizarAsesoria">Finalizar</button>
                         <button type="button" class="btn btn-danger" id="cancelarAsesoria">Cancelar</button>
-                        <button type="button" class="btn btn-custom"  onclick="redirigirConParametro(rutaa,parametr,id);"  >Reagendar</button>
+                        <button type="submit" class="btn btn-custom" id="reagendarAsesoria"
+                                data-idmateria="" data-asesoria="" data-toggle="modal" data-target="#modalReagendar">Reagendar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
-
-
                 </form>
-                <%--form action="${pageContext.request.contextPath}/iniciarAsesoria" method="post">
-                    <input type="hidden" id="iniciar" name="iniciar">
-                    <button type="submit" class="btn btn-primary">Iniciar</button>
-                </form>
-                <form action="${pageContext.request.contextPath}/cancelarAsesoria" method="post">
-                    <input type="hidden" name="cancelar" id="cancelar">
-                    <button type="submit" class="btn btn-danger">Cancelar</button>
-                </form>
-                <form action="${pageContext.request.contextPath}/finalizarAsesoria" method="post">
-                    <input type="hidden" name="finalizar" id="finalizar">
-                    <button type="submit" class="btn btn-secondary">Finalizar</button>
-                </form--%>
             </div>
         </div>
     </div>
@@ -849,6 +879,44 @@
         </div>
     </div>
 </div>
+
+<!-- Modal de para REAGENDAR -->
+<div id="reagendarModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reagendarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reagendarModalLabel">Reagendar Asesoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí puedes poner los campos de formulario necesarios para reagendar -->
+                <div class="form-group">
+                    <!-- Aquí se mostrará el idMateria -->
+                    <input type="hidden" id="idMateriaModal" name="idMateria" value="${idMateria}">
+                    <input type="hidden" id="idAsesoriaValue" name="idAsesoria" value="${horarioId}">
+                    <input type="hidden" id="diaR" name="diaR">
+                    <input type="hidden" id="horaInicioR" name="horaInicioR">
+                    <input type="hidden" id="horaFinR" name="horaFinR">
+                    <p>Estás reagendando la materia con ID: <span id="idMateriaText"></span></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="horarioDisp">Seleccione un horario disponible</label>
+                    <select class="custom-select" name="horarioDisp" id="horarioDisp">
+                        <option value="" selected disabled>Seleccione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="guardarReagendar">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%
 
     } else {

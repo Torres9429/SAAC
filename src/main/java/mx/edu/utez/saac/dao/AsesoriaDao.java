@@ -344,4 +344,27 @@ public class AsesoriaDao {
         }
         return lista;
     }
+    public boolean reagendarAsesoria(int horario, Time horaInicio,Time horaFin, Date dia, int asesoria){
+        boolean flag = false;
+        String query = "UPDATE asesoria set horario = ?, hora_inicio = ?, hora_fin = ?, dia = ? WHERE id_asesoria = ?;";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, horario);
+            ps.setTime(2, horaInicio);
+            ps.setTime(3,horaFin);
+            ps.setDate(4, dia);
+            ps.setInt(5, asesoria);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                flag = true;
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }

@@ -6,13 +6,7 @@
     response.setDateHeader("Expires", 0); // Proxies.
 %>
 
-<%@ page import="mx.edu.utez.saac.model.Usuario" %><%--
-  Created by IntelliJ IDEA.
-  User: rocit
-  Date: 06/07/2024
-  Time: 07:10 p. m.
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="mx.edu.utez.saac.model.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -35,8 +29,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getData?jsp=agendarEstudiante">Agendar</a>
-                    <a class="dropdown-item" href="#">Cancelar</a>
-                    <a class="dropdown-item" href="#">Reagendar</a>
+                    <!--a class="dropdown-item" href="#">Cancelar</a>
+                    <a class="dropdown-item" href="#">Reagendar</a-->
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -54,7 +48,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesoriasSinEvaluar?jsp=estudiante">Ver</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesoriasSinEvaluar?jsp=estudiante">Calificar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

@@ -157,6 +157,7 @@
 <%
     Usuario user = (Usuario) session.getAttribute("user");
     if (user != null && user.getId_tipo_usuario() == 2) {
+        int id_usuario = user.getId();
         List<Materia> materias = (List<Materia>) request.getAttribute("materias");
         List<Horario> horarios = (List<Horario>) request.getAttribute("horarios");
 
@@ -200,26 +201,6 @@
 
             </tr>
             </thead>
-
-            <%--
-                HorarioDao dao = new HorarioDao();
-                ArrayList<Horario> lista = dao.getAll();
-                for(Horario h : lista){ %>
-            <tr>
-                <td><%=h.getDia()%></td>
-                <td><%=h.getHora_inicio()%> - <%=h.getHora_fin()%> </td>
-                <td><%=h.getNombre_materia()%> </td>
-                <td><%=h.getAula()%>  <%=h.getEdificio()%> </td>
-                <td>
-                    <button class="openModalBtn"
-                            data-id-horario="<%=h.getId_horario()%>"
-                            data-dia="<%=h.getDia()%> "
-                            data-hora-inicio="<%=h.getHora_inicio()%> "
-                            data-hora-fin="<%=h.getHora_fin()%> "
-                            data-materia="<%=h.getMateria()%> "
-                            data-lugar="<%=h.getAula()%>  - <%=h.getEdificio()%> ">Editar</button>
-                </td>
-            </tr> <% } --%>
             <tbody>
             <c:choose>
                 <c:when test="${empty asesorias}">
@@ -258,14 +239,11 @@
         </div>
         <div class="modal-body-custom">
             <form id="solicitud-form" method="post" action="calificar?page=docente">
-
-                <input type="hidden" id="docente" name="docente">
-                <input type="hidden" id="estudiante" name="estudiante">
+                <input type="hidden" id="usuario" name="usuario" value="<%= user.getId() %>">
                 <input type="hidden" id="id_asesoria" name="id_asesoria">
-
                 <div class="form-group-custom">
                     <label for="calificacion">Calificación:</label>
-                    <select class="custom-select" name="calificacion" id="calificacion">
+                    <select class="custom-select" name="calificacion" id="calificacion" required>
                         <option value="" selected disabled>Seleccione...</option>
                         <option value="1">Muy buena</option>
                         <option value="2">Buena</option>
@@ -275,7 +253,7 @@
                 </div>
                 <div class="form-group-custom">
                     <label for="comentarios">¿Cómo mejorarías esta asesoría?</label>
-                    <textarea class="form-control" id="comentarios" name="comentarios" required maxlength="60"></textarea>
+                    <textarea class="form-control" id="comentarios" name="comentarios" required maxlength="150"></textarea>
                 </div>
             </form>
         </div>
@@ -313,33 +291,12 @@
     document.addEventListener('DOMContentLoaded', function () {
         var modal = document.getElementById("myModal");
         var btns = document.getElementsByClassName("openModalBtn");
-        var span = document.getElementsByClassName("close-custom")[0];
         var closeBtn = document.getElementById("submit-btn");
         var cancelBtn = document.getElementById("cancel-btn");
-
         Array.from(btns).forEach(function (btn) {
             btn.onclick = function () {
-                var idHorario = this.getAttribute("data-id-horario");
-                var dia = this.getAttribute("data-dia");
-                var horaInicio = this.getAttribute("data-hora-inicio");
-                var horaFin = this.getAttribute("data-hora-fin");
-                var materia = this.getAttribute("data-materia");
-                var lugar = this.getAttribute("data-lugar");
                 var idAsesoria = this.getAttribute("data-id-asesoria");
-                var idEstudiante = this.getAttribute("data-estudiante");
-                var idDocente = this.getAttribute("data-docente");
-
-
-                //document.getElementById('id_horario').value = idHorario;
-                //document.getElementById('dia').value = dia;
-                //document.getElementById('hora-inicio').value = horaInicio;
-                //document.getElementById('hora-fin').value = horaFin;
-                //document.getElementById('materia').value = materia;
-                //document.getElementById("aula").value = lugar;
                 document.getElementById("id_asesoria").value = idAsesoria;
-                document.getElementById("docente").value = idDocente;
-                document.getElementById("estudiante").value = idEstudiante;
-
                 modal.style.display = "block";
             }
         });

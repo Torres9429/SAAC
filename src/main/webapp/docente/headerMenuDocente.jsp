@@ -32,8 +32,8 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getData?jsp=agregarDocente">Agregar</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios?jsp=modificar">Modificar</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getHorarios?jsp=consultar">Consultar</a>
-                    <a class="dropdown-item" href="#">Cancelar</a>
-                    <a class="dropdown-item" href="#">Reagendar</a>
+                    <!--a class="dropdown-item" href="#">Cancelar</a>
+                    <a class="dropdown-item" href="#">Reagendar</a-->
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -43,7 +43,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/getAsesorias?jsp=calDocente">Ver</a>
-                    <a class="dropdown-item" href="#">Modificar</a>
+
                 </div>
             </li>
             <li class="nav-item dropdown">

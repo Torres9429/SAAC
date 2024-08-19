@@ -81,7 +81,7 @@
                 <td><%= m.getMateria() %></td>
                 <td><%= m.getCarrera() %></td>
                 <td>
-                    <form action="eliminarMateria" method="post">
+                    <form action="${pageContext.request.contextPath}/eliminarMateria" method="post">
                         <input type="hidden" name="id_materia" value="<%= m.getId_materia() %>">
                         <input type="submit" value="Eliminar">
                     </form>

@@ -54,7 +54,7 @@
                     Calificaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ver</a>
+                    <a class="dropdown-item" href="verCalificaciones.jsp">Ver</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -63,7 +63,6 @@
                     Perfil
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ver</a>
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/solicitudRecuperacion.jsp">Restablecer contraseña</a>
                     <div class="dropdown-divider"></div>
                     <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">Cerrar Sesión</a> <!--enlace a servlet-->

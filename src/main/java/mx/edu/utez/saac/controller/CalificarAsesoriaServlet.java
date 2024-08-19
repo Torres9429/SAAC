@@ -19,8 +19,7 @@ public class CalificarAsesoriaServlet extends HttpServlet {
         Evaluacion evaluacion = new Evaluacion();
         evaluacion.setComentarios(req.getParameter("comentarios"));
         evaluacion.setId_calificacion(Integer.parseInt(req.getParameter("calificacion")));
-        evaluacion.setId_estudiante(Integer.parseInt(req.getParameter("estudiante")));
-        evaluacion.setId_docente(Integer.parseInt(req.getParameter("docente")));
+        evaluacion.setId_estudiante(Integer.parseInt(req.getParameter("usuario")));
         evaluacion.setId_asesoria(Integer.parseInt(req.getParameter("id_asesoria")));
 
         String page = req.getParameter("page");

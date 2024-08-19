@@ -88,14 +88,14 @@ public class HorarioDao {
         return list;
     }
 
-    public ArrayList<Horario> getHorariosByMateria(int idUsuario) {
+    public ArrayList<Horario> getHorariosByMateria(int idMateria) {
         ArrayList<Horario> list = new ArrayList<>();
         String query = "{CALL obtener_horarios_posteriores(?)}"; // Llamada al procedimiento almacenado
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
             CallableStatement cs = con.prepareCall(query);
-            cs.setInt(1, idUsuario);
+            cs.setInt(1, idMateria);
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
                 Horario horario = new Horario();
