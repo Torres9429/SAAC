@@ -233,7 +233,7 @@
         justify-content: center;
         align-items: center; /* Centra horizontalmente */
         color: #009475;
-        height: 100%; /* Ocupa toda la altura del padre */
+        /*height: 100%; /* Ocupa toda la altura del padre */
         margin: 15px;
     }
     .modal-custom {
@@ -320,14 +320,21 @@
         <h1>Agregar Materia</h1>
     </div>
     <div class="form-container">
-        <form method="post" action="agregarMateria">
+        <form method="post" action="${pageContext.request.contextPath}/agregarMateria">
             <div class="form-group">
                 <label for="materia">Materia:</label>
-                <input type="text" class="form-control" id="materia" name="materia" required>
+                <input type="text" class="form-control" id="materia" name="materia" required maxlength="40">
             </div>
             <div class="form-group">
-                <select class="form-control" name="selectCarrera" id="selectCarrera">
+                <select class="form-control" name="selectCarrera" id="selectCarrera" required>
                     <option value="" selected disabled>Carrera</option>
+                    <%
+                        CarreraDao daoA = new CarreraDao();
+                        ArrayList<Carrera> listaA = daoA.getAll();
+                        for(Carrera A : listaA){
+                    %>
+                    <option value="<%= A.getId_carrera()%>"><%=A.getCarrera()%></option>
+                    <%}%>
                 </select>
             </div>
             <button type="submit" class="btn btn-custom" style="margin-top: 40px;">Agregar Materia</button>

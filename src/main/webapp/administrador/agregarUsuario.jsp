@@ -161,19 +161,19 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="nombreRegistro">Nombre</label>
-                            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Nombre(s)" maxlength="45">
+                            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Nombre(s)" maxlength="45" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="paternoRegistro">Apellido Paterno</label>
-                            <input type="text" class="form-control" id="paternoRegistro" name="paternoRegistro" placeholder="Apellido Paterno" maxlength="45">
+                            <input type="text" class="form-control" id="paternoRegistro" name="paternoRegistro" placeholder="Apellido Paterno" maxlength="45" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="maternoRegistro">Apellido Materno</label>
-                            <input type="text" class="form-control" id="maternoRegistro" name="maternoRegistro" placeholder="Apellido Materno" maxlength="45">
+                            <input type="text" class="form-control" id="maternoRegistro" name="maternoRegistro" placeholder="Apellido Materno" maxlength="45" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="edadRegistro">Edad</label>
-                            <input type="number" class="form-control" id="edadRegistro" name="edadRegistro" placeholder="Edad" maxlength="3">
+                            <input type="number" class="form-control" id="edadRegistro" name="edadRegistro" placeholder="Edad" maxlength="3" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -191,7 +191,7 @@
                     </div>
                     <div class="form-group">
                         <label for="rolRegistro">Tipo</label>
-                        <select id="rolRegistro" name="rolRegistro" class="form-control">
+                        <select id="rolRegistro" name="rolRegistro" class="form-control" required>
                             <option selected>Usuario</option>
                             <option value="1">Admin</option>
                             <option value="2">Docente</option>
@@ -200,17 +200,17 @@
                     </div>
                     <div class="form-group">
                         <label for="correoRegistro">Correo</label>
-                        <input type="email" class="form-control" id="correoRegistro" name="correoRegistro" placeholder="Correo institucional" maxlength="45">
+                        <input type="email" class="form-control" id="correoRegistro" name="correoRegistro" placeholder="Correo institucional" maxlength="45" required>
                         <div id="mensajeError" style="color: red; font-weight: bold;"></div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="contraseña1Registro" >Contraseña</label>
-                            <input type="password" class="form-control" id="contraseña1Registro" name="contraseña1Registro" placeholder="Contraseña">
+                            <input type="password" class="form-control" id="contraseña1Registro" name="contraseña1Registro" placeholder="Contraseña" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="contraseña2Registro">Confirmar contraseña</label>
-                            <input type="password" class="form-control"  id="contraseña2Registro" name="contraseña2Registro" placeholder="Contraseña">
+                            <input type="password" class="form-control"  id="contraseña2Registro" name="contraseña2Registro" placeholder="Contraseña" required>
                         </div>
                     </div>
 

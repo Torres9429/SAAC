@@ -67,8 +67,7 @@ public class MateriaDao {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, materia.getMateria());
             ps.setInt(2, materia.getId_carrera());
-            if (ps.execute()) {
-                System.out.println("query correcto");
+            if (ps.executeUpdate() > 0) {
                 flag = true;
             }
         } catch (SQLException e) {
@@ -91,6 +90,28 @@ public class MateriaDao {
 
             if (rowsAffected > 0) {
                 flag = true;  // Se eliminó correctamente
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean modificar(Materia materia) {
+        boolean flag = false;
+        String query = "UPDATE materia SET materia = ?, id_carrera = ? WHERE id_materia = ?"; // Llamada al procedimiento almacenado
+
+        try (Connection con = DatabaseConnectionManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, materia.getMateria());
+            ps.setInt(2, materia.getId_carrera());
+            ps.setInt(3, materia.getId_materia());
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                flag = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();

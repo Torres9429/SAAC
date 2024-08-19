@@ -22,6 +22,7 @@ public class AgregarMateriaServlet extends HttpServlet {
         materia.setId_carrera(Integer.parseInt(req.getParameter("selectCarrera")));
 
         MateriaDao dao = new MateriaDao();
+
         if (dao.insert(materia)){
             mensaje = "Materia agregada con éxito";
             System.out.println("exito");
