@@ -22,7 +22,7 @@ public class UsuarioDao {
         String query = "select * from usuario where correo = ? and contrasena = sha2(?, 256);";
 
         try {
-            Connection con = getConnection();
+            Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query); // forma de evitar que inyecten query
             ps.setString(1,correo);
             ps.setString(2,contrasena);
